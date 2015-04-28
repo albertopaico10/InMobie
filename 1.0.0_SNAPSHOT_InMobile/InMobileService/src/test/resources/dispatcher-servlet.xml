@@ -34,7 +34,8 @@
 		<property name="dataSource" ref="myDataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>com.rest.web.service.inmobile.hibernate.bean.UserDB</value>
+				<value>com.rest.web.service.inmobile.hibernate.bean.User</value>
+				<value>com.rest.web.service.inmobile.hibernate.bean.RequestResponse</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

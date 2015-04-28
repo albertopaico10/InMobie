@@ -1,7 +1,9 @@
 package com.rest.web.service.inmobile.hibernate.bean;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 
 
@@ -11,10 +13,11 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name="tb_user")
-public class UserDB implements Serializable {
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	private int id;
 
 	@Column(name="date_created")
@@ -37,7 +40,7 @@ public class UserDB implements Serializable {
 	@Column(name="user_updated")
 	private int userUpdated;
 
-	public UserDB() {
+	public User() {
 	}
 
 	public int getId() {

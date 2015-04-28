@@ -5,6 +5,7 @@ public class RegisterUserDTO {
 	public String user;
 	public String password;
 	public String typeUser;
+	public String typeOperation;
 	
 	public String getUser() {
 		return user;
@@ -23,5 +24,11 @@ public class RegisterUserDTO {
 	}
 	public void setTypeUser(String typeUser) {
 		this.typeUser = typeUser;
+	}
+	public String getTypeOperation() {
+		return typeOperation;
+	}
+	public void setTypeOperation(String typeOperation) {
+		this.typeOperation = typeOperation;
 	}
 }

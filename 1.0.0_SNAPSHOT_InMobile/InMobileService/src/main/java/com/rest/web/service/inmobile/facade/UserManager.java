@@ -8,4 +8,5 @@ import com.rest.web.service.inmobile.bean.user.UserResponse;
 @Service
 public interface UserManager {
 	public UserResponse saveUserInformation(UserRequest userRequest);
+	public UserResponse validateUser(UserRequest userRequest);
 }

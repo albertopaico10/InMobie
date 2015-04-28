@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rest.web.service.inmobile.hibernate.UserHibernate;
-import com.rest.web.service.inmobile.hibernate.bean.UserDB;
+import com.rest.web.service.inmobile.hibernate.bean.User;
 
 @ContextConfiguration(locations = {"/dispatcher-servlet.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)

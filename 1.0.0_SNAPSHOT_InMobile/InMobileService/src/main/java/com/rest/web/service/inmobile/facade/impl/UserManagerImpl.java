@@ -1,38 +1,45 @@
 package com.rest.web.service.inmobile.facade.impl;
 
-import java.util.Random;
-
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.rest.web.service.inmobile.bean.user.UserRequest;
 import com.rest.web.service.inmobile.bean.user.UserResponse;
+import com.rest.web.service.inmobile.facade.ReqRespManager;
 import com.rest.web.service.inmobile.facade.UserManager;
 import com.rest.web.service.inmobile.hibernate.UserHibernate;
-import com.rest.web.service.inmobile.hibernate.bean.UserDB;
+import com.rest.web.service.inmobile.hibernate.bean.RequestResponse;
+import com.rest.web.service.inmobile.hibernate.bean.User;
 import com.rest.web.service.inmobile.util.CommonConstants;
 import com.rest.web.service.inmobile.util.ConvertClass;
 import com.rest.web.service.inmobile.util.MailUtil;
 import com.rest.web.service.inmobile.util.UtilMethods;
 
 @Service
+@Transactional
 public class UserManagerImpl implements UserManager{
 
 	@Autowired
 	private UserHibernate userHibernate;
+	@Autowired
+	ReqRespManager reqRespManager;
 	
 	public UserResponse saveUserInformation(UserRequest userRequest) {
 		System.out.println("Entreeeeee saveUserInformation");
 		UserResponse userBeanResponse=new UserResponse();
-		
+		//--Save Json in Data Base
+		RequestResponse valueReqResp=(RequestResponse)reqRespManager.saveOrUpdate(userRequest, 
+				CommonConstants.TypeOperationReqResp.OPERATION_CREATE_USER, 0,0);
+		System.out.println("ID Response : "+valueReqResp.getId());
 		try {
 			boolean validateEmail=userHibernate.existEmail(userRequest.getEmail());
 			//--Verify if email exist in Data Base
 			if(!validateEmail){
 				//--Save information in Data Base
-				UserDB userDataBase=ConvertClass.convertUserRequestToDataBase(userRequest);
+				User userDataBase=ConvertClass.convertUserRequestToDataBase(userRequest);
 				userHibernate.saveUserResponseId(userDataBase);
 				int idUser=userHibernate.findLastUser();
 				userBeanResponse.setIdUser(idUser);
@@ -43,11 +50,11 @@ public class UserManagerImpl implements UserManager{
 				buidlEmailCreationUser(userRequest.getEmail(),idUser,URL);
 				//--Build Response for web service client
 				
-				userBeanResponse.setCodeResponse("SUCCESS_INSERT_USER");
+				userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_USER);
 				userBeanResponse.setMessagesResponse("The user was created successfully.");
 				userBeanResponse.setDescription("Url : "+URL);
 			}else{
-				userBeanResponse.setCodeResponse("EMAIL_EXIST");
+				userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_EXITS_USER);
 				userBeanResponse.setMessagesResponse("The Email exist in our Data Base");
 			}
 			
@@ -55,6 +62,10 @@ public class UserManagerImpl implements UserManager{
 			userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ERROR);
 			userBeanResponse.setMessagesResponse(e.getMessage());
 		} 
+		//--Save Json in Data Base
+		reqRespManager.saveOrUpdate(userBeanResponse, 
+				CommonConstants.TypeOperationReqResp.OPERATION_CREATE_USER, userBeanResponse.getIdUser(),
+				valueReqResp.getId());
 		return userBeanResponse;
 	}
 	
@@ -81,6 +92,45 @@ public class UserManagerImpl implements UserManager{
 		String encriptedValue=UtilMethods.encriptedPassword(String.valueOf(idUser), CommonConstants.EncriptedValues.ALGORITHM_MD5);
 		URL=URL+encriptedValue;
 		return URL;
+	}
+
+	public UserResponse validateUser(UserRequest userRequest) {
+		System.out.println("Entreeeeee validateUser");
+		UserResponse userBeanResponse=new UserResponse();
+		//--Save Json in Data Base
+		RequestResponse valueReqResp=(RequestResponse)reqRespManager.saveOrUpdate(userRequest, 
+				CommonConstants.TypeOperationReqResp.OPERATION_VALIDATE_USER, 0,0);
+		System.out.println("ID Response : "+valueReqResp.getId());
+		try {
+			boolean validateEmail=userHibernate.existEmail(userRequest.getEmail());
+			if(validateEmail){
+				User userBean=userHibernate.validateUser(userRequest.getEmail(), userRequest.getPassword());
+				if(userBean!=null){
+					userBeanResponse.setIdUser(userBean.getId());
+					userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VALIDATION);
+					userBeanResponse.setMessagesResponse("The Validation is correct ID User : "+userBean.getId());
+					userBeanResponse.setDescription(userBean.getId()+"");
+
+				}else{
+					userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_FAIL_VALIDATION);
+					userBeanResponse.setMessagesResponse("The email or password is incorrect");
+					userBeanResponse.setIdUser(9999);
+				}
+			}else{
+				userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_NOT_EXITS_USER);
+				userBeanResponse.setMessagesResponse("The email don't exist ins our Data Base");
+			}
+			
+			
+		} catch (Exception e) {
+			userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ERROR);
+			userBeanResponse.setMessagesResponse(e.getMessage());
+		}
+		//--Save Json in Data Base
+		reqRespManager.saveOrUpdate(userBeanResponse, 
+			CommonConstants.TypeOperationReqResp.OPERATION_CREATE_USER, userBeanResponse.getIdUser(),
+			valueReqResp.getId());
+		return userBeanResponse;
 	}
 	
 }
