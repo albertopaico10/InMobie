@@ -9,6 +9,10 @@ public class CommonConstants {
 		public final static String CODE_RESPONSE_FAIL_VALIDATION="FAIL_VALIDATION_USER";
 		public final static String CODE_RESPONSE_EXITS_USER="EMAIL_EXIST";
 		public final static String CODE_RESPONSE_NOT_EXITS_USER="EMAIL_NOT_EXIST";
+		public final static String CODE_RESPONSE_IS_PROVIDER="IS_PROVIDER";
+		public final static String CODE_RESPONSE_IS_RESTAURANT="IS_RESTAURANT";
+		public final static String CODE_RESPONSE_ACCOUNT_INACTIVE="ACCOUNT_INACTIVE";
+		public final static String CODE_RESPONSE_ACCOUNT_PENDING_VALDATION="ACCOUNT_PENDING_VALDATION";
 	}
 	
 	public class Email{
@@ -23,6 +27,8 @@ public class CommonConstants {
 	public class ValueRequestMapping{
 		public static final String CREATE_USER = "/rest/user/create";
 		public static final String VALIDATE_USER = "/rest/user/validation";
+		public static final String ACTIVATE_USER = "/rest/user/activate";
+		public static final String SAVE_RESTAURANT = "/rest/restaurant/save";
 	}
 	
 	public class EncriptedValues{
@@ -33,12 +39,13 @@ public class CommonConstants {
 	public class ValuesProject{
 		public static final String URL_SERVER="http://localhost:8080/";
 		public static final String PROJECT_VALUE="InMobileWeb/";
-		public static final String ACTION_CONTINUE="continue.htm?id=";
+		public static final String ACTION_CONTINUE="continue.htm?val=";
 	}
 	
 	public class TypeOperationReqResp{
 		public static final String OPERATION_CREATE_USER="CREATE_USER";
 		public static final String OPERATION_VALIDATE_USER="VALIDATE_USER";
+		public static final String OPERATION_SAVE_RESTAURANT="SAVE_RESTAURANT";
 	}
 	
 }

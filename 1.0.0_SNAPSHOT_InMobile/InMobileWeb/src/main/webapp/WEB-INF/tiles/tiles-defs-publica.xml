@@ -31,6 +31,28 @@
 		<put-attribute name="contenidoCentro" value="/WEB-INF/public/loginPage.jsp" />
 	</definition>
 	
+	<definition name="sendEmailPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/sendEmailPage.jsp" />
+	</definition>
 	
-
+	<definition name="inactiveAccountPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/inactiveAccountPage.jsp" />
+	</definition>
+	
+	<definition name="restaurantPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/common/restaurantPage.jsp" />
+	</definition>
+	
+	<definition name="providerPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/common/providerPage.jsp" />
+	</definition>
+	
+	<definition name="errorPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/errorPage.jsp" />
+	</definition>
+	
+	<definition name="accountPendingPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/accountPendingPage.jsp" />
+	</definition>
+	
 </tiles-definitions>

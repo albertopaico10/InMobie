@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +35,13 @@ public class UserController {
 		logger.info("Start validateUser.");
 		logger.info("Correo : "+beanRequest.getEmail()+"** Password : "+beanRequest.getPassword());
 		UserResponse beanResponse=userManager.validateUser(beanRequest);
+		return beanResponse;
+	}
+	
+	@RequestMapping(value = CommonConstants.ValueRequestMapping.ACTIVATE_USER, method = RequestMethod.POST)
+	public @ResponseBody UserResponse getActivateAccount(@RequestBody UserRequest beanRequest) {
+		logger.info("Start getTypeUser. "+beanRequest.getEncriptUser());
+		UserResponse beanResponse=userManager.activeAccount(beanRequest.getEncriptUser());
 		return beanResponse;
 	}
 }

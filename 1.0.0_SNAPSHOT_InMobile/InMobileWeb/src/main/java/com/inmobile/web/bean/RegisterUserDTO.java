@@ -1,4 +1,4 @@
-package com.inmobie.web.bean;
+package com.inmobile.web.bean;
 
 public class RegisterUserDTO {
 

@@ -1,9 +1,10 @@
-package com.inmobie.web.bean.canonical.user;
+package com.inmobile.web.bean.canonical.user;
 
 public class UserRequest {
 	public String email;
 	public String password;
 	public String typeCustomer;
+	public String encriptUser;
 	
 	public String getEmail() {
 		return email;
@@ -23,7 +24,10 @@ public class UserRequest {
 	public void setTypeCustomer(String typeCustomer) {
 		this.typeCustomer = typeCustomer;
 	}
-	
-	
-	
+	public String getEncriptUser() {
+		return encriptUser;
+	}
+	public void setEncriptUser(String encriptUser) {
+		this.encriptUser = encriptUser;
+	}
 }

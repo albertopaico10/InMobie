@@ -7,9 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-import com.rest.web.service.inmobile.bean.user.UserResponse;
 import com.rest.web.service.inmobile.hibernate.UserHibernate;
 import com.rest.web.service.inmobile.hibernate.bean.User;
 
@@ -25,15 +23,15 @@ public class UserHibernateImpl implements UserHibernate {
 	}
 
 	public int saveUserResponseId(User userBean) throws Exception {
-		userBean.setStatus(1);
+		
 		Session session=sessionfactory.openSession();
 		Transaction transaction=session.beginTransaction();
-		session.save(userBean);
+		session.saveOrUpdate(userBean);
 		System.out.println("Last ID : "+userBean.getId());
 		
 		transaction.commit();
 		session.close();
-		return 0;
+		return userBean.getId();
 	}
 	
 	public int findLastUser()throws Exception {
@@ -51,7 +49,7 @@ public class UserHibernateImpl implements UserHibernate {
 	
 	public boolean existEmail(String email)throws Exception{
 		boolean validateEmail=false;
-		String query="from User where status=1 and email='"+email+"'";
+		String query="from User where email='"+email+"'";
 		System.out.println("query : "+query);
 		Session session=sessionfactory.openSession();
 		
@@ -67,7 +65,7 @@ public class UserHibernateImpl implements UserHibernate {
 
 	public User validateUser(String email, String password) throws Exception {
 		User userBean=null;
-		String query="from User where status=1 and email='"+email+"' and passwordUser='"+password+"'";
+		String query="from User where email='"+email+"' and passwordUser='"+password+"'";
 		System.out.println("query : "+query);
 		Session session=sessionfactory.openSession();
 		
@@ -79,6 +77,17 @@ public class UserHibernateImpl implements UserHibernate {
 			userBean=listUserSpecific.get(0);
 		}
 		return userBean;
+	}
+	
+	public User findUSerBean(String idUser)throws Exception{
+		String query="from User where status=1 and id='"+idUser+"'";
+		System.out.println("query : "+query);
+		Session session=sessionfactory.openSession();
+		
+		List<User> listSpecificById=session.createQuery(query).list();
+		System.out.println("Cantidad de filas : "+listSpecificById.size());
+					
+		return listSpecificById.get(0);
 	}
 
 }

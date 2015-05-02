@@ -1,9 +1,10 @@
-package com.inmobie.web.bean;
+package com.inmobile.web.bean;
 
 public class ReturnService {
 	public String returnPage;
 	public String messages;
 	public String specificMessages;
+	public int idUser;
 	
 	public String getReturnPage() {
 		return returnPage;
@@ -23,6 +24,11 @@ public class ReturnService {
 	public void setSpecificMessages(String specificMessages) {
 		this.specificMessages = specificMessages;
 	}
-	
+	public int getIdUser() {
+		return idUser;
+	}
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
 	
 }

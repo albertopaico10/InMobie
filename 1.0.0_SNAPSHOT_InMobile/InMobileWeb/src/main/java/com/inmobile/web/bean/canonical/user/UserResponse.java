@@ -1,4 +1,4 @@
-package com.inmobie.web.bean.canonical.user;
+package com.inmobile.web.bean.canonical.user;
 
 public class UserResponse {
 	private int idUser;

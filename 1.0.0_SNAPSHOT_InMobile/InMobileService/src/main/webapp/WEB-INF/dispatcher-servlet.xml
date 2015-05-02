@@ -35,6 +35,7 @@
 			<list>
 				<value>com.rest.web.service.inmobile.hibernate.bean.User</value>
 				<value>com.rest.web.service.inmobile.hibernate.bean.RequestResponse</value>
+				<value>com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

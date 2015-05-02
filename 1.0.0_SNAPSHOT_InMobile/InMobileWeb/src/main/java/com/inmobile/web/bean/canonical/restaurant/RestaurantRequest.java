@@ -1,11 +1,8 @@
-package com.rest.web.service.inmobile.bean.restaurant;
+package com.inmobile.web.bean.canonical.restaurant;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-
 public class RestaurantRequest {
-	
 	public int id;
 	public String addressRestaurant;
 	public String anexoContact;
@@ -30,7 +27,7 @@ public class RestaurantRequest {
 	public String socialReason;
 	public int status;
 	
-	
+
 	public int getId() {
 		return id;
 	}
@@ -169,6 +166,4 @@ public class RestaurantRequest {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
-	
 }

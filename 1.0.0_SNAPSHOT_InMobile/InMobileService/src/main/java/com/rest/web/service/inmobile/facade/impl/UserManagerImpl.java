@@ -34,20 +34,21 @@ public class UserManagerImpl implements UserManager{
 		RequestResponse valueReqResp=(RequestResponse)reqRespManager.saveOrUpdate(userRequest, 
 				CommonConstants.TypeOperationReqResp.OPERATION_CREATE_USER, 0,0);
 		System.out.println("ID Response : "+valueReqResp.getId());
+		int idUser=0;
 		try {
 			boolean validateEmail=userHibernate.existEmail(userRequest.getEmail());
 			//--Verify if email exist in Data Base
 			if(!validateEmail){
 				//--Save information in Data Base
 				User userDataBase=ConvertClass.convertUserRequestToDataBase(userRequest);
-				userHibernate.saveUserResponseId(userDataBase);
-				int idUser=userHibernate.findLastUser();
+				userDataBase.setStatus(1);
+				idUser=userHibernate.saveUserResponseId(userDataBase);
 				userBeanResponse.setIdUser(idUser);
 				//--URL
-	            String URL=buildURL(userDataBase.getId());
+	            String URL=buildURL(idUser);
 				//--Send Email with URL
 				System.out.println("Before Mandar el correo");
-				buidlEmailCreationUser(userRequest.getEmail(),idUser,URL);
+				buidlEmailCreationUser(userRequest.getEmail(),URL);
 				//--Build Response for web service client
 				
 				userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_USER);
@@ -69,14 +70,32 @@ public class UserManagerImpl implements UserManager{
 		return userBeanResponse;
 	}
 	
-	public void buidlEmailCreationUser(String emilTo,int idUser,String URL)throws MessagingException{
+	public void buidlEmailCreationUser(String emilTo,String URL)throws MessagingException{
+		String body="<html>"
+				+ "<body>"
+				+ "<p>"
+				+ "<b>InMobile Activar Cuenta - Test Email</b>"
+				+ "</p><br/>"
+				+ "<p>Estimo Usario:</p><br/>"
+				+ "<p>Se ha registrado correctamente como usuario en la aplication</p>"
+				+ "<p>&#191;C&#243;mo funciona nuestro portal?</p>"
+				+ "<p><b>Continuar</b>Tiene que dar click en el enlace, para continuar con su registro (Enlace de Prueba)</p>"
+				+ "<a href='"+URL+"'>Aceptar</a>"
+				+ "<p><b>Rechazar</b>Tiene que dar click en el enlace, para rechazar y no recivir información sobre nosotros.(Enlace de Prueba)<</p>"
+				+ "<a href='http://www.peru21.pe'>Rechazar</a>"
+				+ "</body>"
+				+ "</html>";
+		MailUtil.sendEmail(emilTo,CommonConstants.Email.SUBJECT_CREATION_USER,body);
+	}
+	
+	public void buidlEmailActivationUser(String emilTo,String URL)throws MessagingException{
 		String body="<html>"
 				+ "<body>"
 				+ "<p>"
 				+ "<b>InMobile Informa - Test Email</b>"
 				+ "</p><br/>"
 				+ "<p>Estimo Usario:</p><br/>"
-				+ "<p>Se ha registrado correctamente como usuario en la aplication</p>"
+				+ "<p>Se ha adjuntado un nuevo enlace para continuar su proceso de Activación</p>"
 				+ "<p>&#191;C&#243;mo funciona nuestro portal?</p>"
 				+ "<p><b>Continuar</b>Tiene que dar click en el enlace, para continuar con su registro (Enlace de Prueba)</p>"
 				+ "<a href='"+URL+"'>Aceptar</a>"
@@ -90,7 +109,9 @@ public class UserManagerImpl implements UserManager{
 	public String buildURL(int idUser){
 		String URL=CommonConstants.ValuesProject.URL_SERVER+CommonConstants.ValuesProject.PROJECT_VALUE+CommonConstants.ValuesProject.ACTION_CONTINUE;
 		String encriptedValue=UtilMethods.encriptedPassword(String.valueOf(idUser), CommonConstants.EncriptedValues.ALGORITHM_MD5);
+		System.out.println("Encripted ID : "+encriptedValue);
 		URL=URL+encriptedValue;
+		System.out.println("Final URL : "+URL);
 		return URL;
 	}
 
@@ -106,10 +127,38 @@ public class UserManagerImpl implements UserManager{
 			if(validateEmail){
 				User userBean=userHibernate.validateUser(userRequest.getEmail(), userRequest.getPassword());
 				if(userBean!=null){
-					userBeanResponse.setIdUser(userBean.getId());
-					userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VALIDATION);
-					userBeanResponse.setMessagesResponse("The Validation is correct ID User : "+userBean.getId());
-					userBeanResponse.setDescription(userBean.getId()+"");
+					if(userBean.getStatus()==1){
+						//Su cuenta no esta activada
+						userBeanResponse.setIdUser(userBean.getId());
+						userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ACCOUNT_INACTIVE);
+						userBeanResponse.setMessagesResponse("The Account still inactive");
+						String URL=buildURL(userBean.getId());
+						//--Send Email Again with URL
+						System.out.println("Before Mandar el correo");
+						buidlEmailActivationUser(userRequest.getEmail(),URL);
+						userBeanResponse.setDescription("Url : "+URL);
+					}else if(userBean.getStatus()==2){
+						if(userBean.getTypeUser()==2){
+							//Pantalla de ingresar datos para el restaurante
+							userBeanResponse.setIdUser(userBean.getId());
+							userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VALIDATION);
+							userBeanResponse.setMessagesResponse(CommonConstants.CodeResponse.CODE_RESPONSE_IS_RESTAURANT);
+							userBeanResponse.setDescription(userBean.getEmail());
+						}
+						else{
+							//Pantalla de ingresar datos para el proveedor
+							userBeanResponse.setIdUser(userBean.getId());
+							userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VALIDATION);
+							userBeanResponse.setMessagesResponse(CommonConstants.CodeResponse.CODE_RESPONSE_IS_PROVIDER);
+							userBeanResponse.setDescription(userBean.getEmail());
+						}
+						
+					}else if(userBean.getStatus()==3){
+						userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VALIDATION);
+						userBeanResponse.setMessagesResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ACCOUNT_PENDING_VALDATION);
+						userBeanResponse.setDescription(userBean.getEmail());
+					}
+					
 
 				}else{
 					userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_FAIL_VALIDATION);
@@ -127,9 +176,36 @@ public class UserManagerImpl implements UserManager{
 			userBeanResponse.setMessagesResponse(e.getMessage());
 		}
 		//--Save Json in Data Base
-		reqRespManager.saveOrUpdate(userBeanResponse, 
-			CommonConstants.TypeOperationReqResp.OPERATION_CREATE_USER, userBeanResponse.getIdUser(),
+		reqRespManager.saveOrUpdate(userBeanResponse,CommonConstants.TypeOperationReqResp.OPERATION_CREATE_USER, userBeanResponse.getIdUser(),
 			valueReqResp.getId());
+		return userBeanResponse;
+	}
+
+	public UserResponse activeAccount(String idUSerEncripted) {
+		UserResponse userBeanResponse=new UserResponse();
+		try {
+			String desencriptValue=UtilMethods.descriptionPassword(idUSerEncripted, CommonConstants.EncriptedValues.ALGORITHM_MD5);
+			System.out.println("ID descripted : "+desencriptValue);
+			User beanUser=userHibernate.findUSerBean(desencriptValue);
+			beanUser.setStatus(2);
+			//--Update status User
+			userHibernate.saveUserResponseId(beanUser);
+			//--Redirect to Page
+			userBeanResponse.setIdUser(beanUser.getId());
+			if(beanUser.getTypeUser()==2){
+				userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_IS_RESTAURANT);
+				userBeanResponse.setMessagesResponse("Is restaurant");
+				userBeanResponse.setDescription("The User id "+beanUser.getId()+" is restaurant");
+				userBeanResponse.setDescription(beanUser.getEmail());
+			}else{
+				userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_IS_PROVIDER);
+				userBeanResponse.setMessagesResponse("Is provider");
+				userBeanResponse.setDescription(beanUser.getEmail());
+			}
+		} catch (Exception e) {
+			userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ERROR);
+			userBeanResponse.setMessagesResponse(e.getMessage());
+		}
 		return userBeanResponse;
 	}
 	

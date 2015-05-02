@@ -1,32 +1,21 @@
+<%@ include file="/WEB-INF/common/taglib.jsp"%>
 <div id="sidebar-left" class="col-xs-2 col-sm-2">
 	<ul class="nav main-menu">
-		<li><a href="ajax/dashboard.html" class="active ajax-link"> <i
-				class="fa fa-dashboard"></i> <span class="hidden-xs">Dashboard</span>
-		</a></li>
 		<li class="dropdown"><a href="#" class="dropdown-toggle"> <i
-				class="fa fa-bar-chart-o"></i> <span class="hidden-xs">Charts</span>
+				class="fa fa-bar-chart-o"></i> <span class="hidden-xs"><spring:message code="private.left.option.mantenience" /></span>
 		</a>
 			<ul class="dropdown-menu">
-				<li><a class="ajax-link" href="ajax/charts_xcharts.html">xCharts</a></li>
-				<li><a class="ajax-link" href="ajax/charts_flot.html">Flot
-						Charts</a></li>
-				<li><a class="ajax-link" href="ajax/charts_google.html">Google
-						Charts</a></li>
-				<li><a class="ajax-link" href="ajax/charts_morris.html">Morris
-						Charts</a></li>
-				<li><a class="ajax-link" href="ajax/charts_coindesk.html">CoinDesk
-						realtime</a></li>
+				<li><a class="ajax-link" href="ajax/charts_xcharts.html"><spring:message code="private.left.option.mantenience.restaurant" /></a></li>
+				<li><a class="ajax-link" href="ajax/charts_flot.html"><spring:message code="private.left.option.mantenience.provider" /></a></li>
+				<li><a class="ajax-link" href="ajax/charts_google.html"><spring:message code="private.left.option.mantenience.presentation" /></a></li>
+				<li><a class="ajax-link" href="ajax/charts_morris.html"><spring:message code="private.left.option.mantenience.product" /></a></li>
 			</ul></li>
-		<li class="dropdown"><a href="#" class="dropdown-toggle"> <i
-				class="fa fa-table"></i> <span class="hidden-xs">Tables</span>
+		<li class="dropdown"><a href="#" class="dropdown-toggle"><i
+				class="fa fa-table"></i> <span class="hidden-xs"><spring:message code="private.left.option.ofert" /></span>
 		</a>
 			<ul class="dropdown-menu">
-				<li><a class="ajax-link" href="ajax/tables_simple.html">Simple
-						Tables</a></li>
-				<li><a class="ajax-link" href="ajax/tables_datatables.html">Data
-						Tables</a></li>
-				<li><a class="ajax-link" href="ajax/tables_beauty.html">Beauty
-						Tables</a></li>
+				<li><a class="ajax-link" href="ajax/tables_simple.html"><spring:message code="private.left.option.ofert.register" /></a></li>
+				<li><a class="ajax-link" href="ajax/tables_datatables.html"><spring:message code="private.left.option.ofert.list" /></a></li>
 			</ul></li>
 		<li class="dropdown"><a href="#" class="dropdown-toggle"> <i
 				class="fa fa-pencil-square-o"></i> <span class="hidden-xs">Forms</span>
