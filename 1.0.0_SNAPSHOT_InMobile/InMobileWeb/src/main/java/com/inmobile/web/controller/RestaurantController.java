@@ -26,7 +26,10 @@ public class RestaurantController {
 			final BindingResult result, final SessionStatus status,
 			final HttpServletRequest request,final ModelMap model) {
 		System.out.println("Grabar informacion restaurant");
-		System.out.println("ID User : "+restaurantBean.getIdUser()+"*** "+restaurantBean.getNameContact()+"*** "+restaurantBean.getEmailContact());
+		System.out.println("ID User : "+restaurantBean.getIdUser()+"*** "+restaurantBean.getNameContact()
+				+"*** "+restaurantBean.getEmailContact()+"**"+restaurantBean.getDepartment()+"**"
+				+restaurantBean.getProvince()+"**"
+				+restaurantBean.getDistrict());
 		ReturnService beanReturn=restaurantManager.saveRestaurantInformation(restaurantBean);
 		return null;
 	}

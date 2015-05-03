@@ -16,8 +16,14 @@
 				<html:input path="address" maxlength="60"  class="form-control input-lg" id="address" placeholder="${addressP}"/>
 			</div>
 			<div class="col-sm-3">
-				<spring:message code="common.label.department" var="departmentP"/>
-				<html:input path="department" maxlength="60"  class="form-control input-lg" id="department" placeholder="${departmentP}"/>
+<%-- 				<spring:message code="common.label.department" var="departmentP"/> --%>
+<%-- 				<html:input path="department" maxlength="60"  class="form-control input-lg" id="department" placeholder="${departmentP}"/> --%>
+				<html:select path="department" id="department" class="populate placeholder"> 
+					<html:option value="0">
+						<spring:message code="register.restaurant.department.option.0"/>
+					</html:option>
+					<html:options items="${listAllDepartment}" itemLabel="nameDepartment" itemValue="idDepartment" />
+				</html:select> 
 			</div>
 		</div>
 		<div class="row show-grid-forms">
@@ -30,8 +36,13 @@
 				<html:input path="phone" maxlength="60"  class="form-control input-lg" id="phone" placeholder="${phoneP}"/>
 			</div>
 			<div class="col-sm-3">
-				<spring:message code="common.label.province" var="provinceP"/>
-				<html:input path="province" maxlength="60"  class="form-control input-lg" id="province" placeholder="${provinceP}"/>
+<%-- 				<spring:message code="common.label.province" var="provinceP"/> --%>
+<%-- 				<html:input path="province" maxlength="60"  class="form-control input-lg" id="province" placeholder="${provinceP}"/> --%>
+				<html:select path="province" id="province" class="populate placeholder">
+<%-- 					<html:option value="0"> --%>
+<%-- 						<spring:message code="register.restaurant.province.option.0"/> --%>
+<%-- 					</html:option> --%>
+				</html:select>
 			</div>
 		</div>
 		<div class="row show-grid-forms">
@@ -45,7 +56,8 @@
 			</div>
 			<div class="col-sm-3">
 				<spring:message code="common.label.district" var="districtP"/>
-				<html:input path="district" maxlength="60"  class="form-control input-lg" id="district" placeholder="${districtP}"/>
+<%-- 				<html:input path="district" maxlength="60"  class="form-control input-lg" id="district" placeholder="${districtP}"/> --%>
+				<html:select path="district" id="district" class="populate placeholder"></html:select>
 			</div>
 		</div>
 		<div class="row show-grid-forms">
@@ -98,3 +110,35 @@
 	</html:form>
 </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#department").change(function(){
+		$.ajax({
+		    type:'GET',
+		    url: '${pageContext.request.contextPath}/getProvince.htm',
+		    data : 'departmentId=' + $(this).val(),
+		    success: function(data){
+// 		    	var options = '<option value="0">Seleccione un Provincia</option>';
+		    	 $("#province").html(data);
+// 		        var obj = jQuery.parseJSON( data );
+// 		        var ratingResult = obj.ratingResult;
+		    	}
+		    });
+	 });
+	$("#province").change(function(){
+		$.ajax({
+			type:'GET',
+		    url: '${pageContext.request.contextPath}/getDistrict.htm',
+		    data : 'provinceId=' + $(this).val(),
+		    success: function(data){
+// 		    	var options = '<option value="0">Seleccione un Provincia</option>';
+		    	 $("#district").html(data);
+// 		        var obj = jQuery.parseJSON( data );
+// 		        var ratingResult = obj.ratingResult;
+		    	}
+		});
+	});
+	
+}); 
+
+</script>

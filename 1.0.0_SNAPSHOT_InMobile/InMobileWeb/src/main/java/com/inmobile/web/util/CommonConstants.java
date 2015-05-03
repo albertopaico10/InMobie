@@ -24,6 +24,9 @@ public class CommonConstants {
 		public final static String RESPONSE_IS_PROVIDER="IS_PROVIDER";
 		public final static String RESPONSE_ACCOUNT_INACTIVE="ACCOUNT_INACTIVE";
 		public final static String RESPONSE_ACCOUNT_PENDING_VALIDATION="ACCOUNT_PENDING_VALDATION";
+		public final static String RESPONSE_SUCCESS_DEPARTMENT="SUCCESS_DEPARTMENT";
+		public final static String RESPONSE_SUCCESS_PROVINCE="SUCCESS_PROVINCE";
+		public final static String RESPONSE_SUCCESS_DISTRICT="SUCCESS_DISTRICT";
 	}
 	public class Logger{
 		public static final String LOGGER_START="****START****";
@@ -35,6 +38,9 @@ public class CommonConstants {
 		public static final String URL_VALIDATION_USER="http://localhost:8080/InMobileService/rest/user/validation";
 		public static final String URL_ACTIVATE_USER="http://localhost:8080/InMobileService/rest/user/activate";
 		public static final String URL_SAVE_RESTAURANT="http://localhost:8080/InMobileService/rest/restaurant/save";
+		public static final String URL_LIST_DEPARTMENTS="http://localhost:8080/InMobileService/rest/list/departments";
+		public static final String URL_LIST_PROVINCE="http://localhost:8080/InMobileService/rest/list/province/";
+		public static final String URL_LIST_DISTRICT="http://localhost:8080/InMobileService/rest/list/district/";
 	}
 	
 	public class EncriptedValues{

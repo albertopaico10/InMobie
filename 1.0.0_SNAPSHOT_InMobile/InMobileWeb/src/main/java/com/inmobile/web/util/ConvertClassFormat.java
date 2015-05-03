@@ -1,8 +1,16 @@
 package com.inmobile.web.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.inmobile.web.bean.RegisterUserDTO;
 import com.inmobile.web.bean.RestaurantDTO;
+import com.inmobile.web.bean.UbigeoDepartmentDTO;
+import com.inmobile.web.bean.UbigeoDistrictDTO;
+import com.inmobile.web.bean.UbigeoProvinceDTO;
 import com.inmobile.web.bean.canonical.restaurant.RestaurantRequest;
+import com.inmobile.web.bean.canonical.ubigeo.Ubigeo;
+import com.inmobile.web.bean.canonical.ubigeo.UbigeoResponse;
 import com.inmobile.web.bean.canonical.user.UserRequest;
 
 public class ConvertClassFormat {
@@ -39,4 +47,36 @@ public class ConvertClassFormat {
 		return beanRequest;
 	}
 	
+	public static List<UbigeoDepartmentDTO> convertResponsetToListUbigeoDepartmentDTO(UbigeoResponse beanUbigeoResponse){
+		List<UbigeoDepartmentDTO> listUbigeoDTO=new ArrayList<UbigeoDepartmentDTO>();
+		for(Ubigeo beanUbigeo:beanUbigeoResponse.getUbigeoBean()){
+			UbigeoDepartmentDTO beanUbiDepart=new UbigeoDepartmentDTO();
+			beanUbiDepart.setIdDepartment(beanUbigeo.getId());
+			beanUbiDepart.setNameDepartment(beanUbigeo.getName());
+			listUbigeoDTO.add(beanUbiDepart);
+		}
+		return listUbigeoDTO;
+	}
+	
+	public static List<UbigeoProvinceDTO> convertResponsetToListUbigeoProvinceDTO(UbigeoResponse beanUbigeoResponse){
+		List<UbigeoProvinceDTO> listUbigeoDTO=new ArrayList<UbigeoProvinceDTO>();
+		for(Ubigeo beanUbigeo:beanUbigeoResponse.getUbigeoBean()){
+			UbigeoProvinceDTO beanUbiProv=new UbigeoProvinceDTO();
+			beanUbiProv.setIdProvince(beanUbigeo.getId());
+			beanUbiProv.setNameProvince(beanUbigeo.getName());
+			listUbigeoDTO.add(beanUbiProv);
+		}
+		return listUbigeoDTO;
+	}
+	
+	public static List<UbigeoDistrictDTO> convertResponsetToListUbigeoDistrictDTO(UbigeoResponse beanUbigeoResponse){
+		List<UbigeoDistrictDTO> listUbigeoDTO=new ArrayList<UbigeoDistrictDTO>();
+		for(Ubigeo beanUbigeo:beanUbigeoResponse.getUbigeoBean()){
+			UbigeoDistrictDTO beanUbiProv=new UbigeoDistrictDTO();
+			beanUbiProv.setIdDistrict(beanUbigeo.getId());
+			beanUbiProv.setNameDistrict(beanUbigeo.getName());
+			listUbigeoDTO.add(beanUbiProv);
+		}
+		return listUbigeoDTO;
+	}
 }

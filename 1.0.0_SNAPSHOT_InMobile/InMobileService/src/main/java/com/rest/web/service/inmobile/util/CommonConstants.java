@@ -13,6 +13,10 @@ public class CommonConstants {
 		public final static String CODE_RESPONSE_IS_RESTAURANT="IS_RESTAURANT";
 		public final static String CODE_RESPONSE_ACCOUNT_INACTIVE="ACCOUNT_INACTIVE";
 		public final static String CODE_RESPONSE_ACCOUNT_PENDING_VALDATION="ACCOUNT_PENDING_VALDATION";
+		public final static String CODE_RESPONSE_SUCCESS_DEPARTMENT="SUCCESS_DEPARTMENT";
+		public final static String CODE_RESPONSE_SUCCESS_PROVINCE="SUCCESS_PROVINCE";
+		public final static String CODE_RESPONSE_SUCCESS_DISTRICT="SUCCESS_DISTRICT";
+		public final static String CODE_RESPONSE_SUCCESS_IMAGE="SUCCESS_INSERT_IMAGE";
 	}
 	
 	public class Email{
@@ -29,6 +33,10 @@ public class CommonConstants {
 		public static final String VALIDATE_USER = "/rest/user/validation";
 		public static final String ACTIVATE_USER = "/rest/user/activate";
 		public static final String SAVE_RESTAURANT = "/rest/restaurant/save";
+		public static final String LIST_DEPARTMENTS = "/rest/list/departments";
+		public static final String LIST_PROVINCE = "/rest/list/province/{id}";
+		public static final String LIST_DISTRICT = "/rest/list/district/{id}";
+		public static final String SAVE_IMAGE = "/rest/image/save";
 	}
 	
 	public class EncriptedValues{
