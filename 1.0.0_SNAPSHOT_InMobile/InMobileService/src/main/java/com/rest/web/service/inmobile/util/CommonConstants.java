@@ -33,6 +33,7 @@ public class CommonConstants {
 		public static final String VALIDATE_USER = "/rest/user/validation";
 		public static final String ACTIVATE_USER = "/rest/user/activate";
 		public static final String SAVE_RESTAURANT = "/rest/restaurant/save";
+		public static final String SAVE_PROVIDER = "/rest/provider/save";
 		public static final String LIST_DEPARTMENTS = "/rest/list/departments";
 		public static final String LIST_PROVINCE = "/rest/list/province/{id}";
 		public static final String LIST_DISTRICT = "/rest/list/district/{id}";
@@ -54,6 +55,7 @@ public class CommonConstants {
 		public static final String OPERATION_CREATE_USER="CREATE_USER";
 		public static final String OPERATION_VALIDATE_USER="VALIDATE_USER";
 		public static final String OPERATION_SAVE_RESTAURANT="SAVE_RESTAURANT";
+		public static final String OPERATION_SAVE_PROVIDER = "SAVE_PROVIDER";
 	}
 	
 }

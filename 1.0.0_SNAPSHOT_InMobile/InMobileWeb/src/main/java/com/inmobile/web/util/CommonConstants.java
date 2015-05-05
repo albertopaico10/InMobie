@@ -38,6 +38,7 @@ public class CommonConstants {
 		public static final String URL_VALIDATION_USER="http://localhost:8080/InMobileService/rest/user/validation";
 		public static final String URL_ACTIVATE_USER="http://localhost:8080/InMobileService/rest/user/activate";
 		public static final String URL_SAVE_RESTAURANT="http://localhost:8080/InMobileService/rest/restaurant/save";
+		public static final String URL_SAVE_PROVIDER = "http://localhost:8080/InMobileService/rest/provider/save";
 		public static final String URL_LIST_DEPARTMENTS="http://localhost:8080/InMobileService/rest/list/departments";
 		public static final String URL_LIST_PROVINCE="http://localhost:8080/InMobileService/rest/list/province/";
 		public static final String URL_LIST_DISTRICT="http://localhost:8080/InMobileService/rest/list/district/";

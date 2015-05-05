@@ -22,6 +22,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonArray;
+import com.inmobile.web.bean.ProviderDTO;
 import com.inmobile.web.bean.RegisterUserDTO;
 import com.inmobile.web.bean.RestaurantDTO;
 import com.inmobile.web.bean.ReturnService;
@@ -53,11 +54,22 @@ public class LoginController {
 			returnServiceBean=userManager.registerUserInMobile(logueoBean);
 		}else{
 			System.out.println("Is Login");
-			returnServiceBean=userManager.validateUser(logueoBean);
-			final RestaurantDTO restaurant=new RestaurantDTO();
-			restaurant.setIdUser(String.valueOf(returnServiceBean.getIdUser()));
-			restaurant.setEmailContact(returnServiceBean.getSpecificMessages());
-			model.addAttribute("restaurantForm", restaurant);	
+			returnServiceBean = userManager.validateUser(logueoBean);
+			
+			if(returnServiceBean.getReturnPage().equals(CommonConstants.Page.REDIRECT_RESTAURANT)){
+				System.out.println("SOY UN RESTAURANT");
+				final RestaurantDTO restaurant=new RestaurantDTO();
+				restaurant.setIdUser(String.valueOf(returnServiceBean.getIdUser()));
+				restaurant.setEmailContact(returnServiceBean.getSpecificMessages());
+				model.addAttribute("restaurantForm", restaurant);
+			}else if(returnServiceBean.getReturnPage().equals(CommonConstants.Page.REDIRECT_PROVIDER)){
+				System.out.println("SOY UN PROVEEDOR");
+				ProviderDTO objProviderDTO = new ProviderDTO();
+				objProviderDTO.setIdUser(String.valueOf(returnServiceBean.getIdUser()));
+				objProviderDTO.setEmailContact(returnServiceBean.getSpecificMessages());
+				model.addAttribute("providerForm", objProviderDTO);
+			}
+			
 		}
 		model.addAttribute("loginUsuForm", logueoBean);
 		request.setAttribute("messages", returnServiceBean.getMessages());
@@ -71,14 +83,28 @@ public class LoginController {
 	public ModelAndView validateUserForm(final HttpServletRequest request,final ModelMap model) {
 		System.out.println("Entre a Continue");
 		String idUser = String.valueOf(request.getParameter("val"));
-		final RestaurantDTO restaurant=new RestaurantDTO();
+		//final RestaurantDTO restaurant=new RestaurantDTO();
 			
 		ReturnService response=userManager.activeAccountUser(idUser);
 		request.setAttribute("idUserReq", response.getIdUser());
 //		request.setAttribute("emailRestaurant", response.getSpecificMessages());
-		restaurant.setIdUser(String.valueOf(response.getIdUser()));
-		restaurant.setEmailContact(response.getSpecificMessages());
-		model.addAttribute("restaurantForm", restaurant);	
+		
+		if(response.getReturnPage().equals(CommonConstants.Page.REDIRECT_RESTAURANT)){
+			System.out.println("SOY UN RESTAURANT");
+			final RestaurantDTO restaurant=new RestaurantDTO();
+			restaurant.setIdUser(String.valueOf(response.getIdUser()));
+			restaurant.setEmailContact(response.getSpecificMessages());
+			model.addAttribute("restaurantForm", restaurant);
+		}else if(response.getReturnPage().equals(CommonConstants.Page.REDIRECT_PROVIDER)){
+			System.out.println("SOY UN PROVEEDOR");
+			ProviderDTO objProviderDTO = new ProviderDTO();
+			objProviderDTO.setIdUser(String.valueOf(response.getIdUser()));
+			objProviderDTO.setEmailContact(response.getSpecificMessages());
+			model.addAttribute("providerForm", objProviderDTO);
+		}
+		//restaurant.setIdUser(String.valueOf(response.getIdUser()));
+		//restaurant.setEmailContact(response.getSpecificMessages());
+		//model.addAttribute("restaurantForm", restaurant);	
 		return new ModelAndView(response.getReturnPage());
 	}
 	

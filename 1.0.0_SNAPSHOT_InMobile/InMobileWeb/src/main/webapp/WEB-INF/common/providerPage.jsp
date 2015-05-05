@@ -4,7 +4,7 @@
 <div class="well">
 	<h3 id="grid-options"><spring:message code="common.title.welcome" /></h3>
 	<br/>
-	<html:form method="POST" modelAttribute="restaurantForm" action="registerRestaurant.htm" id="idRestaurantForm" novalidate="novalidate">
+	<html:form method="POST" modelAttribute="providerForm" action="registerProvider.htm" id="idproviderForm" novalidate="novalidate">
 		<p><b><spring:message code="common.title.accommodation.information" /></b></p>
 		<div class="row show-grid-forms">
 			<div class="col-sm-3">
@@ -104,15 +104,15 @@
 		
 		<div class="row show-grid-forms">
 			<div class="column small col-md-3" style="vertical-align: top">
-				<html:radiobutton path="" />
+				<html:radiobutton path="idPlan" value="1" />
 				<img alt="" src="resources/img/plan_1.png">
 			</div>
 			<div class="column small col-md-3" style="vertical-align: top">
-				<html:radiobutton path=""  />
+				<html:radiobutton path="idPlan" value="2" />
 				<img alt="" src="resources/img/plan_2.png">
 			</div>
 			<div class="column small col-md-3" style="vertical-align: top">
-				<html:radiobutton path="" />
+				<html:radiobutton path="idPlan" value="3" />
 				<img alt="" src="resources/img/plan_3.png">
 			</div>
 		</div>

@@ -3,11 +3,13 @@ package com.inmobile.web.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inmobile.web.bean.ProviderDTO;
 import com.inmobile.web.bean.RegisterUserDTO;
 import com.inmobile.web.bean.RestaurantDTO;
 import com.inmobile.web.bean.UbigeoDepartmentDTO;
 import com.inmobile.web.bean.UbigeoDistrictDTO;
 import com.inmobile.web.bean.UbigeoProvinceDTO;
+import com.inmobile.web.bean.canonical.restaurant.ProviderRequest;
 import com.inmobile.web.bean.canonical.restaurant.RestaurantRequest;
 import com.inmobile.web.bean.canonical.ubigeo.Ubigeo;
 import com.inmobile.web.bean.canonical.ubigeo.UbigeoResponse;
@@ -45,6 +47,31 @@ public class ConvertClassFormat {
 		beanRequest.setIdUser(Integer.parseInt(restaurantBeanDTO.getIdUser()));
 //		beanRequest.setIdImage(restaurantBeanDTO.get);
 		return beanRequest;
+	}
+	
+	public static ProviderRequest convertWebToServiceProvider(ProviderDTO objProviderDTO){
+		ProviderRequest objProvideRequest = new ProviderRequest();
+		objProvideRequest.setSocialReason(objProviderDTO.getSocialReason());
+		objProvideRequest.setNameProvider(objProviderDTO.getComercialName());
+		objProvideRequest.setRUCProvider(objProviderDTO.getRuc());
+		objProvideRequest.setAddressProvider(objProviderDTO.getAddress());
+		objProvideRequest.setPhoneProvider(objProviderDTO.getPhone());
+		objProvideRequest.setReferenceProvider(objProviderDTO.getReference());
+		objProvideRequest.setIdDistrictProvider(Integer.parseInt(objProviderDTO.getDistrict()));
+		objProvideRequest.setIdProvinceProvider(Integer.parseInt(objProviderDTO.getProvince()));
+		objProvideRequest.setIdDeparmentProvider(Integer.parseInt(objProviderDTO.getDepartment()));
+//		objProvideRequest.setIdCategory(ProviderBeanDTO.get());
+		objProvideRequest.setNameContact(objProviderDTO.getNameContact());
+		objProvideRequest.setLastNameContact(objProviderDTO.getLastNameContact());
+		objProvideRequest.setChargeContact(objProviderDTO.getChargeContact());
+		objProvideRequest.setPhoneContact(objProviderDTO.getPhoneContact());
+		objProvideRequest.setCellphoneContact(objProviderDTO.getCelphoneContact());
+		objProvideRequest.setReferenceContact(objProviderDTO.getReference());
+		objProvideRequest.setAnexoContact(objProviderDTO.getAnexoContact());
+		objProvideRequest.setIdUser(Integer.parseInt(objProviderDTO.getIdUser()));
+		objProvideRequest.setIdPlan(Integer.parseInt(objProviderDTO.getIdPlan()));
+//		beanRequest.setIdImage(restaurantBeanDTO.get);
+		return objProvideRequest;
 	}
 	
 	public static List<UbigeoDepartmentDTO> convertResponsetToListUbigeoDepartmentDTO(UbigeoResponse beanUbigeoResponse){
