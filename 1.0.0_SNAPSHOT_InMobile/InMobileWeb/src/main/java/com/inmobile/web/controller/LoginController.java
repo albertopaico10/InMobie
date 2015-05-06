@@ -2,6 +2,7 @@ package com.inmobile.web.controller;
 
 import java.util.List;
 
+import javax.rmi.CORBA.Util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +33,7 @@ import com.inmobile.web.bean.UbigeoProvinceDTO;
 import com.inmobile.web.bean.canonical.ubigeo.Ubigeo;
 import com.inmobile.web.facade.UserManager;
 import com.inmobile.web.util.CommonConstants;
+import com.inmobile.web.util.UtilMethods;
 
 @Controller
 public class LoginController {
@@ -100,22 +103,14 @@ public class LoginController {
 		System.out.println("Id Department : "+departmentId);
 		List<UbigeoProvinceDTO> listSpecificProvince=userManager.listProvinceByDepartment(departmentId);
 		System.out.println("Cantidad de Provincias : "+listSpecificProvince.size());
-		StringBuilder valueProvince= new StringBuilder();;
-		for (UbigeoProvinceDTO beanUbigeoDTO:listSpecificProvince) {
-			valueProvince.append("<option value='"+beanUbigeoDTO.getIdProvince()+"'>"+beanUbigeoDTO.getNameProvince()+"</option>");
-		}
-		return valueProvince.toString();
+		return UtilMethods.fromObjectToString(listSpecificProvince);
 	}
 	
 	@RequestMapping(value="/getDistrict.htm",method=RequestMethod.GET)
 	public @ResponseBody String getListDistrict(@RequestParam String provinceId){
 		System.out.println("getListDistrict-->Id Province : "+provinceId);
 		List<UbigeoDistrictDTO> listSpecificDistrict=userManager.listDistrictByProvince(provinceId);
-		System.out.println("Cantidad de Provincias : "+listSpecificDistrict.size());
-		StringBuilder valueProvince= new StringBuilder();;
-		for (UbigeoDistrictDTO beanUbigeoDTO:listSpecificDistrict) {
-			valueProvince.append("<option value='"+beanUbigeoDTO.getIdDistrict()+"'>"+beanUbigeoDTO.getNameDistrict()+"</option>");
-		}
-		return valueProvince.toString();
+		System.out.println("Cantidad de Distritos : "+listSpecificDistrict.size());
+		return UtilMethods.fromObjectToString(listSpecificDistrict);
 	}
 }

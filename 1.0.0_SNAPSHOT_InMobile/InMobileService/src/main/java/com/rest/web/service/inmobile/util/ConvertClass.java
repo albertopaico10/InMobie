@@ -88,7 +88,9 @@ public class ConvertClass {
 	public static Image convertImageToDataBase(ImageRequest beanImageRequest){
 		Image beanImage=new Image();
 		beanImage.setCategoryImage(beanImageRequest.getCategoryImage());
-		beanImage.setImg(beanImageRequest.getImage());
+		//--Get bytes
+		byte[] imageByte=UtilMethods.hexStringToByteArray(beanImageRequest.getHexFile());
+		beanImage.setImg(imageByte);
 		return beanImage;
 	}
 }

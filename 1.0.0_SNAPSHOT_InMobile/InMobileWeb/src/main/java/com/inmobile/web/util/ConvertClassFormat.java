@@ -1,13 +1,23 @@
 package com.inmobile.web.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.inmobile.web.bean.RegisterUserDTO;
 import com.inmobile.web.bean.RestaurantDTO;
 import com.inmobile.web.bean.UbigeoDepartmentDTO;
 import com.inmobile.web.bean.UbigeoDistrictDTO;
 import com.inmobile.web.bean.UbigeoProvinceDTO;
+import com.inmobile.web.bean.canonical.image.ImageRequest;
 import com.inmobile.web.bean.canonical.restaurant.RestaurantRequest;
 import com.inmobile.web.bean.canonical.ubigeo.Ubigeo;
 import com.inmobile.web.bean.canonical.ubigeo.UbigeoResponse;
@@ -78,5 +88,42 @@ public class ConvertClassFormat {
 			listUbigeoDTO.add(beanUbiProv);
 		}
 		return listUbigeoDTO;
+	}
+	
+	public static ImageRequest convertWebToImageRequest(MultipartFile file,int idUser){
+		ImageRequest beanRequestImage=new ImageRequest();
+		beanRequestImage.setCategoryImage(CommonConstants.WebId.IMAGE_SAVE_RESTAURANT);
+		beanRequestImage.setIdUser(idUser);
+		try {
+			beanRequestImage.setHexFile(UtilMethods.bytesToHexString(file.getBytes()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		beanRequestImage.setNameFile(file.getOriginalFilename());
+		beanRequestImage.setFormatFile(CommonConstants.Format.FORMAT_JPG);
+		return beanRequestImage;
+	}
+	
+	public static HttpEntity convertWebToHttpEntity(MultipartFile file){
+		
+	    try {
+//	    	LinkedMultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<String, Object>();
+//	    	requestBody.add("name", CommonConstants.WebId.LOGIN_REGISTER_USER);
+//	    	requestBody.add("file", file);
+	    	MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<String, Object>();
+		    requestBody.add("name", CommonConstants.WebId.LOGIN_REGISTER_USER);
+//			requestBody.add("file", file.getBytes());
+		    requestBody.add("file", new FileSystemResource(file.getOriginalFilename()));
+		    
+		    HttpHeaders headers = new HttpHeaders();
+		    headers.add("Content-Type", "multipart/form-data");
+		    
+		    HttpEntity request= new HttpEntity( requestBody, headers );
+		    return request;
+		} catch (Exception e) {
+			System.out.println("Error : "+e.getMessage());
+		}
+	    
+	    return null;
 	}
 }

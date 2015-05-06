@@ -55,4 +55,10 @@
 		<put-attribute name="contenidoCentro" value="/WEB-INF/public/accountPendingPage.jsp" />
 	</definition>
 	
+	<definition name="schedulerRestaurant" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/schedulerRestaurant.jsp" />
+	</definition>
+	
+	
+	
 </tiles-definitions>

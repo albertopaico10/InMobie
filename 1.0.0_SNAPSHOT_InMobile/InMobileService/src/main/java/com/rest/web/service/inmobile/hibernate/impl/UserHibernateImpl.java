@@ -89,5 +89,16 @@ public class UserHibernateImpl implements UserHibernate {
 					
 		return listSpecificById.get(0);
 	}
+	
+	public User findUSerBeanActiveAccount(String idUser)throws Exception{
+		String query="from User where status=2 and id='"+idUser+"'";
+		System.out.println("query : "+query);
+		Session session=sessionfactory.openSession();
+		
+		List<User> listSpecificById=session.createQuery(query).list();
+		System.out.println("Cantidad de filas : "+listSpecificById.size());
+					
+		return listSpecificById.get(0);
+	}
 
 }

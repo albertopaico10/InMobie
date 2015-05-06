@@ -25,19 +25,17 @@ public class ImageController {
 	@Autowired
 	private ImageManager imageManager;
 	
-	@RequestMapping(value = CommonConstants.ValueRequestMapping.SAVE_IMAGE, method = RequestMethod.POST,
-			headers = "content-type=multipart/form-data")
-	public @ResponseBody ImageResponse saveImage(@RequestBody String name,
-			@RequestBody MultipartFile file) {
-		logger.info("Start saveImage");
-		ImageRequest beanRequest=new ImageRequest();
-		beanRequest.setCategoryImage(name);
-		try {
-			beanRequest.setImage(file.getBytes());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	@RequestMapping(value = CommonConstants.ValueRequestMapping.SAVE_IMAGE, method = RequestMethod.POST)
+	public @ResponseBody ImageResponse saveImage(@RequestBody ImageRequest beanRequest) {
+//		ImageRequest beanRequest=new ImageRequest();
+//		beanRequest.setCategoryImage(categoryImage);
+//		beanRequest.setImage(fileImage);
+//		try {
+//			beanRequest.setImage(fileImage.getBytes());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		ImageResponse beanResponse=imageManager.saveImage(beanRequest);
 		return beanResponse;
 	}

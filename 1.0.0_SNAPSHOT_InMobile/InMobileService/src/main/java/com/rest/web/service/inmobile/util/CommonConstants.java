@@ -17,6 +17,7 @@ public class CommonConstants {
 		public final static String CODE_RESPONSE_SUCCESS_PROVINCE="SUCCESS_PROVINCE";
 		public final static String CODE_RESPONSE_SUCCESS_DISTRICT="SUCCESS_DISTRICT";
 		public final static String CODE_RESPONSE_SUCCESS_IMAGE="SUCCESS_INSERT_IMAGE";
+		public final static String CODE_RESPONSE_SUCCESS_RESTAURANT="SUCCESS_INSERT_RESTAURANT";
 	}
 	
 	public class Email{
@@ -46,7 +47,7 @@ public class CommonConstants {
 	
 	public class ValuesProject{
 		public static final String URL_SERVER="http://localhost:8080/";
-		public static final String PROJECT_VALUE="InMobileWeb/";
+		public static final String PROJECT_VALUE="POC_V10/";
 		public static final String ACTION_CONTINUE="continue.htm?val=";
 	}
 	
@@ -54,6 +55,7 @@ public class CommonConstants {
 		public static final String OPERATION_CREATE_USER="CREATE_USER";
 		public static final String OPERATION_VALIDATE_USER="VALIDATE_USER";
 		public static final String OPERATION_SAVE_RESTAURANT="SAVE_RESTAURANT";
+		public static final String OPERATION_UPLOAD_LOGO_RESTAURANT="UPLOAD_LOGO_RESTAURANT";
 	}
 	
 }

@@ -1,7 +1,6 @@
-package com.rest.web.service.inmobile.bean.image;
+package com.inmobile.web.bean.canonical.image;
 
 public class ImageRequest {
-	
 	public String categoryImage;
 	public String hexFile;
 	public String nameFile;

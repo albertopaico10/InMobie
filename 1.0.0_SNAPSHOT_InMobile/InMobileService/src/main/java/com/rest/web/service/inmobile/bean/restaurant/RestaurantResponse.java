@@ -7,6 +7,7 @@ public class RestaurantResponse {
 	public String codeResponse;
 	public String messagesResponse;
 	public String description;
+	
 	public int getId() {
 		return id;
 	}

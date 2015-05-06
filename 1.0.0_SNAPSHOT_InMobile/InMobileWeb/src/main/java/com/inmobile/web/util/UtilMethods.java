@@ -9,6 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 public class UtilMethods {
@@ -42,5 +43,12 @@ public class UtilMethods {
 		}
 		return base64EncryptedString;
 	}
-
+	
+	public static String bytesToHexString(byte[] bytes) {
+		StringBuilder sb = new StringBuilder();
+		for (byte b : bytes) {
+			sb.append(String.format("%02x", b & 0xff));
+		}
+		return sb.toString();
+	}
 }

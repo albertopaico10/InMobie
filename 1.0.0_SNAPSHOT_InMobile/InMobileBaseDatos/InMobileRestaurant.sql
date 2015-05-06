@@ -241,8 +241,8 @@ CREATE TABLE tb_Request_Response(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	typeOperation VARCHAR(100),
 	idUser INT,
-	request TEXT,
-	response TEXT,
+	request LONGTEXT,
+	response LONGTEXT,
 	status INT,
 	date_created TIMESTAMP DEFAULT NOW(),
 	user_created INT

@@ -13,4 +13,5 @@ public interface UserHibernate {
 	public boolean existEmail(String email)throws Exception;
 	public User validateUser(String email,String password)throws Exception;
 	public User findUSerBean(String idUser)throws Exception;
+	public User findUSerBeanActiveAccount(String idUser)throws Exception;
 }

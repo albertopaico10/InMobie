@@ -11,6 +11,7 @@ public class CommonConstants {
 		public static final String REDIRECT_INACTIVE_ACCOUNT_PAGE="inactiveAccountPage";
 		public static final String REDIRECT_ERROR="errorPage";
 		public static final String REDIRECT_ACCOUNT_PENDING="accountPendingPage";
+		public static final String REDIRECT_SCHEDULER_PAGE="schedulerRestaurant";
 	}
 	
 	public class Response{
@@ -27,6 +28,8 @@ public class CommonConstants {
 		public final static String RESPONSE_SUCCESS_DEPARTMENT="SUCCESS_DEPARTMENT";
 		public final static String RESPONSE_SUCCESS_PROVINCE="SUCCESS_PROVINCE";
 		public final static String RESPONSE_SUCCESS_DISTRICT="SUCCESS_DISTRICT";
+		public final static String RESPONSE_SUCCESS_IMAGE="SUCCESS_INSERT_IMAGE";
+		public final static String RESPONSE_SUCCESS_RESTAURANT="SUCCESS_INSERT_RESTAURANT";
 	}
 	public class Logger{
 		public static final String LOGGER_START="****START****";
@@ -41,6 +44,8 @@ public class CommonConstants {
 		public static final String URL_LIST_DEPARTMENTS="http://localhost:8080/InMobileService/rest/list/departments";
 		public static final String URL_LIST_PROVINCE="http://localhost:8080/InMobileService/rest/list/province/";
 		public static final String URL_LIST_DISTRICT="http://localhost:8080/InMobileService/rest/list/district/";
+		public static final String URL_SAVE_IMAGE="http://localhost:8080/InMobileService/rest/image/save";
+		
 	}
 	
 	public class EncriptedValues{
@@ -50,5 +55,10 @@ public class CommonConstants {
 	
 	public class WebId{
 		public static final String LOGIN_REGISTER_USER="register";
+		public static final String IMAGE_SAVE_RESTAURANT="LOGO_RESTAURANT";
+	}
+	
+	public class Format{
+		public static final String FORMAT_JPG=".jpg";
 	}
 }

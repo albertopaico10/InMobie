@@ -8,7 +8,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.inmobile.web.bean.RestaurantDTO;
@@ -22,6 +25,7 @@ public class RestaurantController {
 	
 	@RequestMapping("registerRestaurant.htm")
 	public ModelAndView validateUserForm(
+            @RequestParam("fileLogo") MultipartFile file,
 			@ModelAttribute RestaurantDTO restaurantBean,
 			final BindingResult result, final SessionStatus status,
 			final HttpServletRequest request,final ModelMap model) {
@@ -30,7 +34,8 @@ public class RestaurantController {
 				+"*** "+restaurantBean.getEmailContact()+"**"+restaurantBean.getDepartment()+"**"
 				+restaurantBean.getProvince()+"**"
 				+restaurantBean.getDistrict());
-		ReturnService beanReturn=restaurantManager.saveRestaurantInformation(restaurantBean);
-		return null;
+		ReturnService beanReturn=restaurantManager.saveRestaurantInformation(restaurantBean,file);
+		request.setAttribute("idUserReq", beanReturn.getIdUser());
+		return new ModelAndView(beanReturn.getReturnPage());
 	}
 }
