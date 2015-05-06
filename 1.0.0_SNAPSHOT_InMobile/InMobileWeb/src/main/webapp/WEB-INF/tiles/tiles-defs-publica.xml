@@ -59,6 +59,10 @@
 		<put-attribute name="contenidoCentro" value="/WEB-INF/public/schedulerRestaurant.jsp" />
 	</definition>
 	
+	<definition name="districtProvider" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/districtProvider.jsp" />
+	</definition>
+	
 	
 	
 </tiles-definitions>

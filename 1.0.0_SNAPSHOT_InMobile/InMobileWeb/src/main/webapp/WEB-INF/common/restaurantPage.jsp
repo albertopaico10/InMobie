@@ -19,7 +19,7 @@
 			<div class="col-sm-3">
 <%-- 				<spring:message code="common.label.department" var="departmentP"/> --%>
 <%-- 				<html:input path="department" maxlength="60"  class="form-control input-lg" id="department" placeholder="${departmentP}"/> --%>
-				<html:select path="department" id="department" class="populate placeholder"> 
+				<html:select path="department" id="department" class="form-control"> 
 					<html:option value="0">
 						<spring:message code="register.restaurant.department.option.0"/>
 					</html:option>
@@ -39,7 +39,7 @@
 			<div class="col-sm-3">
 <%-- 				<spring:message code="common.label.province" var="provinceP"/> --%>
 <%-- 				<html:input path="province" maxlength="60"  class="form-control input-lg" id="province" placeholder="${provinceP}"/> --%>
-				<html:select path="province" id="province" class="populate placeholder">
+				<html:select path="province" id="province" class="form-control">
 					<html:option value="0">
 						<spring:message code="register.restaurant.province.option.0"/>
 					</html:option>
@@ -58,7 +58,7 @@
 			<div class="col-sm-3">
 				<spring:message code="common.label.district" var="districtP"/>
 <%-- 				<html:input path="district" maxlength="60"  class="form-control input-lg" id="district" placeholder="${districtP}"/> --%>
-				<html:select path="district" id="district" class="populate placeholder">
+				<html:select path="district" id="district" class="form-control">
 					<html:option value="0">
 						<spring:message code="register.restaurant.district.option.0"/>
 					</html:option>

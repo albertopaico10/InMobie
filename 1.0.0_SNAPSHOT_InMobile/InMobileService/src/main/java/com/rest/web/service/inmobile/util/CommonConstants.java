@@ -18,6 +18,7 @@ public class CommonConstants {
 		public final static String CODE_RESPONSE_SUCCESS_DISTRICT="SUCCESS_DISTRICT";
 		public final static String CODE_RESPONSE_SUCCESS_IMAGE="SUCCESS_INSERT_IMAGE";
 		public final static String CODE_RESPONSE_SUCCESS_RESTAURANT="SUCCESS_INSERT_RESTAURANT";
+		public final static String CODE_RESPONSE_SUCCESS_PROVIDE="SUCCESS_INSERT_PROVIDER";
 	}
 	
 	public class Email{
@@ -34,6 +35,7 @@ public class CommonConstants {
 		public static final String VALIDATE_USER = "/rest/user/validation";
 		public static final String ACTIVATE_USER = "/rest/user/activate";
 		public static final String SAVE_RESTAURANT = "/rest/restaurant/save";
+		public static final String SAVE_PROVIDER = "/rest/provider/save";
 		public static final String LIST_DEPARTMENTS = "/rest/list/departments";
 		public static final String LIST_PROVINCE = "/rest/list/province/{id}";
 		public static final String LIST_DISTRICT = "/rest/list/district/{id}";
@@ -56,6 +58,7 @@ public class CommonConstants {
 		public static final String OPERATION_VALIDATE_USER="VALIDATE_USER";
 		public static final String OPERATION_SAVE_RESTAURANT="SAVE_RESTAURANT";
 		public static final String OPERATION_UPLOAD_LOGO_RESTAURANT="UPLOAD_LOGO_RESTAURANT";
+		public static final String OPERATION_SAVE_PROVIDER = "SAVE_PROVIDER";
 	}
 	
 }

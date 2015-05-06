@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.rest.web.service.inmobile.bean.image.ImageRequest;
+import com.rest.web.service.inmobile.bean.restaurant.ProviderRequest;
 import com.rest.web.service.inmobile.bean.restaurant.RestaurantRequest;
 import com.rest.web.service.inmobile.bean.ubigeo.Ubigeo;
 import com.rest.web.service.inmobile.bean.user.UserRequest;
@@ -12,6 +13,7 @@ import com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant;
 import com.rest.web.service.inmobile.hibernate.bean.Department;
 import com.rest.web.service.inmobile.hibernate.bean.District;
 import com.rest.web.service.inmobile.hibernate.bean.Image;
+import com.rest.web.service.inmobile.hibernate.bean.Provider;
 import com.rest.web.service.inmobile.hibernate.bean.Province;
 import com.rest.web.service.inmobile.hibernate.bean.User;
 
@@ -47,6 +49,31 @@ public class ConvertClass {
 		clienRestDataBase.setIdUser(beanRequest.getIdUser());
 		clienRestDataBase.setIdImage(beanRequest.getIdImage());
 		return clienRestDataBase;
+	}
+	
+	public static Provider convertProviderRequestToDataBase(ProviderRequest objProviderRequest){
+		Provider objProvider = new Provider();
+		objProvider.setSocialReason(objProviderRequest.getSocialReason());
+		objProvider.setNameProvider(objProviderRequest.getNameProvider());
+		objProvider.setRUCProvider(objProviderRequest.getRUCProvider());
+		objProvider.setAddressProvider(objProviderRequest.getSocialReason());
+		objProvider.setPhoneProvider(objProviderRequest.getPhoneProvider());
+		objProvider.setReferenceProvider(objProviderRequest.getReferenceProvider());
+		objProvider.setIdDistrictProvider(objProviderRequest.getIdDistrictProvider());
+		objProvider.setIdProvinceProvider(objProviderRequest.getIdProvinceProvider());
+		objProvider.setIdDeparmentProvider(objProviderRequest.getIdDeparmentProvider());
+		objProvider.setIdCategory(objProviderRequest.getIdCategory());
+		objProvider.setNameContact(objProviderRequest.getNameContact());
+		objProvider.setLastNameContact(objProviderRequest.getLastNameContact());
+		objProvider.setChargeContact(objProviderRequest.getChargeContact());
+		objProvider.setPhoneContact(objProviderRequest.getPhoneContact());
+		objProvider.setCellphoneContact(objProviderRequest.getCellphoneContact());
+		objProvider.setReferenceContact(objProviderRequest.getReferenceContact());
+		objProvider.setAnexoContact(objProviderRequest.getAnexoContact());
+		objProvider.setIdUser(objProviderRequest.getIdUser());
+		objProvider.setIdImage(objProviderRequest.getIdImage());
+		objProvider.setIdPlan(objProviderRequest.getIdPlan());
+		return objProvider;
 	}
 	
 	public static List<Ubigeo> convertDataBasetoUbigeo(List<Department> listBeanDepartments){

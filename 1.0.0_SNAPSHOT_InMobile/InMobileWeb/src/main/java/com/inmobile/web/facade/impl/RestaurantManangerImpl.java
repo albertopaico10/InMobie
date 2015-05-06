@@ -32,15 +32,17 @@ public class RestaurantManangerImpl implements RestaurantManager {
 		if(!file.isEmpty()){
 			//Save Image to DataBase
 			ImageRequest beanRequest=ConvertClassFormat.convertWebToImageRequest(file,Integer.parseInt(beanDTO.getIdUser()));
+			beanRequest.setCategoryImage(CommonConstants.WebId.IMAGE_SAVE_RESTAURANT);
 			System.out.println("Requesst Image: "+UtilMethods.fromObjectToString(beanRequest));
 			ImageResponse beanResponseImage=restTemplate.postForObject(CommonConstants.URLService.URL_SAVE_IMAGE,
 					beanRequest, ImageResponse.class);
-			System.out.println("Response Image : "+beanResponseImage);
+			System.out.println("Response Image : "+UtilMethods.fromObjectToString(beanResponseImage));
 			if(CommonConstants.Response.RESPONSE_SUCCESS_IMAGE.equals(beanResponseImage.getCodeResponse())){
 				RestaurantRequest beanRestaurantRequest=ConvertClassFormat.convertWebToServiceRestaurant(beanDTO);
 				beanRestaurantRequest.setIdImage(beanResponseImage.getIdImage());
 				System.out.println("Valor Request : "+UtilMethods.fromObjectToString(beanRestaurantRequest));
 				System.out.println("URL : "+CommonConstants.URLService.URL_SAVE_RESTAURANT);
+				//--Save Restaurant Information
 				RestaurantResponse beanResponse=restTemplate.postForObject(CommonConstants.URLService.URL_SAVE_RESTAURANT, beanRestaurantRequest, RestaurantResponse.class);
 				System.out.println("Valor Response : "+UtilMethods.fromObjectToString(beanResponse));
 				if(CommonConstants.Response.RESPONSE_SUCCESS_RESTAURANT.equals(beanResponse.getCodeResponse())){

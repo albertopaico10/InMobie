@@ -43,6 +43,7 @@
 				<value>com.rest.web.service.inmobile.hibernate.bean.District</value>
 				<value>com.rest.web.service.inmobile.hibernate.bean.Province</value>
 				<value>com.rest.web.service.inmobile.hibernate.bean.Image</value>
+				<value>com.rest.web.service.inmobile.hibernate.bean.Provider</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

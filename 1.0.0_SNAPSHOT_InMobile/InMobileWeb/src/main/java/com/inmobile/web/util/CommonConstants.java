@@ -12,6 +12,7 @@ public class CommonConstants {
 		public static final String REDIRECT_ERROR="errorPage";
 		public static final String REDIRECT_ACCOUNT_PENDING="accountPendingPage";
 		public static final String REDIRECT_SCHEDULER_PAGE="schedulerRestaurant";
+		public static final String REDIRECT_DISTRICT_PROVIDER="districtProvider";
 	}
 	
 	public class Response{
@@ -30,6 +31,7 @@ public class CommonConstants {
 		public final static String RESPONSE_SUCCESS_DISTRICT="SUCCESS_DISTRICT";
 		public final static String RESPONSE_SUCCESS_IMAGE="SUCCESS_INSERT_IMAGE";
 		public final static String RESPONSE_SUCCESS_RESTAURANT="SUCCESS_INSERT_RESTAURANT";
+		public final static String RESPONSE_SUCCESS_PROVIDER="SUCCESS_INSERT_PROVIDER";
 	}
 	public class Logger{
 		public static final String LOGGER_START="****START****";
@@ -41,6 +43,7 @@ public class CommonConstants {
 		public static final String URL_VALIDATION_USER="http://localhost:8080/InMobileService/rest/user/validation";
 		public static final String URL_ACTIVATE_USER="http://localhost:8080/InMobileService/rest/user/activate";
 		public static final String URL_SAVE_RESTAURANT="http://localhost:8080/InMobileService/rest/restaurant/save";
+		public static final String URL_SAVE_PROVIDER = "http://localhost:8080/InMobileService/rest/provider/save";
 		public static final String URL_LIST_DEPARTMENTS="http://localhost:8080/InMobileService/rest/list/departments";
 		public static final String URL_LIST_PROVINCE="http://localhost:8080/InMobileService/rest/list/province/";
 		public static final String URL_LIST_DISTRICT="http://localhost:8080/InMobileService/rest/list/district/";
@@ -56,6 +59,7 @@ public class CommonConstants {
 	public class WebId{
 		public static final String LOGIN_REGISTER_USER="register";
 		public static final String IMAGE_SAVE_RESTAURANT="LOGO_RESTAURANT";
+		public static final String IMAGE_SAVE_PROVIDER="LOGO_PROVIDER";
 	}
 	
 	public class Format{
