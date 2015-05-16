@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rest.web.service.inmobile.bean.restaurant.DistrictProviderRequest;
+import com.rest.web.service.inmobile.bean.restaurant.DistrictProviderResponse;
 import com.rest.web.service.inmobile.bean.restaurant.ProviderRequest;
 import com.rest.web.service.inmobile.bean.restaurant.ProviderResponse;
 import com.rest.web.service.inmobile.facade.ProviderManager;
@@ -27,5 +29,12 @@ public class ProviderController {
 		logger.info("Correo : "+objProviderRequest.getNameContact()+"** Password : "+objProviderRequest.getNameProvider());
 		ProviderResponse objProviderResponse = objProviderManager.saveProvider(objProviderRequest);
 		return objProviderResponse;
+	}
+	
+	@RequestMapping(value = CommonConstants.ValueRequestMapping.ADD_DISTRICT_PROVIDER, method = RequestMethod.POST)
+	public @ResponseBody DistrictProviderResponse saveDistrictProviderInformation(@RequestBody DistrictProviderRequest objDistrictProviderRequest) {
+		logger.info("Start saveDistrictProviderInformation.");
+		DistrictProviderResponse objDistrictProviderResponse = objProviderManager.saveDistrictProvider(objDistrictProviderRequest);
+		return objDistrictProviderResponse;
 	}
 }

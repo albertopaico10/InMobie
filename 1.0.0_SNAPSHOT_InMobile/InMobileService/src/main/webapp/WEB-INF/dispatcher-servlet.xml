@@ -44,6 +44,7 @@
 				<value>com.rest.web.service.inmobile.hibernate.bean.Province</value>
 				<value>com.rest.web.service.inmobile.hibernate.bean.Image</value>
 				<value>com.rest.web.service.inmobile.hibernate.bean.Provider</value>
+				<value>com.rest.web.service.inmobile.hibernate.bean.DistrictProvider</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -56,9 +57,9 @@
 	
 	<bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/db_RestaurantInMobile" />
+		<property name="url" value="jdbc:mysql://localhost:3306/db_RestaurantInMobile2" />
 		<property name="username" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="mysql" />
 	</bean>
 	<!-- END HIBERNATE CONFIGURATON-->
 	

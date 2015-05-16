@@ -32,6 +32,7 @@ public class CommonConstants {
 		public final static String RESPONSE_SUCCESS_IMAGE="SUCCESS_INSERT_IMAGE";
 		public final static String RESPONSE_SUCCESS_RESTAURANT="SUCCESS_INSERT_RESTAURANT";
 		public final static String RESPONSE_SUCCESS_PROVIDER="SUCCESS_INSERT_PROVIDER";
+		public final static String RESPONSE_SUCCESS_DISTRICT_PROVIDER="SUCCESS_INSERT_DISTRICT_PROVIDER";
 	}
 	public class Logger{
 		public static final String LOGGER_START="****START****";
@@ -48,7 +49,7 @@ public class CommonConstants {
 		public static final String URL_LIST_PROVINCE="http://localhost:8080/InMobileService/rest/list/province/";
 		public static final String URL_LIST_DISTRICT="http://localhost:8080/InMobileService/rest/list/district/";
 		public static final String URL_SAVE_IMAGE="http://localhost:8080/InMobileService/rest/image/save";
-		
+		public static final String URL_ADD_DISTRICT_PROVIDER = "http://localhost:8080/InMobileService/rest/districtProvider/add";
 	}
 	
 	public class EncriptedValues{

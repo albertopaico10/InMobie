@@ -4,12 +4,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.inmobile.web.bean.DistrictProviderDTO;
 import com.inmobile.web.bean.ProviderDTO;
 import com.inmobile.web.bean.ReturnService;
 import com.inmobile.web.bean.canonical.image.ImageRequest;
 import com.inmobile.web.bean.canonical.image.ImageResponse;
-import com.inmobile.web.bean.canonical.restaurant.ProviderRequest;
-import com.inmobile.web.bean.canonical.restaurant.ProviderResponse;
+import com.inmobile.web.bean.canonical.provider.DistrictProviderRequest;
+import com.inmobile.web.bean.canonical.provider.DistrictProviderResponse;
+import com.inmobile.web.bean.canonical.provider.ProviderRequest;
+import com.inmobile.web.bean.canonical.provider.ProviderResponse;
 import com.inmobile.web.facade.ProviderManager;
 import com.inmobile.web.util.CommonConstants;
 import com.inmobile.web.util.ConvertClassFormat;
@@ -46,6 +49,22 @@ public class ProviderManagerImpl implements ProviderManager{
 			benResponse.setReturnPage(CommonConstants.Page.REDIRECT_ERROR);
 		}
 				
+		return benResponse;
+	}
+
+	public ReturnService saveProviderDistrict(DistrictProviderDTO objDistrictProviderDTO) {
+		ReturnService benResponse = new ReturnService();
+		RestTemplate restTemplate = new RestTemplate();
+		
+		DistrictProviderRequest objDistrictProviderRequest = ConvertClassFormat.convertWebToServiceDistrictProvider(objDistrictProviderDTO);
+		DistrictProviderResponse objDistrictProviderResponse = restTemplate.postForObject(CommonConstants.URLService.URL_ADD_DISTRICT_PROVIDER, objDistrictProviderRequest, DistrictProviderResponse.class);
+		
+		if(CommonConstants.Response.RESPONSE_SUCCESS_DISTRICT_PROVIDER.equals(objDistrictProviderResponse.getCodeResponse())){
+			benResponse.setReturnPage(CommonConstants.Page.REDIRECT_INACTIVE_ACCOUNT_PAGE);
+		}else{
+			benResponse.setReturnPage(CommonConstants.Page.REDIRECT_ERROR);
+		}
+		
 		return benResponse;
 	}
 

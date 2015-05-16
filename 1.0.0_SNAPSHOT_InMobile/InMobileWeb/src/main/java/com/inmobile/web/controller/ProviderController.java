@@ -1,5 +1,7 @@
 package com.inmobile.web.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +15,20 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.inmobile.web.bean.DistrictProviderDTO;
 import com.inmobile.web.bean.ProviderDTO;
 import com.inmobile.web.bean.ReturnService;
+import com.inmobile.web.bean.UbigeoDepartmentDTO;
 import com.inmobile.web.facade.ProviderManager;
-import com.inmobile.web.util.CommonConstants;
+import com.inmobile.web.facade.UserManager;
 
 @Controller
 public class ProviderController {
 	
 	@Autowired
 	private ProviderManager objProviderManager;
+	@Autowired
+	private UserManager userManager;	
 	
 	@RequestMapping("registerProvider.htm")
 	public ModelAndView validateUserForm(
@@ -31,16 +37,53 @@ public class ProviderController {
 			final BindingResult result, final SessionStatus status,
 			final HttpServletRequest request,final ModelMap model) {
 		
-		String response = CommonConstants.Page.REDIRECT_INIT_PAGE;
-		
 		System.out.println("Entro en el metodo de registro de proveedores");
 		System.out.println("ID User : "+objProviderDTO.getIdUser()+"*** "+objProviderDTO.getNameContact()
 				+"*** "+objProviderDTO.getEmailContact()+"**"+objProviderDTO.getDepartment()+"**"
 				+objProviderDTO.getProvince()+"**"
 				+objProviderDTO.getDistrict());
 		ReturnService beanReturn = objProviderManager.saveProviderInformation(objProviderDTO,file);
+		DistrictProviderDTO objDistrictProviderDTO = new DistrictProviderDTO();
+		objDistrictProviderDTO.setDepartment(1);
+		objDistrictProviderDTO.setProvince(0);
+		objDistrictProviderDTO.setDistrict(0);
+		model.addAttribute("idDistrictProvider","");
+		model.addAttribute("districtForm",objDistrictProviderDTO);
+		request.setAttribute("department", 1);
 		request.setAttribute("idUserReq", beanReturn.getIdUser());
-		return  new ModelAndView(beanReturn.getReturnPage());
+		return new ModelAndView(beanReturn.getReturnPage());
+	}
+	
+	@RequestMapping("registerDistrictProvider.htm")
+	public ModelAndView registerDistrictProvider(@RequestParam("idUser") String idUser, @ModelAttribute DistrictProviderDTO objDistrictProviderDTO,final BindingResult result, final SessionStatus status,
+			final HttpServletRequest request,final ModelMap model){
+		System.out.println("Entro en el metodo de registro de distritos de proveedores");
+		System.out.println("LOS VALORES SON LOS SIGUIENTES: "+objDistrictProviderDTO.getIdDistrict());
+		objDistrictProviderDTO.setIdProvider(Integer.parseInt(idUser));
+		String[] districts = objDistrictProviderDTO.getIdDistrict().split("-");
+		
+		String returnPage = "";
+		for(String idDistrict : districts){
+			objDistrictProviderDTO.setIdDistrict(idDistrict);
+			ReturnService objReturnService = objProviderManager.saveProviderDistrict(objDistrictProviderDTO);
+			System.out.println(objReturnService.getMessages());
+			returnPage = objReturnService.getReturnPage();
+		}
+
+		return new ModelAndView(returnPage);
+	}
+	
+	@ModelAttribute("listAllDepartment")
+	public final List<UbigeoDepartmentDTO> departmentList(
+	        final HttpServletRequest request) {
+		try {
+			List<UbigeoDepartmentDTO> listAllDepartment=userManager.listDepartment();
+			System.out.println("Cantidad de areas  para cargar:"+listAllDepartment.size());
+			return listAllDepartment;
+		} catch (Exception e) {
+			System.out.println("Error : "+e.toString());
+		}
+		return null;
 	}
 	
 }
