@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.rest.web.service.inmobile.bean.image.ImageRequest;
+import com.rest.web.service.inmobile.bean.restaurant.DistrictProviderRequest;
 import com.rest.web.service.inmobile.bean.restaurant.ProviderRequest;
 import com.rest.web.service.inmobile.bean.restaurant.RestaurantRequest;
 import com.rest.web.service.inmobile.bean.ubigeo.Ubigeo;
 import com.rest.web.service.inmobile.bean.user.UserRequest;
-import com.rest.web.service.inmobile.bean.user.UserResponse;
 import com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant;
 import com.rest.web.service.inmobile.hibernate.bean.Department;
 import com.rest.web.service.inmobile.hibernate.bean.District;
+import com.rest.web.service.inmobile.hibernate.bean.DistrictProvider;
 import com.rest.web.service.inmobile.hibernate.bean.Image;
 import com.rest.web.service.inmobile.hibernate.bean.Provider;
 import com.rest.web.service.inmobile.hibernate.bean.Province;
@@ -74,6 +75,13 @@ public class ConvertClass {
 		objProvider.setIdImage(objProviderRequest.getIdImage());
 		objProvider.setIdPlan(objProviderRequest.getIdPlan());
 		return objProvider;
+	}
+	
+	public static DistrictProvider convertDistrictProviderRequestToDataBase(DistrictProviderRequest objDistrictProviderRequest){
+		DistrictProvider objDistrictProvider = new DistrictProvider();
+		objDistrictProvider.setIdDistrict(objDistrictProviderRequest.getIdDistrict());
+		objDistrictProvider.setIdProvider(objDistrictProviderRequest.getIdProvider());
+		return objDistrictProvider;
 	}
 	
 	public static List<Ubigeo> convertDataBasetoUbigeo(List<Department> listBeanDepartments){

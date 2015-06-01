@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rest.web.service.inmobile.hibernate.ProviderHibernate;
+import com.rest.web.service.inmobile.hibernate.bean.DistrictProvider;
 import com.rest.web.service.inmobile.hibernate.bean.Provider;
 
 @Repository
@@ -21,6 +22,16 @@ public class ProviderHibernateImpl implements ProviderHibernate {
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(objProvider);
 		System.out.println("Last ID : "+objProvider.getId());
+		transaction.commit();
+		session.close();
+	}
+
+	public void saveDistrictProvider(DistrictProvider objDistrictProvider)
+			throws Exception {
+		Session session = sessionfactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		session.saveOrUpdate(objDistrictProvider);
+		System.out.println("Last ID : "+objDistrictProvider.getId());
 		transaction.commit();
 		session.close();
 	}

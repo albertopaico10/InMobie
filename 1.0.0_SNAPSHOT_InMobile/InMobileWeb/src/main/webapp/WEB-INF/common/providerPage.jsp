@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/common/taglib.jsp"%>
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 <div>
 
 <div class="well">
@@ -46,7 +47,7 @@
 		<div class="row show-grid-forms">
 			<div class="col-sm-3">
 				<spring:message code="common.label.ruc" var="rucP"/>
-				<html:input path="ruc" maxlength="60"  class="form-control input-lg" id="ruc" placeholder="${rucP}"/>
+				<html:input path="ruc" maxlength="11"  class="form-control input-lg" id="ruc" placeholder="${rucP}"/>
 			</div>
 			<div class="col-sm-3">
 				<spring:message code="common.label.reference" var="referenceP"/>
@@ -64,12 +65,9 @@
 		</div>
 		<div class="row show-grid-forms">
 			<div class="col-sm-3">
-				<spring:message code="common.label.ruc" var="rucP"/>
-				<input type="file" name="fileLogo" id="fileLogo" multiple accept='image/*'>
+				<input type="file" name="fileLogo" id="fileLogo"  multiple accept='image/*'>
 			</div>
 		</div>
-		
-		
 		<p><b><spring:message code="common.title.contact.information" /></b></p>
 		<div class="row show-grid-forms">
 			<div class="col-sm-3">
@@ -78,7 +76,7 @@
 			</div>
 			<div class="col-sm-3">
 				<spring:message code="common.label.phone.contact" var="phoneContactP"/>
-				<html:input path="phoneContact" maxlength="60"  class="form-control input-lg" id="phoneContact" placeholder="${phoneContactP}"/>
+				<html:input path="phoneContact" maxlength="10"  class="form-control input-lg" id="phoneContact" placeholder="${phoneContactP}"/>
 			</div>
 			<div class="col-sm-3">
 				<spring:message code="common.label.anexo" var="anexoP"/>
@@ -92,7 +90,7 @@
 			</div>
 			<div class="col-sm-3">
 				<spring:message code="common.label.celphone" var="celphoneContactP"/>
-				<html:input path="celphoneContact" maxlength="60"  class="form-control input-lg" id="celphoneContact" placeholder="${celphoneContactP}"/>
+				<html:input path="celphoneContact" maxlength="10"  class="form-control input-lg" id="celphoneContact" placeholder="${celphoneContactP}"/>
 			</div>
 		</div>
 		<div class="row show-grid-forms">
@@ -130,6 +128,90 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
+	$("#idproviderForm").validate({
+		rules: {
+			socialReason: "required",
+			address: "required",
+			department:{min:1},
+			comercialName: "required",
+			phone: {
+				required: true,
+			    number: true
+			},
+			province:{min:1},
+			ruc: {
+				required: true,
+			    number: true
+			},
+			district:{min:1},
+			nameContact: "required",
+			phoneContact: {
+				required: true,
+			    number: true
+			},
+			anexoContact: {
+			    number: true
+			},
+			lastNameContact: "required",
+			celphoneContact: {
+				required: true,
+			    number: true
+			},
+			chargeContact: "required",
+			idPlan : "required",
+			fileLogo: {
+				required: true,
+		        accept: "image/jpeg, image/pjpeg"/*,
+		        filesize: 1048576*/
+			}
+			
+		},
+		messages: {
+			socialReason: '<spring:message code="maintenance.generic.field.required" />',
+			address: '<spring:message code="maintenance.generic.field.required" />',
+			department:'<spring:message code="select.value.cbo.option" />',
+			comercialName: '<spring:message code="maintenance.generic.field.required" />',
+			phone: {
+				required: '<spring:message code="maintenance.generic.field.required" />',
+			    number: '<spring:message code="generic.field.number.format" />'
+			},
+			province:'<spring:message code="select.value.cbo.option" />',
+			ruc: {
+				required: '<spring:message code="maintenance.generic.field.required" />',
+			    number: '<spring:message code="generic.field.number.format" />'
+			},
+			district:'<spring:message code="select.value.cbo.option" />',
+			nameContact: '<spring:message code="maintenance.generic.field.required" />',
+			phoneContact: {
+				required: '<spring:message code="maintenance.generic.field.required" />',
+			    number: '<spring:message code="generic.field.number.format" />'
+			},
+			anexoContact: {
+			    number: '<spring:message code="generic.field.number.format" />'
+			},
+			lastNameContact: '<spring:message code="maintenance.generic.field.required" />',
+			celphoneContact: {
+				required: '<spring:message code="maintenance.generic.field.required" />',
+			    number: '<spring:message code="generic.field.number.format" />'
+			},
+			chargeContact: '<spring:message code="maintenance.generic.field.required" />',
+			idPlan: '<spring:message code="maintenance.generic.field.required" />',
+			fileLogo: {
+				required: '<spring:message code="maintenance.generic.field.required" />'/*,
+				filesize: 'LOL'*/
+			}
+			
+		},
+        submitHandler: function(form) {
+            form.submit();
+        }
+		
+	});
+// 	$("#fileLogo").rules('add',{
+// 		required: true,
+//         accept: "image/jpeg, image/pjpeg",
+//         filesize: 1048576
+// 	});
 	$("#department").change(function(){
 		$.ajax({
 		    url: "${pageContext.request.contextPath}/getProvince.htm?departmentId="+$(this).val(),
@@ -157,9 +239,7 @@ $(document).ready(function() {
 		 		    options += '<option value="' + data[i].idDistrict + '">' + data[i].nameDistrict + '</option>';
 		 		}
 			    $("#district").html(options);
-
-
-		    	}
+		    }
 		});
 	});
 }); 

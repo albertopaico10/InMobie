@@ -2315,6 +2315,51 @@ insert into tb_district values
 (1830, 'CURIMANA', 192),
 (1831, 'PURUS', 193);
 commit;
+
+DROP TABLE IF EXISTS tb_provider;
+CREATE TABLE tb_provider (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  socialReason varchar(200) DEFAULT NULL,
+  nameProvider varchar(200) DEFAULT NULL,
+  RUCProvider varchar(20) DEFAULT NULL,
+  addressProvider varchar(200) DEFAULT NULL,
+  phoneProvider varchar(20) DEFAULT NULL,
+  referenceProvider varchar(200) DEFAULT NULL,
+  idDistrictProvider int(11) DEFAULT NULL,
+  idProvinceProvider int(11) DEFAULT NULL,
+  idDeparmentProvider int(11) DEFAULT NULL,
+  idCategory int(11) DEFAULT NULL,
+  nameContact varchar(200) DEFAULT NULL,
+  lastNameContact varchar(200) DEFAULT NULL,
+  chargeContact varchar(200) DEFAULT NULL,
+  phoneContact varchar(20) DEFAULT NULL,
+  cellphoneContact varchar(20) DEFAULT NULL,
+  referenceContact varchar(200) DEFAULT NULL,
+  anexoContact varchar(20) DEFAULT NULL,
+  idUser int(11) DEFAULT NULL,
+  status int(11) DEFAULT NULL,
+  idImage int(11) DEFAULT NULL,
+  idPlan int(11) DEFAULT NULL,
+  date_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  date_updated timestamp NULL DEFAULT NULL,
+  user_created int(11) DEFAULT NULL,
+  user_updated int(11) DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY idUser (idUser),
+  KEY idCategory (idCategory),
+  KEY idImage (idImage),
+  CONSTRAINT tb_provider_ibfk_1 FOREIGN KEY (idUser) REFERENCES tb_user (id),
+  CONSTRAINT tb_provider_ibfk_3 FOREIGN KEY (idImage) REFERENCES tb_image (id)
+);
+
+DROP TABLE IF EXISTS tb_district_provider;
+CREATE TABLE tb_district_provider (
+  id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  idDistrict int(10) unsigned NOT NULL,
+  idProvider int(10) unsigned NOT NULL,
+  PRIMARY KEY (id)
+);
+
 /*
 drop table tb_country;
 drop table tb_state;

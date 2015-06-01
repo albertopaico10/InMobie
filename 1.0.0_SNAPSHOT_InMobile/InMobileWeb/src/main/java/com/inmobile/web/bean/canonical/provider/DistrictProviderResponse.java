@@ -1,7 +1,7 @@
-package com.inmobile.web.bean.canonical.restaurant;
+package com.inmobile.web.bean.canonical.provider;
 
-public class ProviderResponse {
-	
+public class DistrictProviderResponse {
+
 	private int id;
 	private int idUser;
 	private String codeResponse;
@@ -38,5 +38,6 @@ public class ProviderResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	
 }

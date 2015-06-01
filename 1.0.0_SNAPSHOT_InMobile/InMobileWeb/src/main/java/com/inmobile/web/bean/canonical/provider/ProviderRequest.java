@@ -1,4 +1,4 @@
-package com.inmobile.web.bean.canonical.restaurant;
+package com.inmobile.web.bean.canonical.provider;
 
 import java.sql.Timestamp;
 

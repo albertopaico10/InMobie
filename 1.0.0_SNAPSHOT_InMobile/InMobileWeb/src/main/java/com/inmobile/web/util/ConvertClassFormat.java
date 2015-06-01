@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.inmobile.web.bean.DistrictProviderDTO;
 import com.inmobile.web.bean.ProviderDTO;
 import com.inmobile.web.bean.RegisterUserDTO;
 import com.inmobile.web.bean.RestaurantDTO;
@@ -13,7 +14,8 @@ import com.inmobile.web.bean.UbigeoDepartmentDTO;
 import com.inmobile.web.bean.UbigeoDistrictDTO;
 import com.inmobile.web.bean.UbigeoProvinceDTO;
 import com.inmobile.web.bean.canonical.image.ImageRequest;
-import com.inmobile.web.bean.canonical.restaurant.ProviderRequest;
+import com.inmobile.web.bean.canonical.provider.DistrictProviderRequest;
+import com.inmobile.web.bean.canonical.provider.ProviderRequest;
 import com.inmobile.web.bean.canonical.restaurant.RestaurantRequest;
 import com.inmobile.web.bean.canonical.ubigeo.Ubigeo;
 import com.inmobile.web.bean.canonical.ubigeo.UbigeoResponse;
@@ -76,6 +78,13 @@ public class ConvertClassFormat {
 		objProvideRequest.setIdPlan(Integer.parseInt(objProviderDTO.getIdPlan()));
 //		beanRequest.setIdImage(restaurantBeanDTO.get);
 		return objProvideRequest;
+	}
+	
+	public static DistrictProviderRequest convertWebToServiceDistrictProvider(DistrictProviderDTO objDistrictProviderDTO){
+		DistrictProviderRequest objDistrictProviderRequest = new DistrictProviderRequest();
+		objDistrictProviderRequest.setIdDistrict(Integer.parseInt(objDistrictProviderDTO.getIdDistrict()));
+		objDistrictProviderRequest.setIdProvider(objDistrictProviderDTO.getIdProvider());
+		return objDistrictProviderRequest;
 	}
 	
 	public static List<UbigeoDepartmentDTO> convertResponsetToListUbigeoDepartmentDTO(UbigeoResponse beanUbigeoResponse){
