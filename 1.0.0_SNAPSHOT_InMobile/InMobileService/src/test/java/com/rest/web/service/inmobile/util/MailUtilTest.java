@@ -59,4 +59,12 @@ public class MailUtilTest {
 		System.out.println("descriptedValue : "+descriptedValue);
 		
 	}
+	
+	@Test
+	public void testRecoverValues()throws Exception{
+		String value="content://media/external/images/media/7887";
+		String newValue="";
+		String arrayStr[]=value.split("content://");
+		System.out.println("*** "+arrayStr[0].toString()+"*** "+arrayStr[1].toString());
+	}
 }
