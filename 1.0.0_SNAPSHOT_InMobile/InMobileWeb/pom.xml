@@ -166,4 +166,8 @@
 
 
 	</dependencies>
+	
+	<build>
+		<finalName>InMobileWeb</finalName>
+	</build>
 </project>

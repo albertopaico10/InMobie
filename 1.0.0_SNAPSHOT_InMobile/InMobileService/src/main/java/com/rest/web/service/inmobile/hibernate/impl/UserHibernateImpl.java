@@ -80,14 +80,31 @@ public class UserHibernateImpl implements UserHibernate {
 	}
 	
 	public User findUSerBean(String idUser)throws Exception{
+		User beanUser=null;
 		String query="from User where status=1 and id='"+idUser+"'";
 		System.out.println("query : "+query);
 		Session session=sessionfactory.openSession();
 		
 		List<User> listSpecificById=session.createQuery(query).list();
 		System.out.println("Cantidad de filas : "+listSpecificById.size());
-					
-		return listSpecificById.get(0);
+		if(listSpecificById.size()>0){
+			beanUser=listSpecificById.get(0);
+		}		
+		return beanUser;
+	}
+	
+	public User findUserByRestaurant(String idRestaurant)throws Exception{
+		User beanUser=null;
+		String query="from User where status=1 and id='"+idRestaurant+"'";
+		System.out.println("query : "+query);
+		Session session=sessionfactory.openSession();
+		
+		List<User> listSpecificById=session.createQuery(query).list();
+		System.out.println("Cantidad de filas : "+listSpecificById.size());
+		if(listSpecificById.size()>0){
+			beanUser=listSpecificById.get(0);
+		}		
+		return beanUser;
 	}
 	
 	public User findUSerBeanActiveAccount(String idUser)throws Exception{
@@ -100,5 +117,5 @@ public class UserHibernateImpl implements UserHibernate {
 					
 		return listSpecificById.get(0);
 	}
-
+	
 }

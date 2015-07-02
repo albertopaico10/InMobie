@@ -10,7 +10,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
 <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
-<link href="${pageContext.request.contextPath}/resources/bootstrap/css/style.css" rel="stylesheet"></link>
+<%-- <link href="${pageContext.request.contextPath}/resources/bootstrap/css/style.css" rel="stylesheet"></link> --%>
 
 <!-- script references -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>

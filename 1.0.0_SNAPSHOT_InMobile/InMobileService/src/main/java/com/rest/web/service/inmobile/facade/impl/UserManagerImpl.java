@@ -2,15 +2,24 @@ package com.rest.web.service.inmobile.facade.impl;
 
 import javax.mail.MessagingException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rest.web.service.inmobile.bean.restaurant.RestaurantResponse;
+import com.rest.web.service.inmobile.bean.ubigeo.UbigeoResponse;
 import com.rest.web.service.inmobile.bean.user.UserRequest;
 import com.rest.web.service.inmobile.bean.user.UserResponse;
 import com.rest.web.service.inmobile.facade.ReqRespManager;
+import com.rest.web.service.inmobile.facade.UbigeoManager;
 import com.rest.web.service.inmobile.facade.UserManager;
+import com.rest.web.service.inmobile.hibernate.ImageHibernate;
+import com.rest.web.service.inmobile.hibernate.RestaurantHibernate;
+import com.rest.web.service.inmobile.hibernate.UbigeoHibernate;
 import com.rest.web.service.inmobile.hibernate.UserHibernate;
+import com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant;
 import com.rest.web.service.inmobile.hibernate.bean.RequestResponse;
 import com.rest.web.service.inmobile.hibernate.bean.User;
 import com.rest.web.service.inmobile.util.CommonConstants;
@@ -21,11 +30,19 @@ import com.rest.web.service.inmobile.util.UtilMethods;
 @Service
 @Transactional
 public class UserManagerImpl implements UserManager{
-
+	private static final Logger logger = LoggerFactory.getLogger(UserManagerImpl.class);
 	@Autowired
 	private UserHibernate userHibernate;
 	@Autowired
 	ReqRespManager reqRespManager;
+	@Autowired
+	private RestaurantHibernate restaurantHibernate;
+	@Autowired
+	private UbigeoHibernate ubigeoHibernate;
+	@Autowired
+	private ImageHibernate imageHibernate;
+	@Autowired
+	private UbigeoManager ubigeoManager;
 	
 	public UserResponse saveUserInformation(UserRequest userRequest) {
 		System.out.println("Entreeeeee saveUserInformation");
@@ -108,7 +125,7 @@ public class UserManagerImpl implements UserManager{
 
 	public String buildURL(int idUser){
 		String URL=CommonConstants.ValuesProject.URL_SERVER+CommonConstants.ValuesProject.PROJECT_VALUE+CommonConstants.ValuesProject.ACTION_CONTINUE;
-		String encriptedValue=UtilMethods.encriptedPassword(String.valueOf(idUser), CommonConstants.EncriptedValues.ALGORITHM_MD5);
+		String encriptedValue=UtilMethods.encriptValue(String.valueOf(idUser));
 		System.out.println("Encripted ID : "+encriptedValue);
 		URL=URL+encriptedValue;
 		System.out.println("Final URL : "+URL);
@@ -143,23 +160,37 @@ public class UserManagerImpl implements UserManager{
 							userBeanResponse.setIdUser(userBean.getId());
 							userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VALIDATION);
 							userBeanResponse.setMessagesResponse(CommonConstants.CodeResponse.CODE_RESPONSE_IS_RESTAURANT);
-							userBeanResponse.setDescription(userBean.getEmail());
+							//--Get Restaurant Values
+							ClientRestaurant beanClientClientRestaurant=restaurantHibernate.getDataRestaurantByUserId(userBean.getId());
+							if(beanClientClientRestaurant!=null){
+								RestaurantResponse beanRestaurantResponse=ConvertClass.convertFromDatabaseToRestaurantResponse(beanClientClientRestaurant,ubigeoHibernate,imageHibernate);
+								userBeanResponse.setBeanResponseRestaurant(beanRestaurantResponse);
+								UbigeoResponse beanUbigeoResponseProvince=ubigeoManager.listAllProvince(beanClientClientRestaurant.getIdDeparmentRestaurant());
+								userBeanResponse.setBeanUbigeoResponseProvince(beanUbigeoResponseProvince);
+								UbigeoResponse beanUbigeoDistrict=ubigeoManager.listAllDistrict(beanClientClientRestaurant.getIdProvinceRestaurant());
+								userBeanResponse.setBeanUbigeoResponseDistrict(beanUbigeoDistrict);
+							}
 						}
 						else{
 							//Pantalla de ingresar datos para el proveedor
 							userBeanResponse.setIdUser(userBean.getId());
 							userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VALIDATION);
 							userBeanResponse.setMessagesResponse(CommonConstants.CodeResponse.CODE_RESPONSE_IS_PROVIDER);
-							userBeanResponse.setDescription(userBean.getEmail());
 						}
 						
 					}else if(userBean.getStatus()==3){
 						userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VALIDATION);
 						userBeanResponse.setMessagesResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ACCOUNT_PENDING_VALDATION);
-						userBeanResponse.setDescription(userBean.getEmail());
+					}else if(userBean.getStatus()==4){
+						if(userBean.getTypeUser()==0){
+							userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VALIDATION);
+							userBeanResponse.setMessagesResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ACCOUNT_ADMIN);
+						}
+						
 					}
-					
-
+					userBeanResponse.setEmail(userBean.getEmail());
+					userBeanResponse.setStatus(userBean.getStatus());
+					userBeanResponse.setTypeUser(userBean.getTypeUser());
 				}else{
 					userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_FAIL_VALIDATION);
 					userBeanResponse.setMessagesResponse("The email or password is incorrect");
@@ -184,9 +215,15 @@ public class UserManagerImpl implements UserManager{
 	public UserResponse activeAccount(String idUSerEncripted) {
 		UserResponse userBeanResponse=new UserResponse();
 		try {
-			String desencriptValue=UtilMethods.descriptionPassword(idUSerEncripted, CommonConstants.EncriptedValues.ALGORITHM_MD5);
-			System.out.println("ID descripted : "+desencriptValue);
+			String desencriptValue=UtilMethods.descriptValue(idUSerEncripted);
+			logger.info("ID descripted : "+desencriptValue);
 			User beanUser=userHibernate.findUSerBean(desencriptValue);
+			if(beanUser==null){
+				userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_LINK_USED);
+				userBeanResponse.setMessagesResponse("This link was used before.");
+				userBeanResponse.setDescription("The User id "+desencriptValue);
+				return userBeanResponse;
+			}
 			beanUser.setStatus(2);
 			//--Update status User
 			userHibernate.saveUserResponseId(beanUser);

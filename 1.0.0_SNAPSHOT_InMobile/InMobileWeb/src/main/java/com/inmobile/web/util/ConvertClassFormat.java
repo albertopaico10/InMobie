@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.inmobile.web.bean.CheckRestaurantDTO;
 import com.inmobile.web.bean.DistrictProviderDTO;
 import com.inmobile.web.bean.ProviderDTO;
 import com.inmobile.web.bean.RegisterUserDTO;
@@ -16,7 +17,10 @@ import com.inmobile.web.bean.UbigeoProvinceDTO;
 import com.inmobile.web.bean.canonical.image.ImageRequest;
 import com.inmobile.web.bean.canonical.provider.DistrictProviderRequest;
 import com.inmobile.web.bean.canonical.provider.ProviderRequest;
+import com.inmobile.web.bean.canonical.restaurant.CheckRestaurantActive;
 import com.inmobile.web.bean.canonical.restaurant.RestaurantRequest;
+import com.inmobile.web.bean.canonical.restaurant.RestaurantResponse;
+import com.inmobile.web.bean.canonical.restaurant.SchedulerRestaurantRequest;
 import com.inmobile.web.bean.canonical.ubigeo.Ubigeo;
 import com.inmobile.web.bean.canonical.ubigeo.UbigeoResponse;
 import com.inmobile.web.bean.canonical.user.UserRequest;
@@ -51,7 +55,7 @@ public class ConvertClassFormat {
 		beanRequest.setReferenceContact(restaurantBeanDTO.getReference());
 		beanRequest.setAnexoContact(restaurantBeanDTO.getAnexoContact());
 		beanRequest.setIdUser(Integer.parseInt(restaurantBeanDTO.getIdUser()));
-//		beanRequest.setIdImage(restaurantBeanDTO.get);
+		beanRequest.setId(restaurantBeanDTO.getId());
 		return beanRequest;
 	}
 	
@@ -131,5 +135,67 @@ public class ConvertClassFormat {
 		beanRequestImage.setNameFile(file.getOriginalFilename());
 		beanRequestImage.setFormatFile(CommonConstants.Format.FORMAT_JPG);
 		return beanRequestImage;
+	}
+	
+	
+	public static RestaurantDTO convertFromServiceToRestaurantDTO(RestaurantResponse beanRestaurantResponse){
+		RestaurantDTO beanRestaurantDTO=new RestaurantDTO();
+		beanRestaurantDTO.setAddress(beanRestaurantResponse.getAddressRestaurant());
+		beanRestaurantDTO.setAnexoContact(beanRestaurantResponse.getAnexoContact());
+		beanRestaurantDTO.setCelphoneContact(beanRestaurantResponse.getCellphoneContact());
+		beanRestaurantDTO.setChargeContact(beanRestaurantResponse.getChargeContact());
+		beanRestaurantDTO.setComercialName(beanRestaurantResponse.getNameRestaurant());
+		beanRestaurantDTO.setDepartment(String.valueOf(beanRestaurantResponse.getIdDeparmentRestaurant()));
+		beanRestaurantDTO.setDistrict(String.valueOf(beanRestaurantResponse.getIdDistrictRestaurant()));
+		beanRestaurantDTO.setLastNameContact(beanRestaurantResponse.getLastNameContact());
+		beanRestaurantDTO.setNameContact(beanRestaurantResponse.getNameContact());
+		beanRestaurantDTO.setPhone(beanRestaurantResponse.getPhoneRestaurant());
+		beanRestaurantDTO.setPhoneContact(beanRestaurantResponse.getPhoneContact());
+		beanRestaurantDTO.setProvince(String.valueOf(beanRestaurantResponse.getIdProvinceRestaurant()));
+		beanRestaurantDTO.setReference(beanRestaurantResponse.getReferenceRestaurant());
+		beanRestaurantDTO.setRuc(beanRestaurantResponse.getRUCRestaurant());
+		beanRestaurantDTO.setSocialReason(beanRestaurantResponse.getSocialReason());
+		beanRestaurantDTO.setFileName(beanRestaurantResponse.getNameImage());
+		beanRestaurantDTO.setIdImage(beanRestaurantResponse.getIdImage());
+		beanRestaurantDTO.setId(beanRestaurantResponse.getId());
+		
+		beanRestaurantDTO.setDepartmentNameSpecific(beanRestaurantResponse.getNameDepartment());
+		beanRestaurantDTO.setDistrictNameSpecific(beanRestaurantResponse.getNameDistrict());
+		beanRestaurantDTO.setProvinceNameSpecific(beanRestaurantResponse.getNameProvince());
+		return beanRestaurantDTO;
+	}
+	
+	public static SchedulerRestaurantRequest convertFromWebToServiceScheduler(int idUser,String daysHours){
+		SchedulerRestaurantRequest beanScheduler=new SchedulerRestaurantRequest();
+		beanScheduler.setIdUser(idUser);
+		beanScheduler.setDaysAndHours(daysHours);
+		return beanScheduler;
+	}
+	
+	public static List<RestaurantDTO> convertFromServiceToListRestaurantDTO(List<RestaurantResponse> listRestaurantResponse){
+		List<RestaurantDTO> listRestaurantDTO=new ArrayList<RestaurantDTO>();
+		for(RestaurantResponse beanRestaurantResponse:listRestaurantResponse){
+			RestaurantDTO beanRestaurantDTO=convertFromServiceToRestaurantDTO(beanRestaurantResponse);
+			listRestaurantDTO.add(beanRestaurantDTO);
+		}
+		return listRestaurantDTO;
+	}
+	
+	public static CheckRestaurantActive convertFromWebToServiceCheckRest(CheckRestaurantDTO beanDTO){
+		CheckRestaurantActive beanActive=new CheckRestaurantActive();
+		beanActive.setId(beanDTO.getIdCheck());
+		beanActive.setIdMembershipPlan(beanDTO.getIdMembershipPlan());
+		beanActive.setIdRestaurant(beanDTO.getRestaurantId());
+		beanActive.setManualReception(beanDTO.getManualReception());
+		beanActive.setTraining(beanDTO.getTraining());
+		beanActive.setVerificationAddress(beanDTO.getVerificationAddress());
+		beanActive.setVerificationSunat(beanDTO.getVerificationSunat());
+		beanActive.setVerificationUser(beanDTO.getVerificationUser());
+		if(beanDTO.getUpdateStatus()==1){
+			beanActive.setUpdateStatus(true);
+		}else{
+			beanActive.setUpdateStatus(false);
+		}
+		return beanActive;
 	}
 }

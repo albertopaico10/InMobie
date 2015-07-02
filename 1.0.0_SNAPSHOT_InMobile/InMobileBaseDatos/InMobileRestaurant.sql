@@ -10,13 +10,14 @@ CREATE TABLE tb_User(
 	email VARCHAR(60),
 	passwordUser VARCHAR(60),
 	typeUser INT,
-	idEncripted varchar(500),
 	status INT,
 	date_created TIMESTAMP DEFAULT NOW(),
 	date_updated TIMESTAMP DEFAULT NOW(),
 	user_created INT,
 	user_updated INT
 );
+#password = Pa55w0rd
+insert into tb_User (id,email,passwordUser,typeUser,status,user_created,user_updated) values(0,'admin@inmoble.pe','UdLdXVla3TJX5ovpja8EhQ==',0,4,0,0);
 
 /*Table Restaurant*/
 CREATE TABLE tb_ClientRestaurant(
@@ -52,6 +53,20 @@ Falta detalle de recepcion de pedidos
 ALTER TABLE tb_ClientRestaurant
 ADD FOREIGN KEY (idUser)
 REFERENCES tb_User(id);
+
+CREATE TABLE tb_SchedulerRestaurant(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	idRestaurant INT,
+	dayOfWeek INT,
+	specificHour VARCHAR(100),
+	date_created TIMESTAMP DEFAULT NOW(),
+	user_created INT
+);
+
+ALTER TABLE tb_SchedulerRestaurant
+ADD FOREIGN KEY (idRestaurant)
+REFERENCES tb_ClientRestaurant(id);
+
 
 /*Table Provider*/
 CREATE TABLE tb_Provider(
@@ -154,12 +169,14 @@ REFERENCES tb_CategoryProvider(id);
 CREATE TABLE tb_Image(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	categoryImage VARCHAR(200),
-	img LONGBLOB NOT NULL,
+	img LONGBLOB NULL,
 	date_created TIMESTAMP DEFAULT NOW(),
 	date_updated TIMESTAMP DEFAULT NOW(),
 	user_created INT,
 	user_updated INT
 );
+insert into tb_image (id,categoryImage) values ('0','DEFAULT_IMAGE');
+commit;
 ALTER TABLE tb_Provider
 ADD FOREIGN KEY (idImage)
 REFERENCES tb_Image(id);
@@ -247,7 +264,40 @@ CREATE TABLE tb_Request_Response(
 	date_created TIMESTAMP DEFAULT NOW(),
 	user_created INT
 );
+drop table tb_check_active_restaurant;
+CREATE TABLE tb_check_active_restaurant(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	idRestaurant INT,
+	verificationSunat INT,
+	verificationAddress INT,
+	verificationUser INT,
+	manualReception INT,
+	training INT,
+	idMemberShipPlan INT,
+	status INT,
+	date_created TIMESTAMP DEFAULT NOW(),
+	user_created INT
+);
 
+ALTER TABLE tb_check_active_restaurant
+ADD FOREIGN KEY (idRestaurant)
+REFERENCES tb_ClientRestaurant(id);
+
+CREATE TABLE tb_PlanMenber(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	valuePlanMenber varchar(200),
+	status INT
+);
+
+ALTER TABLE tb_check_active_restaurant
+ADD FOREIGN KEY (idMemberShipPlan)
+REFERENCES tb_PlanMenber(id);
+
+insert into tb_PlanMenber (valuePlanMenber,status) values('3 Meses',1);
+insert into tb_PlanMenber (valuePlanMenber,status) values('6 Meses',1);
+insert into tb_PlanMenber (valuePlanMenber,status) values('12 Meses',1);
+insert into tb_PlanMenber (valuePlanMenber,status) values('Free',1);
+#select * from tb_PlanMenber;
 
 CREATE TABLE tb_country(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

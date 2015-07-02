@@ -20,6 +20,7 @@
 						<div id="idDivLnkLogin" style="display: none">
 							<span class="pull-right"><a href="#" id="lnkLoginCustomer"><spring:message code="page.login.again" /></a></span>
 						</div>
+						<br>
 						<div class="form-group">
 							<html:input path="user" maxlength="60"  class="form-control input-lg" id="userName" placeholder="Email"/>
 						</div>
@@ -32,7 +33,7 @@
 								<html:radiobutton path="typeUser" id="rbRestaurante" value="2"/><span><spring:message code="login.radiobutton.restaurant" /></span>
 							</div>
 							<div class="form-group">
-								<input type="checkbox" name="idAcceptTerms"  id="idAcceptTerms"><span><spring:message code="login.term.condition" /></span>
+								<input type="checkbox" name="idAcceptTerms" id="idAcceptTerms"><span><spring:message code="login.term.condition" /></span>
 							</div>
 							<div class="form-group">
 								<span><spring:message code="login.label.accept.term.condition" /></span><span><a href="#"><spring:message code="common.value.document-pdf" /></a></span>

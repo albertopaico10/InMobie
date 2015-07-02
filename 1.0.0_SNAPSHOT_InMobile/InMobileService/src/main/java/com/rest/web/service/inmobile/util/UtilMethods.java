@@ -99,5 +99,18 @@ public class UtilMethods {
 	    }
 	    return data;
 	}
+	
+	public static String encriptValue(String value){
+		String valueEncript="";
+		byte[] byteValue=value.getBytes();
+		valueEncript=bytesToHexString(byteValue);
+		return valueEncript;
+	}
+	
+	public static String descriptValue(String valueEncript){
+		byte[] byteValue=hexStringToByteArray(valueEncript);
+		String valueNormal=new String(byteValue);
+		return valueNormal;
+	}
 
 }

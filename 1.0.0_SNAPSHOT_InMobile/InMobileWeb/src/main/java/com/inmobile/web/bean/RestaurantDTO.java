@@ -19,6 +19,12 @@ public class RestaurantDTO {
 	public String chargeContact;
 	public String emailContact;
 	public String idUser;
+	public String fileName;
+	public int idImage;
+	public int id;
+	public String departmentNameSpecific;
+	public String districtNameSpecific;
+	public String provinceNameSpecific;
 	
 	public String getSocialReason() {
 		return socialReason;
@@ -121,5 +127,41 @@ public class RestaurantDTO {
 	}
 	public void setIdUser(String idUser) {
 		this.idUser = idUser;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getIdImage() {
+		return idImage;
+	}
+	public void setIdImage(int idImage) {
+		this.idImage = idImage;
+	}
+	public String getDepartmentNameSpecific() {
+		return departmentNameSpecific;
+	}
+	public void setDepartmentNameSpecific(String departmentNameSpecific) {
+		this.departmentNameSpecific = departmentNameSpecific;
+	}
+	public String getDistrictNameSpecific() {
+		return districtNameSpecific;
+	}
+	public void setDistrictNameSpecific(String districtNameSpecific) {
+		this.districtNameSpecific = districtNameSpecific;
+	}
+	public String getProvinceNameSpecific() {
+		return provinceNameSpecific;
+	}
+	public void setProvinceNameSpecific(String provinceNameSpecific) {
+		this.provinceNameSpecific = provinceNameSpecific;
 	}
 }

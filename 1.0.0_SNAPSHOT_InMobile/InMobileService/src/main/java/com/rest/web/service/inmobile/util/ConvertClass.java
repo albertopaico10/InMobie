@@ -3,19 +3,30 @@ package com.rest.web.service.inmobile.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.internal.runners.model.EachTestNotifier;
+
 import com.rest.web.service.inmobile.bean.image.ImageRequest;
+import com.rest.web.service.inmobile.bean.restaurant.CheckRestaurantActive;
 import com.rest.web.service.inmobile.bean.restaurant.DistrictProviderRequest;
+import com.rest.web.service.inmobile.bean.restaurant.ListRestaurant;
 import com.rest.web.service.inmobile.bean.restaurant.ProviderRequest;
 import com.rest.web.service.inmobile.bean.restaurant.RestaurantRequest;
+import com.rest.web.service.inmobile.bean.restaurant.RestaurantResponse;
+import com.rest.web.service.inmobile.bean.restaurant.VerificationRestaurant;
 import com.rest.web.service.inmobile.bean.ubigeo.Ubigeo;
 import com.rest.web.service.inmobile.bean.user.UserRequest;
+import com.rest.web.service.inmobile.hibernate.ImageHibernate;
+import com.rest.web.service.inmobile.hibernate.UbigeoHibernate;
+import com.rest.web.service.inmobile.hibernate.bean.CheckActiveRestaurant;
 import com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant;
 import com.rest.web.service.inmobile.hibernate.bean.Department;
 import com.rest.web.service.inmobile.hibernate.bean.District;
 import com.rest.web.service.inmobile.hibernate.bean.DistrictProvider;
 import com.rest.web.service.inmobile.hibernate.bean.Image;
+import com.rest.web.service.inmobile.hibernate.bean.PlanMember;
 import com.rest.web.service.inmobile.hibernate.bean.Provider;
 import com.rest.web.service.inmobile.hibernate.bean.Province;
+import com.rest.web.service.inmobile.hibernate.bean.SchedulerRestaurant;
 import com.rest.web.service.inmobile.hibernate.bean.User;
 
 public class ConvertClass {
@@ -33,7 +44,7 @@ public class ConvertClass {
 		clienRestDataBase.setSocialReason(beanRequest.getSocialReason());
 		clienRestDataBase.setNameRestaurant(beanRequest.getNameRestaurant());
 		clienRestDataBase.setRUCRestaurant(beanRequest.getRUCRestaurant());
-		clienRestDataBase.setAddressRestaurant(beanRequest.getSocialReason());
+		clienRestDataBase.setAddressRestaurant(beanRequest.getAddressRestaurant());
 		clienRestDataBase.setPhoneRestaurant(beanRequest.getPhoneRestaurant());
 		clienRestDataBase.setReferenceRestaurant(beanRequest.getReferenceRestaurant());
 		clienRestDataBase.setIdDistrictRestaurant(beanRequest.getIdDistrictRestaurant());
@@ -49,6 +60,7 @@ public class ConvertClass {
 		clienRestDataBase.setAnexoContact(beanRequest.getAnexoContact());
 		clienRestDataBase.setIdUser(beanRequest.getIdUser());
 		clienRestDataBase.setIdImage(beanRequest.getIdImage());
+		clienRestDataBase.setId(beanRequest.getId());
 		return clienRestDataBase;
 	}
 	
@@ -127,5 +139,115 @@ public class ConvertClass {
 		byte[] imageByte=UtilMethods.hexStringToByteArray(beanImageRequest.getHexFile());
 		beanImage.setImg(imageByte);
 		return beanImage;
+	}
+	
+	public static RestaurantResponse convertFromDatabaseToRestaurantResponse(ClientRestaurant beanClientClientRestaurant,
+			UbigeoHibernate ubigeoHibernate,ImageHibernate imageHibernate){
+		RestaurantResponse beanRestaurantResp=new RestaurantResponse();
+		beanRestaurantResp.setAddressRestaurant(beanClientClientRestaurant.getAddressRestaurant());
+		beanRestaurantResp.setAnexoContact(beanClientClientRestaurant.getAnexoContact());
+		beanRestaurantResp.setCellphoneContact(beanClientClientRestaurant.getCellphoneContact());
+		beanRestaurantResp.setChargeContact(beanClientClientRestaurant.getChargeContact());
+		beanRestaurantResp.setId(beanClientClientRestaurant.getId());
+//		beanRestaurantResp.setIdCategory(beanClientClientRestaurant.getIdCategory());
+//		beanRestaurantResp.setNameCategory(nameCategory);
+		beanRestaurantResp.setLastNameContact(beanClientClientRestaurant.getLastNameContact());
+		beanRestaurantResp.setNameRestaurant(beanClientClientRestaurant.getNameRestaurant());
+		beanRestaurantResp.setPhoneContact(beanClientClientRestaurant.getPhoneContact());
+		beanRestaurantResp.setPhoneRestaurant(beanClientClientRestaurant.getPhoneRestaurant());
+		beanRestaurantResp.setReferenceContact(beanClientClientRestaurant.getReferenceContact());
+		beanRestaurantResp.setReferenceRestaurant(beanClientClientRestaurant.getReferenceRestaurant());
+		beanRestaurantResp.setRUCRestaurant(beanClientClientRestaurant.getRUCRestaurant());
+		beanRestaurantResp.setSocialReason(beanClientClientRestaurant.getSocialReason());
+		beanRestaurantResp.setNameContact(beanClientClientRestaurant.getNameContact());
+		beanRestaurantResp.setId(beanClientClientRestaurant.getId());
+		try {
+			//-- Department
+			Department beaDepartment=ubigeoHibernate.getDepartmentById(beanClientClientRestaurant.getIdDeparmentRestaurant());
+			beanRestaurantResp.setIdDeparmentRestaurant(beanClientClientRestaurant.getIdDeparmentRestaurant());
+			beanRestaurantResp.setNameDepartment(beaDepartment.getDepartmentName());
+			//-- Province
+			Province beanProvince=ubigeoHibernate.getProvinceById(beanClientClientRestaurant.getIdProvinceRestaurant());
+			beanRestaurantResp.setNameProvince(beanProvince.getProvinceName());
+			beanRestaurantResp.setIdProvinceRestaurant(beanClientClientRestaurant.getIdProvinceRestaurant());
+			//-- District
+			District beanDistrict=ubigeoHibernate.getDistrictById(beanClientClientRestaurant.getIdDistrictRestaurant());
+			beanRestaurantResp.setNameDistrict(beanDistrict.getDistrictName());
+			beanRestaurantResp.setIdDistrictRestaurant(beanClientClientRestaurant.getIdDistrictRestaurant());
+			//--Image
+			Image beanImage=imageHibernate.getImageById(beanClientClientRestaurant.getIdImage());
+			beanRestaurantResp.setIdImage(beanClientClientRestaurant.getIdImage());
+			if(beanClientClientRestaurant.getIdImage()==0){
+				beanRestaurantResp.setNameImage("");
+			}else{
+				beanRestaurantResp.setNameImage(beanImage.getId()+"_"+beanImage.getCategoryImage());
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return beanRestaurantResp;
+	}
+	
+	public static SchedulerRestaurant convertFromServiceToDataBase(int idRestaurant,int dayWeek,String specifiHours){
+		SchedulerRestaurant beanScheduler=new SchedulerRestaurant();
+		beanScheduler.setIdRestaurant(idRestaurant);
+		beanScheduler.setDayOfWeek(dayWeek);
+		beanScheduler.setSpecificHour(specifiHours);
+		return beanScheduler;
+	}
+	
+	public static List<RestaurantResponse> convertFromDataBaseToListRestaurant(List<ClientRestaurant> listClientRestaurant,
+			UbigeoHibernate ubigeoHibernate,ImageHibernate imageHibernate){
+		List<RestaurantResponse> listRestaurantResp=new ArrayList<RestaurantResponse>();
+		for(ClientRestaurant beanClientRestaurant:listClientRestaurant){
+			RestaurantResponse beanRestaurant=new RestaurantResponse();
+			beanRestaurant=convertFromDatabaseToRestaurantResponse(beanClientRestaurant,ubigeoHibernate,imageHibernate);
+			listRestaurantResp.add(beanRestaurant);
+		}
+		return listRestaurantResp;
+	}
+	
+	public static CheckActiveRestaurant convertValuesForDataBase(int idRestaurant){
+		CheckActiveRestaurant beanCheckRestaurant=new CheckActiveRestaurant();
+		beanCheckRestaurant.setIdRestaurant(idRestaurant);
+		beanCheckRestaurant.setManualReception(0);
+		beanCheckRestaurant.setMembershipPlan(4);
+		beanCheckRestaurant.setStatus(1);
+		beanCheckRestaurant.setTraining(0);
+		beanCheckRestaurant.setVerificationAddress(0);
+		beanCheckRestaurant.setVerificationSunat(0);
+		beanCheckRestaurant.setVerificationUser(0);
+		return beanCheckRestaurant;
+	}
+	
+	public static CheckActiveRestaurant convertValuesCheckActiveRestaurantForUpdateDataBase(CheckRestaurantActive beanCheck){
+		CheckActiveRestaurant beanCheckRestaurant=new CheckActiveRestaurant();
+		beanCheckRestaurant.setIdRestaurant(beanCheck.getIdRestaurant());
+		beanCheckRestaurant.setId(beanCheck.getId());
+		beanCheckRestaurant.setManualReception(beanCheck.getManualReception());
+		beanCheckRestaurant.setMembershipPlan(beanCheck.getIdMembershipPlan());
+		beanCheckRestaurant.setStatus(beanCheck.getStatus());
+		beanCheckRestaurant.setTraining(beanCheck.getTraining());
+		beanCheckRestaurant.setVerificationAddress(beanCheck.getVerificationAddress());
+		beanCheckRestaurant.setVerificationSunat(beanCheck.getVerificationSunat());
+		beanCheckRestaurant.setVerificationUser(beanCheck.getVerificationUser());
+		return beanCheckRestaurant;
+	}
+
+	public static CheckRestaurantActive convertFromDataBaseToCheckRestaurantActive(CheckActiveRestaurant beanCheckActRest){
+		//--Set check Values
+		CheckRestaurantActive beanCheckRestaurantActive=new CheckRestaurantActive();
+		beanCheckRestaurantActive.setId(beanCheckActRest.getId());
+		beanCheckRestaurantActive.setIdMembershipPlan(beanCheckActRest.getMembershipPlan());
+		beanCheckRestaurantActive.setIdRestaurant(beanCheckActRest.getIdRestaurant());
+		beanCheckRestaurantActive.setManualReception(beanCheckActRest.getManualReception());
+		beanCheckRestaurantActive.setTraining(beanCheckActRest.getTraining());
+		beanCheckRestaurantActive.setVerificationAddress(beanCheckActRest.getVerificationAddress());
+		beanCheckRestaurantActive.setVerificationSunat(beanCheckActRest.getVerificationSunat());
+		beanCheckRestaurantActive.setVerificationUser(beanCheckActRest.getVerificationUser());
+		beanCheckRestaurantActive.setStatus(beanCheckActRest.getStatus());
+		return beanCheckRestaurantActive;
 	}
 }

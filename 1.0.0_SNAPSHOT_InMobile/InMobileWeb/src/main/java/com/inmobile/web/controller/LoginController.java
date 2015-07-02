@@ -61,9 +61,17 @@ public class LoginController {
 			
 			if(returnServiceBean.getReturnPage().equals(CommonConstants.Page.REDIRECT_RESTAURANT)){
 				System.out.println("SOY UN RESTAURANT");
-				final RestaurantDTO restaurant=new RestaurantDTO();
+				RestaurantDTO restaurant=null;
+				if(returnServiceBean.getBeanRestaurantDTO()==null){
+					restaurant=new RestaurantDTO();
+				}else{
+					restaurant=returnServiceBean.getBeanRestaurantDTO();
+					model.addAttribute("listSpecificProvince", returnServiceBean.getListProvinceDTO());
+					model.addAttribute("listSpecificDistrict", returnServiceBean.getListDistrictDTO());
+					model.addAttribute("fileLogo", returnServiceBean.getBeanRestaurantDTO().getFileName());
+				}
 				restaurant.setIdUser(String.valueOf(returnServiceBean.getIdUser()));
-				restaurant.setEmailContact(returnServiceBean.getSpecificMessages());
+				restaurant.setEmailContact(returnServiceBean.getEmail());
 				model.addAttribute("restaurantForm", restaurant);
 			}else if(returnServiceBean.getReturnPage().equals(CommonConstants.Page.REDIRECT_PROVIDER)){
 				System.out.println("SOY UN PROVEEDOR");
@@ -72,7 +80,8 @@ public class LoginController {
 				objProviderDTO.setEmailContact(returnServiceBean.getSpecificMessages());
 				model.addAttribute("providerForm", objProviderDTO);
 			}
-			
+//			model.addAttribute("emailUser", returnServiceBean.getEmail());
+			request.getSession().setAttribute("emailUser", returnServiceBean.getEmail());
 		}
 		model.addAttribute("loginUsuForm", logueoBean);
 		request.setAttribute("messages", returnServiceBean.getMessages());

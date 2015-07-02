@@ -4,6 +4,7 @@ public class CommonConstants {
 
 	public class Page{
 		public static final String REDIRECT_INIT_PAGE="initPage";
+		public static final String REDIRECT_INIT_ADMIN_PAGE="initAdminPage";
 		public static final String REDIRECT_LOGIN_PAGE="loginPage";
 		public static final String REDIRECT_PROVIDER="providerPage";
 		public static final String REDIRECT_RESTAURANT="restaurantPage";
@@ -13,6 +14,9 @@ public class CommonConstants {
 		public static final String REDIRECT_ACCOUNT_PENDING="accountPendingPage";
 		public static final String REDIRECT_SCHEDULER_PAGE="schedulerRestaurant";
 		public static final String REDIRECT_DISTRICT_PROVIDER="districtProvider";
+		public static final String REDIRECT_MESSAGE_LINK_USED="lnkDeprecatedPage";
+		public static final String REDIRECT_MESSAGE_SUCCESS_VALIDATION="messagesSuccessValidation";
+		public static final String REDIRECT_LIST_USER_PENDING_ACTIVE="listUserPendingActive";
 	}
 	
 	public class Response{
@@ -33,6 +37,12 @@ public class CommonConstants {
 		public final static String RESPONSE_SUCCESS_RESTAURANT="SUCCESS_INSERT_RESTAURANT";
 		public final static String RESPONSE_SUCCESS_PROVIDER="SUCCESS_INSERT_PROVIDER";
 		public final static String RESPONSE_SUCCESS_DISTRICT_PROVIDER="SUCCESS_INSERT_DISTRICT_PROVIDER";
+		public final static String RESPONSE_LINK_USED="LINK_USED_BEFORE";
+		public final static String RESPONSE_SUCCESS_SCHEDULER="SUCCESS_SCHEDULER";
+		public final static String RESPONSE_ACCOUNT_ADMIN="ACCOUNT_ADMIN";
+		public final static String RESPONSE_SUCCESS_LIST_RESTAURANT_PENDING_ACTIVE="SUCCESS_LIST_RESTAURANT_PENDING_ACTIVE";
+		public final static String RESPONSE_EMPTY_LIST_RESTAURANT_PENDING_ACTIVE="EMPTY_LIST_RESTAURANT_PENDING_ACTIVE";
+		public final static String RESPONSE_SUCCESS_CHECK_REST="SUCCESS_CHECK_REST";
 	}
 	public class Logger{
 		public static final String LOGGER_START="****START****";
@@ -40,16 +50,22 @@ public class CommonConstants {
 	}
 	
 	public class URLService{
-		public static final String URL_REGISTER_USER="http://localhost:8080/InMobileService/rest/user/create";
-		public static final String URL_VALIDATION_USER="http://localhost:8080/InMobileService/rest/user/validation";
-		public static final String URL_ACTIVATE_USER="http://localhost:8080/InMobileService/rest/user/activate";
-		public static final String URL_SAVE_RESTAURANT="http://localhost:8080/InMobileService/rest/restaurant/save";
-		public static final String URL_SAVE_PROVIDER = "http://localhost:8080/InMobileService/rest/provider/save";
-		public static final String URL_LIST_DEPARTMENTS="http://localhost:8080/InMobileService/rest/list/departments";
-		public static final String URL_LIST_PROVINCE="http://localhost:8080/InMobileService/rest/list/province/";
-		public static final String URL_LIST_DISTRICT="http://localhost:8080/InMobileService/rest/list/district/";
-		public static final String URL_SAVE_IMAGE="http://localhost:8080/InMobileService/rest/image/save";
-		public static final String URL_ADD_DISTRICT_PROVIDER = "http://localhost:8080/InMobileService/rest/districtProvider/add";
+		public static final String URL_IP_SERVER = "http://localhost:8080/";
+		public static final String URL_SERVICE_PROJECT = "InMobileService"; 
+		public static final String URL_REGISTER_USER=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/user/create";
+		public static final String URL_VALIDATION_USER=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/user/validation";
+		public static final String URL_ACTIVATE_USER=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/user/activate";
+		public static final String URL_SAVE_RESTAURANT=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/restaurant/save";
+		public static final String URL_SAVE_PROVIDER = URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/provider/save";
+		public static final String URL_LIST_DEPARTMENTS=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/list/departments";
+		public static final String URL_LIST_PROVINCE=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/list/province/";
+		public static final String URL_LIST_DISTRICT=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/list/district/";
+		public static final String URL_SAVE_IMAGE=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/image/save";
+		public static final String URL_ADD_DISTRICT_PROVIDER = URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/districtProvider/add";
+		public static final String URL_SAVE_RESTAURANT_SCHEDULER=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/restaurant/saveScheduler";
+		public static final String URL_LIST_RESTAURANT_PENDING_ACTIVE=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/list/restaurantPendingActive/";
+		public static final String URL_GET_RESTAURANT_CHECK=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/verification/restaurant/";
+		public static final String URL_UPDATE_CHECK_REST=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/restaurant/saveCheckRestaurant";
 	}
 	
 	public class EncriptedValues{

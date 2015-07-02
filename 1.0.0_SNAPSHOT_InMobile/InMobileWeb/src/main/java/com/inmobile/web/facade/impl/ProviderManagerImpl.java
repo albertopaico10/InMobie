@@ -28,7 +28,6 @@ public class ProviderManagerImpl implements ProviderManager{
 			//--Save Image
 			ImageRequest beanRequestImage=ConvertClassFormat.convertWebToImageRequest(file,Integer.parseInt(beanDTO.getIdUser()));
 			beanRequestImage.setCategoryImage(CommonConstants.WebId.IMAGE_SAVE_PROVIDER);
-			System.out.println("Requesst Image: "+UtilMethods.fromObjectToString(beanRequestImage));
 			ImageResponse beanResponseImage=restTemplate.postForObject(CommonConstants.URLService.URL_SAVE_IMAGE,
 					beanRequestImage, ImageResponse.class);
 			System.out.println("Response Image : "+UtilMethods.fromObjectToString(beanResponseImage));

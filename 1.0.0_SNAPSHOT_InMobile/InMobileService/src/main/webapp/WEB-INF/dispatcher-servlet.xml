@@ -9,9 +9,11 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 	<context:component-scan base-package="com.rest.web.service.inmobile" />
-
+	
 	<mvc:annotation-driven />
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<context:property-placeholder location="classpath:/database.properties"/>
 		
 	<!-- Configure to plugin JSON as request and response in method handler -->
 	<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
@@ -33,20 +35,7 @@
 	
 	<bean id="mySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="myDataSource" />
-		<property name="annotatedClasses">
-			<list>
-				<value>com.rest.web.service.inmobile.hibernate.bean.User</value>
-				<value>com.rest.web.service.inmobile.hibernate.bean.RequestResponse</value>
-				<value>com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant</value>
-				<value>com.rest.web.service.inmobile.hibernate.bean.Country</value>
-				<value>com.rest.web.service.inmobile.hibernate.bean.Department</value>
-				<value>com.rest.web.service.inmobile.hibernate.bean.District</value>
-				<value>com.rest.web.service.inmobile.hibernate.bean.Province</value>
-				<value>com.rest.web.service.inmobile.hibernate.bean.Image</value>
-				<value>com.rest.web.service.inmobile.hibernate.bean.Provider</value>
-				<value>com.rest.web.service.inmobile.hibernate.bean.DistrictProvider</value>
-			</list>
-		</property>
+		<property name="packagesToScan" value="com.rest.web.service.inmobile.hibernate.bean" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
@@ -56,10 +45,10 @@
 	</bean>
 	
 	<bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/db_RestaurantInMobile2" />
-		<property name="username" value="root" />
-		<property name="password" value="mysql" />
+		<property name="driverClassName" value="${connections.driverClassName}" />
+		<property name="url" value="${connections.url}" />
+		<property name="username" value="${connections.username}" />
+		<property name="password" value="${connections.password}" />
 	</bean>
 	<!-- END HIBERNATE CONFIGURATON-->
 	
