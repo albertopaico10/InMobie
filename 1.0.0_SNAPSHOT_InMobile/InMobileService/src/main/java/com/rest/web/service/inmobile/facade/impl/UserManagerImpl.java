@@ -128,7 +128,7 @@ public class UserManagerImpl implements UserManager{
 		String encriptedValue=UtilMethods.encriptValue(String.valueOf(idUser));
 		System.out.println("Encripted ID : "+encriptedValue);
 		URL=URL+encriptedValue;
-		System.out.println("Final URL : "+URL);
+		logger.info("Final URL : "+URL);
 		return URL;
 	}
 
