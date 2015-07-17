@@ -10,6 +10,7 @@ import com.rest.web.service.inmobile.bean.restaurant.CheckRestaurantActive;
 import com.rest.web.service.inmobile.bean.restaurant.DistrictProviderRequest;
 import com.rest.web.service.inmobile.bean.restaurant.ListRestaurant;
 import com.rest.web.service.inmobile.bean.restaurant.ProviderRequest;
+import com.rest.web.service.inmobile.bean.restaurant.ProviderResponse;
 import com.rest.web.service.inmobile.bean.restaurant.RestaurantRequest;
 import com.rest.web.service.inmobile.bean.restaurant.RestaurantResponse;
 import com.rest.web.service.inmobile.bean.restaurant.VerificationRestaurant;
@@ -140,6 +141,56 @@ public class ConvertClass {
 		beanImage.setImg(imageByte);
 		return beanImage;
 	}
+	
+	public static ProviderResponse convertFromDatabaseToProviderResponse(Provider beanProvider,
+			UbigeoHibernate ubigeoHibernate,ImageHibernate imageHibernate){
+		ProviderResponse beanProviderResp=new ProviderResponse();
+		beanProviderResp.setAddressProvider(beanProvider.getAddressProvider());
+		beanProviderResp.setAnexoContact(beanProvider.getAnexoContact());
+		beanProviderResp.setCellphoneContact(beanProvider.getCellphoneContact());
+		beanProviderResp.setChargeContact(beanProvider.getChargeContact());
+		beanProviderResp.setId(beanProvider.getId());
+//		beanRestaurantResp.setIdCategory(beanClientClientRestaurant.getIdCategory());
+//		beanRestaurantResp.setNameCategory(nameCategory);
+		beanProviderResp.setLastNameContact(beanProvider.getLastNameContact());
+		beanProviderResp.setNameProvider(beanProvider.getNameProvider());
+		beanProviderResp.setPhoneContact(beanProvider.getPhoneContact());
+		beanProviderResp.setPhoneProvider(beanProvider.getPhoneProvider());
+		beanProviderResp.setReferenceContact(beanProvider.getReferenceContact());
+		beanProviderResp.setReferenceProvider(beanProvider.getReferenceProvider());
+		beanProviderResp.setRUCProvider(beanProvider.getRUCProvider());
+		beanProviderResp.setSocialReason(beanProvider.getSocialReason());
+		beanProviderResp.setNameContact(beanProvider.getNameContact());
+		try {
+			//-- Department
+			Department beaDepartment=ubigeoHibernate.getDepartmentById(beanProvider.getIdDeparmentProvider());
+			beanProviderResp.setIdDeparmentProvider(beanProvider.getIdDeparmentProvider());
+			beanProviderResp.setNameDepartment(beaDepartment.getDepartmentName());
+			//-- Province
+			Province beanProvince=ubigeoHibernate.getProvinceById(beanProvider.getIdProvinceProvider());
+			beanProviderResp.setNameProvince(beanProvince.getProvinceName());
+			beanProviderResp.setIdProvinceProvider(beanProvider.getIdProvinceProvider());
+			//-- District
+			District beanDistrict=ubigeoHibernate.getDistrictById(beanProvider.getIdDistrictProvider());
+			beanProviderResp.setNameDistrict(beanDistrict.getDistrictName());
+			beanProviderResp.setIdDistrictProvider(beanProvider.getIdDistrictProvider());
+			//--Image
+			Image beanImage=imageHibernate.getImageById(beanProvider.getIdImage());
+			beanProviderResp.setIdImage(beanProvider.getIdImage());
+			if(beanProviderResp.getIdImage()==0){
+				beanProviderResp.setNameImage("");
+			}else{
+				beanProviderResp.setNameImage(beanImage.getId()+"_"+beanImage.getCategoryImage());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return beanProviderResp;
+	}
+	
+	
+	
 	
 	public static RestaurantResponse convertFromDatabaseToRestaurantResponse(ClientRestaurant beanClientClientRestaurant,
 			UbigeoHibernate ubigeoHibernate,ImageHibernate imageHibernate){

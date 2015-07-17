@@ -71,6 +71,11 @@ public class UserManagerImpl implements UserManager{
 					}
 				}else if(CommonConstants.Response.RESPONSE_IS_PROVIDER.equals(beanResponse.getMessagesResponse())){
 					beanReturn.setReturnPage(CommonConstants.Page.REDIRECT_PROVIDER);
+					if(beanResponse.getBeanResponseProvider()!=null){
+						beanReturn.setBeanProviderDTO(ConvertClassFormat.convertFromServiceToProviderDTO(beanResponse.getBeanResponseProvider()));
+						beanReturn.setListProvinceDTO(ConvertClassFormat.convertResponsetToListUbigeoProvinceDTO(beanResponse.getBeanUbigeoResponseProvince()));
+						beanReturn.setListDistrictDTO(ConvertClassFormat.convertResponsetToListUbigeoDistrictDTO(beanResponse.getBeanUbigeoResponseDistrict()));
+					}
 				}else if(CommonConstants.Response.RESPONSE_ACCOUNT_PENDING_VALIDATION.equals(beanResponse.getMessagesResponse())) {
 					beanReturn.setReturnPage(CommonConstants.Page.REDIRECT_ACCOUNT_PENDING);
 				}else if(CommonConstants.Response.RESPONSE_ACCOUNT_ADMIN.equals(beanResponse.getMessagesResponse())) {

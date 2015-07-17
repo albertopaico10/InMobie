@@ -46,12 +46,12 @@ public class ProviderManagerImpl implements ProviderManager {
 			
 			//--Convert canonical request to object database
 			Provider objProvider = ConvertClass.convertProviderRequestToDataBase(objProviderRequest);
-			
+			objProvider.setStatus(1);
 			objProviderHibernate.saveProvider(objProvider);
 			System.out.println("REGISTRO DE PROVEEDOR: "+objProvider.getId());
 			//--Update status user to 3
 			User beanUser=userHibernate.findUSerBeanActiveAccount(String.valueOf(objProviderRequest.getIdUser()));
-			beanUser.setStatus(3);
+//			beanUser.setStatus(3);
 			//--Update status User
 			userHibernate.saveUserResponseId(beanUser);
 			objProviderResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_PROVIDE);

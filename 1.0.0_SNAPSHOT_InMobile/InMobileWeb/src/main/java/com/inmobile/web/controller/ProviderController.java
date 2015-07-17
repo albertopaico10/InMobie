@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,7 +26,7 @@ import com.inmobile.web.facade.UserManager;
 
 @Controller
 public class ProviderController {
-	
+	private static final Logger logger = LoggerFactory.getLogger(RestaurantController.class);
 	@Autowired
 	private ProviderManager objProviderManager;
 	@Autowired
@@ -37,8 +39,8 @@ public class ProviderController {
 			final BindingResult result, final SessionStatus status,
 			final HttpServletRequest request,final ModelMap model) {
 		
-		System.out.println("Entro en el metodo de registro de proveedores");
-		System.out.println("ID User : "+objProviderDTO.getIdUser()+"*** "+objProviderDTO.getNameContact()
+		logger.info("Entro en el metodo de registro de proveedores");
+		logger.info("ID User : "+objProviderDTO.getIdUser()+"*** "+objProviderDTO.getNameContact()
 				+"*** "+objProviderDTO.getEmailContact()+"**"+objProviderDTO.getDepartment()+"**"
 				+objProviderDTO.getProvince()+"**"
 				+objProviderDTO.getDistrict());

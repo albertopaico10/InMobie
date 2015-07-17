@@ -7,4 +7,6 @@ public interface ProviderHibernate {
 
 	public void saveProvider(Provider objProvider)throws Exception;
 	public void saveDistrictProvider(DistrictProvider objDistrictProvider)throws Exception;
+	public Provider getDataProviderByUserId(int idUser)throws Exception;
 }
+

@@ -15,6 +15,7 @@ public class ReturnService {
 	public List<SchedulerRestaurantBean> nameDay;
 	public List<SchedulerRestaurantBean> numberHours;
 	public RestaurantDTO beanRestaurantDTO;
+	public ProviderDTO beanProviderDTO;
 	public List<UbigeoProvinceDTO> listProvinceDTO;
 	public List<UbigeoDistrictDTO> listDistrictDTO;
 	
@@ -98,6 +99,11 @@ public class ReturnService {
 	public void setListRestaurantDTO(List<RestaurantDTO> listRestaurantDTO) {
 		this.listRestaurantDTO = listRestaurantDTO;
 	}
-	
+	public ProviderDTO getBeanProviderDTO() {
+		return beanProviderDTO;
+	}
+	public void setBeanProviderDTO(ProviderDTO beanProviderDTO) {
+		this.beanProviderDTO = beanProviderDTO;
+	}
 	
 }

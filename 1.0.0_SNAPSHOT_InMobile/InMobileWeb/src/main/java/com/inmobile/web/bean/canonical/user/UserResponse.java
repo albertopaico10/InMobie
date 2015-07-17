@@ -1,5 +1,6 @@
 package com.inmobile.web.bean.canonical.user;
 
+import com.inmobile.web.bean.canonical.provider.ProviderResponse;
 import com.inmobile.web.bean.canonical.restaurant.RestaurantResponse;
 import com.inmobile.web.bean.canonical.ubigeo.UbigeoResponse;
 
@@ -14,6 +15,7 @@ public class UserResponse {
 	private int typeUser;
 	
 	public RestaurantResponse beanResponseRestaurant;
+	public ProviderResponse beanResponseProvider;
 	public UbigeoResponse beanUbigeoResponseProvince;
 	public UbigeoResponse beanUbigeoResponseDistrict;
 	
@@ -79,4 +81,11 @@ public class UserResponse {
 	public void setTypeUser(int typeUser) {
 		this.typeUser = typeUser;
 	}
+	public ProviderResponse getBeanResponseProvider() {
+		return beanResponseProvider;
+	}
+	public void setBeanResponseProvider(ProviderResponse beanResponseProvider) {
+		this.beanResponseProvider = beanResponseProvider;
+	}
+	
 }

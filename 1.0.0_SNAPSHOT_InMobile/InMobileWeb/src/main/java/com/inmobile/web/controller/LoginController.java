@@ -75,9 +75,17 @@ public class LoginController {
 				model.addAttribute("restaurantForm", restaurant);
 			}else if(returnServiceBean.getReturnPage().equals(CommonConstants.Page.REDIRECT_PROVIDER)){
 				System.out.println("SOY UN PROVEEDOR");
-				ProviderDTO objProviderDTO = new ProviderDTO();
+				ProviderDTO objProviderDTO = null;
+				if(returnServiceBean.getBeanProviderDTO()==null){
+					objProviderDTO = new ProviderDTO();	
+				}else{
+					objProviderDTO=returnServiceBean.getBeanProviderDTO();
+					model.addAttribute("listSpecificProvince", returnServiceBean.getListProvinceDTO());
+					model.addAttribute("listSpecificDistrict", returnServiceBean.getListDistrictDTO());
+					model.addAttribute("fileLogo", returnServiceBean.getBeanProviderDTO().getFileName());
+				}
 				objProviderDTO.setIdUser(String.valueOf(returnServiceBean.getIdUser()));
-				objProviderDTO.setEmailContact(returnServiceBean.getSpecificMessages());
+				objProviderDTO.setEmailContact(returnServiceBean.getEmail());
 				model.addAttribute("providerForm", objProviderDTO);
 			}
 //			model.addAttribute("emailUser", returnServiceBean.getEmail());

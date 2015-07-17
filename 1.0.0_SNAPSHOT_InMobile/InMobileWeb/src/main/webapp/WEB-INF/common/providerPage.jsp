@@ -67,6 +67,11 @@
 			<div class="col-sm-3">
 				<input type="file" name="fileLogo" id="fileLogo"  multiple accept='image/*'>
 			</div>
+			<c:if test="${not empty fileLogo}">
+				<div class="col-sm-3">
+					<b><spring:message code="common.name.image"/></b>&nbsp;${fileLogo}
+				</div>
+			</c:if>
 		</div>
 		<p><b><spring:message code="common.title.contact.information" /></b></p>
 		<div class="row show-grid-forms">
@@ -103,7 +108,9 @@
 			</div>
 			<div class="col-sm-3">
 <%-- 				<input type="text" value="${idUserReq}" id="idSuerReqTemp"> --%>
-				<html:hidden path="idUser" maxlength="60"  class="form-control input-lg" id="idUser"/>
+				<html:input path="idUser" maxlength="60"  class="form-control input-lg" id="idUser"/>
+				<html:input path="id" maxlength="60"  class="form-control input-lg" id="id"/>
+				<html:input path="idImage" maxlength="60"  class="form-control input-lg" id="idImage"/>
 			</div>
 		</div>
 		

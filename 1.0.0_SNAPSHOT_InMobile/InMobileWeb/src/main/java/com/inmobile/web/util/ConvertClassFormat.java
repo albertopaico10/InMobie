@@ -17,6 +17,7 @@ import com.inmobile.web.bean.UbigeoProvinceDTO;
 import com.inmobile.web.bean.canonical.image.ImageRequest;
 import com.inmobile.web.bean.canonical.provider.DistrictProviderRequest;
 import com.inmobile.web.bean.canonical.provider.ProviderRequest;
+import com.inmobile.web.bean.canonical.provider.ProviderResponse;
 import com.inmobile.web.bean.canonical.restaurant.CheckRestaurantActive;
 import com.inmobile.web.bean.canonical.restaurant.RestaurantRequest;
 import com.inmobile.web.bean.canonical.restaurant.RestaurantResponse;
@@ -164,6 +165,34 @@ public class ConvertClassFormat {
 		beanRestaurantDTO.setProvinceNameSpecific(beanRestaurantResponse.getNameProvince());
 		return beanRestaurantDTO;
 	}
+
+	public static ProviderDTO convertFromServiceToProviderDTO(ProviderResponse beanProviderResponse){
+		ProviderDTO beanProviderDTO=new ProviderDTO();
+		beanProviderDTO.setAddress(beanProviderResponse.getAddressProvider());
+		beanProviderDTO.setAnexoContact(beanProviderResponse.getAnexoContact());
+		beanProviderDTO.setCelphoneContact(beanProviderResponse.getCellphoneContact());
+		beanProviderDTO.setChargeContact(beanProviderResponse.getChargeContact());
+		beanProviderDTO.setComercialName(beanProviderResponse.getNameProvider());
+		beanProviderDTO.setDepartment(String.valueOf(beanProviderResponse.getIdDeparmentProvider()));
+		beanProviderDTO.setDistrict(String.valueOf(beanProviderResponse.getIdDistrictProvider()));
+		beanProviderDTO.setLastNameContact(beanProviderResponse.getLastNameContact());
+		beanProviderDTO.setNameContact(beanProviderResponse.getNameContact());
+		beanProviderDTO.setPhone(beanProviderResponse.getPhoneProvider());
+		beanProviderDTO.setPhoneContact(beanProviderResponse.getPhoneContact());
+		beanProviderDTO.setProvince(String.valueOf(beanProviderResponse.getIdProvinceProvider()));
+		beanProviderDTO.setReference(beanProviderResponse.getReferenceProvider());
+		beanProviderDTO.setRuc(beanProviderResponse.getRUCProvider());
+		beanProviderDTO.setSocialReason(beanProviderResponse.getSocialReason());
+		beanProviderDTO.setFileName(beanProviderResponse.getNameImage());
+		beanProviderDTO.setIdImage(beanProviderResponse.getIdImage());
+		beanProviderDTO.setId(beanProviderResponse.getId());
+		
+		beanProviderDTO.setDepartmentNameSpecific(beanProviderResponse.getNameDepartment());
+		beanProviderDTO.setDistrictNameSpecific(beanProviderResponse.getNameDistrict());
+		beanProviderDTO.setProvinceNameSpecific(beanProviderResponse.getNameProvince());
+		return beanProviderDTO;
+	}
+
 	
 	public static SchedulerRestaurantRequest convertFromWebToServiceScheduler(int idUser,String daysHours){
 		SchedulerRestaurantRequest beanScheduler=new SchedulerRestaurantRequest();

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rest.web.service.inmobile.bean.restaurant.ProviderResponse;
 import com.rest.web.service.inmobile.bean.restaurant.RestaurantResponse;
 import com.rest.web.service.inmobile.bean.ubigeo.UbigeoResponse;
 import com.rest.web.service.inmobile.bean.user.UserRequest;
@@ -16,10 +17,12 @@ import com.rest.web.service.inmobile.facade.ReqRespManager;
 import com.rest.web.service.inmobile.facade.UbigeoManager;
 import com.rest.web.service.inmobile.facade.UserManager;
 import com.rest.web.service.inmobile.hibernate.ImageHibernate;
+import com.rest.web.service.inmobile.hibernate.ProviderHibernate;
 import com.rest.web.service.inmobile.hibernate.RestaurantHibernate;
 import com.rest.web.service.inmobile.hibernate.UbigeoHibernate;
 import com.rest.web.service.inmobile.hibernate.UserHibernate;
 import com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant;
+import com.rest.web.service.inmobile.hibernate.bean.Provider;
 import com.rest.web.service.inmobile.hibernate.bean.RequestResponse;
 import com.rest.web.service.inmobile.hibernate.bean.User;
 import com.rest.web.service.inmobile.util.CommonConstants;
@@ -37,6 +40,8 @@ public class UserManagerImpl implements UserManager{
 	ReqRespManager reqRespManager;
 	@Autowired
 	private RestaurantHibernate restaurantHibernate;
+	@Autowired
+	private ProviderHibernate providerHibernate;
 	@Autowired
 	private UbigeoHibernate ubigeoHibernate;
 	@Autowired
@@ -176,6 +181,16 @@ public class UserManagerImpl implements UserManager{
 							userBeanResponse.setIdUser(userBean.getId());
 							userBeanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VALIDATION);
 							userBeanResponse.setMessagesResponse(CommonConstants.CodeResponse.CODE_RESPONSE_IS_PROVIDER);
+							//--Get Provider Values
+							Provider beanProvider=providerHibernate.getDataProviderByUserId(userBean.getId());
+							if(beanProvider!=null){
+								ProviderResponse beanProviderResponse=ConvertClass.convertFromDatabaseToProviderResponse(beanProvider, ubigeoHibernate, imageHibernate);
+								userBeanResponse.setBeanResponseProvider(beanProviderResponse);
+								UbigeoResponse beanUbigeoResponseProvince=ubigeoManager.listAllProvince(beanProviderResponse.getIdDeparmentProvider());
+								userBeanResponse.setBeanUbigeoResponseProvince(beanUbigeoResponseProvince);
+								UbigeoResponse beanUbigeoDistrict=ubigeoManager.listAllDistrict(beanProviderResponse.getIdProvinceProvider());
+								userBeanResponse.setBeanUbigeoResponseDistrict(beanUbigeoDistrict);
+							}
 						}
 						
 					}else if(userBean.getStatus()==3){
