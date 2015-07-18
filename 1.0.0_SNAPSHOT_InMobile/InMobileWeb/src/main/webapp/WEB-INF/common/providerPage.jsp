@@ -41,6 +41,7 @@
 					<html:option value="0">
 						<spring:message code="register.restaurant.province.option.0"/>
 					</html:option>
+					<html:options items="${listSpecificProvince}" itemLabel="nameProvince" itemValue="idProvince" />
 				</html:select>
 			</div>
 		</div>
@@ -60,6 +61,7 @@
 					<html:option value="0">
 						<spring:message code="register.restaurant.district.option.0"/>
 					</html:option>
+					<html:options items="${listSpecificDistrict}" itemLabel="nameDistrict" itemValue="idDistrict" />
 				</html:select>
 			</div>
 		</div>
@@ -165,13 +167,7 @@ $(document).ready(function() {
 			    number: true
 			},
 			chargeContact: "required",
-			idPlan : "required",
-			fileLogo: {
-				required: true,
-		        accept: "image/jpeg, image/pjpeg"/*,
-		        filesize: 1048576*/
-			}
-			
+			idPlan : "required"			
 		},
 		messages: {
 			socialReason: '<spring:message code="maintenance.generic.field.required" />',
@@ -202,23 +198,16 @@ $(document).ready(function() {
 			    number: '<spring:message code="generic.field.number.format" />'
 			},
 			chargeContact: '<spring:message code="maintenance.generic.field.required" />',
-			idPlan: '<spring:message code="maintenance.generic.field.required" />',
-			fileLogo: {
-				required: '<spring:message code="maintenance.generic.field.required" />'/*,
-				filesize: 'LOL'*/
-			}
-			
+			idPlan: '<spring:message code="maintenance.generic.field.required" />'			
 		},
         submitHandler: function(form) {
             form.submit();
         }
 		
 	});
-// 	$("#fileLogo").rules('add',{
-// 		required: true,
-//         accept: "image/jpeg, image/pjpeg",
-//         filesize: 1048576
-// 	});
+	$("#fileLogo").rules('add',{
+        accept: "image/jpeg, image/pjpeg"
+	});
 	$("#department").change(function(){
 		$.ajax({
 		    url: "${pageContext.request.contextPath}/getProvince.htm?departmentId="+$(this).val(),

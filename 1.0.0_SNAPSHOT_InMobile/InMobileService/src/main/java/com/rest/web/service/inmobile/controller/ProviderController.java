@@ -18,7 +18,7 @@ import com.rest.web.service.inmobile.util.CommonConstants;
 
 @Controller
 public class ProviderController {
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProviderController.class);
 	
 	@Autowired
 	private ProviderManager objProviderManager;

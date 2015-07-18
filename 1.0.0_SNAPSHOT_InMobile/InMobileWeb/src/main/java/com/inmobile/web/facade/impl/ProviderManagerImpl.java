@@ -1,5 +1,7 @@
 package com.inmobile.web.facade.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,32 +22,32 @@ import com.inmobile.web.util.UtilMethods;
 
 @Service
 public class ProviderManagerImpl implements ProviderManager{
+	private static final Logger logger = LoggerFactory.getLogger(ProviderManagerImpl.class);
 
 	public ReturnService saveProviderInformation(ProviderDTO beanDTO,MultipartFile file) {
 		ReturnService benResponse = new ReturnService();
 		RestTemplate restTemplate = new RestTemplate();
+		ProviderRequest beanRequest = ConvertClassFormat.convertWebToServiceProvider(beanDTO);
 		if(!file.isEmpty()){
 			//--Save Image
 			ImageRequest beanRequestImage=ConvertClassFormat.convertWebToImageRequest(file,Integer.parseInt(beanDTO.getIdUser()));
 			beanRequestImage.setCategoryImage(CommonConstants.WebId.IMAGE_SAVE_PROVIDER);
 			ImageResponse beanResponseImage=restTemplate.postForObject(CommonConstants.URLService.URL_SAVE_IMAGE,
 					beanRequestImage, ImageResponse.class);
-			System.out.println("Response Image : "+UtilMethods.fromObjectToString(beanResponseImage));
+			logger.info("Response Image : "+UtilMethods.fromObjectToString(beanResponseImage));
 			if(CommonConstants.Response.RESPONSE_SUCCESS_IMAGE.equals(beanResponseImage.getCodeResponse())){
-				//--Save Provider Information
-				ProviderRequest beanRequest = ConvertClassFormat.convertWebToServiceProvider(beanDTO);
 				beanRequest.setIdImage(beanResponseImage.getIdImage());
-				System.out.println("Valor Request : "+UtilMethods.fromObjectToString(beanRequest));
-				System.out.println("URL : "+CommonConstants.URLService.URL_SAVE_PROVIDER);
-				ProviderResponse beanResponse = restTemplate.postForObject(CommonConstants.URLService.URL_SAVE_PROVIDER, beanRequest, ProviderResponse.class);
-				System.out.println("Valor Response : "+UtilMethods.fromObjectToString(beanResponse));
-				if(CommonConstants.Response.RESPONSE_SUCCESS_PROVIDER.equals(beanResponse.getCodeResponse())){
-					benResponse.setReturnPage(CommonConstants.Page.REDIRECT_DISTRICT_PROVIDER);
-					benResponse.setIdUser(beanResponse.getIdUser());
-				}
 			}
 		}else{
-			benResponse.setReturnPage(CommonConstants.Page.REDIRECT_ERROR);
+			beanRequest.setIdImage(beanDTO.getIdImage());
+		}
+		logger.info("Valor Request : "+UtilMethods.fromObjectToString(beanRequest));
+		logger.info("URL : "+CommonConstants.URLService.URL_SAVE_PROVIDER);
+		ProviderResponse beanResponse = restTemplate.postForObject(CommonConstants.URLService.URL_SAVE_PROVIDER, beanRequest, ProviderResponse.class);
+		System.out.println("Valor Response : "+UtilMethods.fromObjectToString(beanResponse));
+		if(CommonConstants.Response.RESPONSE_SUCCESS_PROVIDER.equals(beanResponse.getCodeResponse())){
+			benResponse.setReturnPage(CommonConstants.Page.REDIRECT_DISTRICT_PROVIDER);
+			benResponse.setIdUser(beanResponse.getIdUser());
 		}
 				
 		return benResponse;
