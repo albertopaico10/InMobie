@@ -19,6 +19,13 @@
 	</properties>
 
 	<dependencies>
+	
+		<!-- Canonical Inmobile -->
+		<dependency>
+			<groupId>com.canonical.bean</groupId>
+			<artifactId>InMobileCanonical</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 		<!-- Jackson -->
 		<dependency>

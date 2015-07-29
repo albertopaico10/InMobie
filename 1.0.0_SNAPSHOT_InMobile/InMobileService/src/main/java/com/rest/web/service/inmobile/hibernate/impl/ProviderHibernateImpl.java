@@ -1,5 +1,6 @@
 package com.rest.web.service.inmobile.hibernate.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -12,6 +13,7 @@ import com.rest.web.service.inmobile.hibernate.ProviderHibernate;
 import com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant;
 import com.rest.web.service.inmobile.hibernate.bean.DistrictProvider;
 import com.rest.web.service.inmobile.hibernate.bean.Provider;
+import com.rest.web.service.inmobile.hibernate.bean.User;
 
 @Repository
 public class ProviderHibernateImpl implements ProviderHibernate {
@@ -53,6 +55,30 @@ public class ProviderHibernateImpl implements ProviderHibernate {
 			providerBean=listProviderSpecific.get(0);
 		}
 		return providerBean;
+	}
+	
+	public List<Provider> listRestaurantPendingActive()throws Exception {
+		List<Provider> listProviders=new ArrayList<Provider>();
+		
+		String query="from User where status=3";
+		System.out.println("query : "+query);
+		Session session=sessionfactory.openSession();
+		
+		List<User> listUserSpecific=session.createQuery(query).list();
+		System.out.println("Cantidad de filas : "+listUserSpecific.size());
+		
+		if(listUserSpecific.size()>0){
+			for(User beanUser:listUserSpecific){
+				String queryRestaurant="from Provider where idUser="+beanUser.getId();
+				System.out.println("query #2 : "+queryRestaurant);
+				List<Provider> listProviderSpecific=session.createQuery(queryRestaurant).list();
+				for(Provider beanListRest:listProviderSpecific){
+					listProviders.add(beanListRest);
+				}
+			}
+		}
+		session.close();
+		return listProviders;
 	}
 	
 }

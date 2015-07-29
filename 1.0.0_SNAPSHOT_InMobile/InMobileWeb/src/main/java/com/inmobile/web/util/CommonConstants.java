@@ -17,6 +17,7 @@ public class CommonConstants {
 		public static final String REDIRECT_MESSAGE_LINK_USED="lnkDeprecatedPage";
 		public static final String REDIRECT_MESSAGE_SUCCESS_VALIDATION="messagesSuccessValidation";
 		public static final String REDIRECT_LIST_USER_PENDING_ACTIVE="listUserPendingActive";
+		public static final String REDIRECT_LIST_USER_PENDING_ACTIVE_PROVIDER="listUserPendingActive";
 	}
 	
 	public class Response{
@@ -43,6 +44,8 @@ public class CommonConstants {
 		public final static String RESPONSE_SUCCESS_LIST_RESTAURANT_PENDING_ACTIVE="SUCCESS_LIST_RESTAURANT_PENDING_ACTIVE";
 		public final static String RESPONSE_EMPTY_LIST_RESTAURANT_PENDING_ACTIVE="EMPTY_LIST_RESTAURANT_PENDING_ACTIVE";
 		public final static String RESPONSE_SUCCESS_CHECK_REST="SUCCESS_CHECK_REST";
+		public final static String RESPONSE_SUCCESS_LIST_PROVIDER_PENDING_ACTIVE="SUCCESS_LIST_PROVIDER_PENDING_ACTIVE";
+		public final static String RESPONSE_EMPTY_LIST_PROVIDER_PENDING_ACTIVE="EMPTY_LIST_PROVIDER_PENDING_ACTIVE";
 	}
 	public class Logger{
 		public static final String LOGGER_START="****START****";
@@ -66,6 +69,7 @@ public class CommonConstants {
 		public static final String URL_LIST_RESTAURANT_PENDING_ACTIVE=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/list/restaurantPendingActive/";
 		public static final String URL_GET_RESTAURANT_CHECK=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/verification/restaurant/";
 		public static final String URL_UPDATE_CHECK_REST=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/restaurant/saveCheckRestaurant";
+		public static final String URL_LIST_PROVIDER_PENDING_ACTIVE=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/list/providerPendingActive/";
 	}
 	
 	public class EncriptedValues{

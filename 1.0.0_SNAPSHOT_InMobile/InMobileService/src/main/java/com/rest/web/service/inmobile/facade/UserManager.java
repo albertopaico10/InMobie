@@ -2,8 +2,8 @@ package com.rest.web.service.inmobile.facade;
 
 import org.springframework.stereotype.Service;
 
-import com.rest.web.service.inmobile.bean.user.UserRequest;
-import com.rest.web.service.inmobile.bean.user.UserResponse;
+import com.canonical.bean.user.UserRequest;
+import com.canonical.bean.user.UserResponse;
 
 @Service
 public interface UserManager {

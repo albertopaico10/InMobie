@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rest.web.service.inmobile.bean.user.UserRequest;
+import com.canonical.bean.user.UserRequest;
 import com.rest.web.service.inmobile.facade.ReqRespManager;
 import com.rest.web.service.inmobile.util.CommonConstants;
 

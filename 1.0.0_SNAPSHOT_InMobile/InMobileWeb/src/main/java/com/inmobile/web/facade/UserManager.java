@@ -9,7 +9,6 @@ import com.inmobile.web.bean.ReturnService;
 import com.inmobile.web.bean.UbigeoDepartmentDTO;
 import com.inmobile.web.bean.UbigeoDistrictDTO;
 import com.inmobile.web.bean.UbigeoProvinceDTO;
-import com.inmobile.web.bean.canonical.ubigeo.Ubigeo;
 
 @Service
 public interface UserManager {

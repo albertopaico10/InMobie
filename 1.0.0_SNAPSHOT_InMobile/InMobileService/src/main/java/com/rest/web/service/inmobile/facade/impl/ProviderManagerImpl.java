@@ -1,16 +1,23 @@
 package com.rest.web.service.inmobile.facade.impl;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rest.web.service.inmobile.bean.restaurant.DistrictProviderRequest;
-import com.rest.web.service.inmobile.bean.restaurant.DistrictProviderResponse;
-import com.rest.web.service.inmobile.bean.restaurant.ProviderRequest;
-import com.rest.web.service.inmobile.bean.restaurant.ProviderResponse;
+import com.canonical.bean.provider.DistrictProviderRequest;
+import com.canonical.bean.provider.DistrictProviderResponse;
+import com.canonical.bean.provider.ListProvider;
+import com.canonical.bean.provider.ProviderRequest;
+import com.canonical.bean.provider.ProviderResponse;
 import com.rest.web.service.inmobile.facade.ProviderManager;
 import com.rest.web.service.inmobile.facade.ReqRespManager;
+import com.rest.web.service.inmobile.hibernate.ImageHibernate;
 import com.rest.web.service.inmobile.hibernate.ProviderHibernate;
+import com.rest.web.service.inmobile.hibernate.UbigeoHibernate;
 import com.rest.web.service.inmobile.hibernate.UserHibernate;
 import com.rest.web.service.inmobile.hibernate.bean.DistrictProvider;
 import com.rest.web.service.inmobile.hibernate.bean.Provider;
@@ -22,7 +29,7 @@ import com.rest.web.service.inmobile.util.ConvertClass;
 @Service
 @Transactional
 public class ProviderManagerImpl implements ProviderManager {
-	
+	private static final Logger logger = LoggerFactory.getLogger(ProviderManagerImpl.class);
 	@Autowired
 	private ReqRespManager objReqRespManager;
 	
@@ -30,6 +37,10 @@ public class ProviderManagerImpl implements ProviderManager {
 	private ProviderHibernate objProviderHibernate;
 	@Autowired
 	private UserHibernate userHibernate;
+	@Autowired
+	private ImageHibernate imageHibernate;
+	@Autowired
+	private UbigeoHibernate ubigeoHibernate;
 	
 	public ProviderResponse saveProvider(ProviderRequest objProviderRequest) {
 		
@@ -94,6 +105,34 @@ public class ProviderManagerImpl implements ProviderManager {
 				CommonConstants.TypeOperationReqResp.OPERATION_SAVE_PROVIDER, 0, valueReqResp.getId());
 		// TODO Auto-generated method stub
 		return objDistrictProviderResponse;
+	}
+
+	public ListProvider listProviderPendingActive() {
+		logger.info(CommonConstants.Logger.LOGGER_START);
+		ListProvider listProvider=new ListProvider();
+		//--Save Json in Data Base
+		RequestResponse valueReqResp=(RequestResponse)objReqRespManager.saveOrUpdate("", 
+					CommonConstants.TypeOperationReqResp.OPERATION_LIST_RESTAURANT_PENDING_ACTIVE,0,0);
+		System.out.println("ID Response : "+valueReqResp.getId());
+		try {
+			List<Provider> listProviderPending=objProviderHibernate.listRestaurantPendingActive();
+			logger.info("Cantidad de filas Proveedores pendientes activar : "+listProviderPending.size());
+			if(listProviderPending.size()>0){
+				listProvider.setListProviderResponse(ConvertClass.convertFromDataBaseToListProvider(listProviderPending, ubigeoHibernate, imageHibernate));
+				listProvider.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_LIST_PROVIDER_PENDING_ACTIVE);
+				listProvider.setDescription("Restaurant in status pending active");
+			}
+			else{
+				listProvider.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_EMPTY_LIST_PROVIDER_PENDING_ACTIVE);
+				listProvider.setDescription("No hay Restauranteros para dar de alta");
+			}
+		} catch (Exception e) {
+			listProvider.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ERROR);
+			listProvider.setMessagesResponse(e.getMessage());
+		}
+		objReqRespManager.saveOrUpdate(listProvider, 
+				CommonConstants.TypeOperationReqResp.OPERATION_LIST_PROVIDER_PENDING_ACTIVE,0,valueReqResp.getId());
+		return listProvider;
 	}
 
 }

@@ -88,4 +88,17 @@ public class ProviderController {
 		return null;
 	}
 	
+//	@RequestMapping(value="/getCheckValuesProvider.htm",method=RequestMethod.GET)
+//	public @ResponseBody String getCheckValues(@RequestParam String idRestaurant,final ModelMap model){
+//		System.out.println("getCheckValues-->Id Complaint : "+idRestaurant+"***");
+//		List<VerificationRestaurant> listRestaurant=objProviderManager.getCheckRestaurantInformation(idRestaurant);
+//		final CheckRestaurantDTO checkRest=new CheckRestaurantDTO();
+//		model.addAttribute("checkRestForm", checkRest);
+////		String rootProject=request.getSession().getServletContext().getRealPath("");
+//		
+////		List<ImageDTO> listSpecificDistrict=imageManager.getImageFromService(Integer.parseInt(id),rootProject);
+//		System.out.println("Lo que va es : "+UtilMethods.fromObjectToString(listRestaurant));
+//		return UtilMethods.fromObjectToString(listRestaurant);
+//	}
+	
 }

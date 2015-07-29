@@ -6,6 +6,17 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.canonical.bean.image.ImageRequest;
+import com.canonical.bean.provider.DistrictProviderRequest;
+import com.canonical.bean.provider.ProviderRequest;
+import com.canonical.bean.provider.ProviderResponse;
+import com.canonical.bean.restaurant.CheckRestaurantActive;
+import com.canonical.bean.restaurant.RestaurantRequest;
+import com.canonical.bean.restaurant.RestaurantResponse;
+import com.canonical.bean.restaurant.SchedulerRestaurantRequest;
+import com.canonical.bean.ubigeo.Ubigeo;
+import com.canonical.bean.ubigeo.UbigeoResponse;
+import com.canonical.bean.user.UserRequest;
 import com.inmobile.web.bean.CheckRestaurantDTO;
 import com.inmobile.web.bean.DistrictProviderDTO;
 import com.inmobile.web.bean.ProviderDTO;
@@ -14,17 +25,6 @@ import com.inmobile.web.bean.RestaurantDTO;
 import com.inmobile.web.bean.UbigeoDepartmentDTO;
 import com.inmobile.web.bean.UbigeoDistrictDTO;
 import com.inmobile.web.bean.UbigeoProvinceDTO;
-import com.inmobile.web.bean.canonical.image.ImageRequest;
-import com.inmobile.web.bean.canonical.provider.DistrictProviderRequest;
-import com.inmobile.web.bean.canonical.provider.ProviderRequest;
-import com.inmobile.web.bean.canonical.provider.ProviderResponse;
-import com.inmobile.web.bean.canonical.restaurant.CheckRestaurantActive;
-import com.inmobile.web.bean.canonical.restaurant.RestaurantRequest;
-import com.inmobile.web.bean.canonical.restaurant.RestaurantResponse;
-import com.inmobile.web.bean.canonical.restaurant.SchedulerRestaurantRequest;
-import com.inmobile.web.bean.canonical.ubigeo.Ubigeo;
-import com.inmobile.web.bean.canonical.ubigeo.UbigeoResponse;
-import com.inmobile.web.bean.canonical.user.UserRequest;
 
 public class ConvertClassFormat {
 
@@ -208,6 +208,15 @@ public class ConvertClassFormat {
 			listRestaurantDTO.add(beanRestaurantDTO);
 		}
 		return listRestaurantDTO;
+	}
+	
+	public static List<ProviderDTO> convertFromServiceToListProviderDTO(List<ProviderResponse> listProviderResponse){
+		List<ProviderDTO> listProviderDTO=new ArrayList<ProviderDTO>();
+		for(ProviderResponse beanProviderResponse:listProviderResponse){
+			ProviderDTO beanProviderDTO=convertFromServiceToProviderDTO(beanProviderResponse);
+			listProviderDTO.add(beanProviderDTO);
+		}
+		return listProviderDTO;
 	}
 	
 	public static CheckRestaurantActive convertFromWebToServiceCheckRest(CheckRestaurantDTO beanDTO){

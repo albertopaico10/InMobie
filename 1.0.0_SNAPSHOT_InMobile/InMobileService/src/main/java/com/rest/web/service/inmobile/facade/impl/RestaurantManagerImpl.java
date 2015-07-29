@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rest.web.service.inmobile.bean.restaurant.CheckRestaurantActive;
-import com.rest.web.service.inmobile.bean.restaurant.ListRestaurant;
-import com.rest.web.service.inmobile.bean.restaurant.RestaurantRequest;
-import com.rest.web.service.inmobile.bean.restaurant.RestaurantResponse;
-import com.rest.web.service.inmobile.bean.restaurant.SchedulerRestaurantRequest;
-import com.rest.web.service.inmobile.bean.restaurant.SchedulerRestaurantResponse;
-import com.rest.web.service.inmobile.bean.restaurant.VerificationRestaurant;
+import com.canonical.bean.restaurant.CheckRestaurantActive;
+import com.canonical.bean.restaurant.ListRestaurant;
+import com.canonical.bean.restaurant.RestaurantRequest;
+import com.canonical.bean.restaurant.RestaurantResponse;
+import com.canonical.bean.restaurant.SchedulerRestaurantRequest;
+import com.canonical.bean.restaurant.SchedulerRestaurantResponse;
+import com.canonical.bean.restaurant.VerificationRestaurant;
 import com.rest.web.service.inmobile.controller.UserController;
 import com.rest.web.service.inmobile.facade.ReqRespManager;
 import com.rest.web.service.inmobile.facade.RestaurantManage;
@@ -99,7 +99,7 @@ public class RestaurantManagerImpl implements RestaurantManage {
 		SchedulerRestaurantResponse beanResponse=new SchedulerRestaurantResponse();
 		//--Save Json in Data Base
 		RequestResponse valueReqResp=(RequestResponse)reqRespManager.saveOrUpdate(beanRequest, 
-				CommonConstants.TypeOperationReqResp.OPERATION_SAVE_RESTAURANT,beanRequest.getIdUser(),0);
+				CommonConstants.TypeOperationReqResp.OPERATION_SAVE_RESTAURANT_SCHEDULER,beanRequest.getIdUser(),0);
 		System.out.println("ID Response : "+valueReqResp.getId());
 		try {
 			ClientRestaurant beanClientRestaurant=restaurantHibernate.getDataRestaurantByUserId(beanRequest.getIdUser());
@@ -196,7 +196,7 @@ public class RestaurantManagerImpl implements RestaurantManage {
 			CheckActiveRestaurant beanCheckActRest=checkActiveRestaurantHibernate.getCheckActiveRestaurant(idRestaurant);
 			List<PlanMember> listPlanMember=planMemberHibernate.listAllPlanMember();
 			beanVerification.setBeanCheckRestaurantActive(ConvertClass.convertFromDataBaseToCheckRestaurantActive(beanCheckActRest));
-			beanVerification.setListPlanMenber(listPlanMember);
+			beanVerification.setListPlanMenber(ConvertClass.convertFromDataBaseToBeanPlanMenber(listPlanMember));
 			beanVerification.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VERIFICATION_CHECK_REST);
 			beanVerification.setDescription("Success Return information");
 			//-- List Plan member

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.rest.web.service.inmobile.bean.image.ImageRequest;
-import com.rest.web.service.inmobile.bean.image.ImageResponse;
+import com.canonical.bean.image.ImageRequest;
+import com.canonical.bean.image.ImageResponse;
 import com.rest.web.service.inmobile.facade.ImageManager;
 import com.rest.web.service.inmobile.util.CommonConstants;
 

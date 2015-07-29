@@ -1,7 +1,8 @@
 package com.rest.web.service.inmobile.facade;
 
-import com.rest.web.service.inmobile.bean.image.ImageRequest;
-import com.rest.web.service.inmobile.bean.image.ImageResponse;
+import com.canonical.bean.image.ImageRequest;
+import com.canonical.bean.image.ImageResponse;
+
 
 public interface ImageManager {
 

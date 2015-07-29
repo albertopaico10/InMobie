@@ -20,11 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.canonical.bean.restaurant.VerificationRestaurant;
 import com.inmobile.web.bean.CheckRestaurantDTO;
 import com.inmobile.web.bean.RegisterUserDTO;
 import com.inmobile.web.bean.RestaurantDTO;
 import com.inmobile.web.bean.ReturnService;
-import com.inmobile.web.bean.canonical.restaurant.VerificationRestaurant;
 import com.inmobile.web.facade.RestaurantManager;
 import com.inmobile.web.util.UtilMethods;
 

@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rest.web.service.inmobile.bean.restaurant.DistrictProviderRequest;
-import com.rest.web.service.inmobile.bean.restaurant.DistrictProviderResponse;
-import com.rest.web.service.inmobile.bean.restaurant.ProviderRequest;
-import com.rest.web.service.inmobile.bean.restaurant.ProviderResponse;
+import com.canonical.bean.provider.DistrictProviderRequest;
+import com.canonical.bean.provider.DistrictProviderResponse;
+import com.canonical.bean.provider.ListProvider;
+import com.canonical.bean.provider.ProviderRequest;
+import com.canonical.bean.provider.ProviderResponse;
 import com.rest.web.service.inmobile.facade.ProviderManager;
 import com.rest.web.service.inmobile.util.CommonConstants;
 
@@ -37,4 +38,13 @@ public class ProviderController {
 		DistrictProviderResponse objDistrictProviderResponse = objProviderManager.saveDistrictProvider(objDistrictProviderRequest);
 		return objDistrictProviderResponse;
 	}
+
+	@RequestMapping(value = CommonConstants.ValueRequestMapping.LIST_PROVIDER_PENDING_ACTIVE, method = RequestMethod.GET)
+	public @ResponseBody ListProvider getListProviderPending() {
+		logger.info(CommonConstants.Logger.LOGGER_START);
+		ListProvider beanResponse=objProviderManager.listProviderPendingActive();
+		logger.info(CommonConstants.Logger.LOGGER_END);
+		return beanResponse;
+	}
+
 }

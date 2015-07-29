@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rest.web.service.inmobile.bean.restaurant.CheckRestaurantActive;
-import com.rest.web.service.inmobile.bean.restaurant.ListRestaurant;
-import com.rest.web.service.inmobile.bean.restaurant.RestaurantRequest;
-import com.rest.web.service.inmobile.bean.restaurant.RestaurantResponse;
-import com.rest.web.service.inmobile.bean.restaurant.SchedulerRestaurantRequest;
-import com.rest.web.service.inmobile.bean.restaurant.SchedulerRestaurantResponse;
-import com.rest.web.service.inmobile.bean.restaurant.VerificationRestaurant;
-import com.rest.web.service.inmobile.bean.ubigeo.UbigeoResponse;
+import com.canonical.bean.restaurant.CheckRestaurantActive;
+import com.canonical.bean.restaurant.ListRestaurant;
+import com.canonical.bean.restaurant.RestaurantRequest;
+import com.canonical.bean.restaurant.RestaurantResponse;
+import com.canonical.bean.restaurant.SchedulerRestaurantRequest;
+import com.canonical.bean.restaurant.SchedulerRestaurantResponse;
+import com.canonical.bean.restaurant.VerificationRestaurant;
 import com.rest.web.service.inmobile.facade.RestaurantManage;
 import com.rest.web.service.inmobile.util.CommonConstants;
 
@@ -44,7 +43,7 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value = CommonConstants.ValueRequestMapping.LIST_RESTAURANT_PENDING_ACTIVE, method = RequestMethod.GET)
-	public @ResponseBody ListRestaurant getListProvince() {
+	public @ResponseBody ListRestaurant getListRestaurantPending() {
 		logger.info(CommonConstants.Logger.LOGGER_START+"Start getListProvince ID=");
 		ListRestaurant beanResponse=restaurantManager.listRestaurantPendingActive();
 		return beanResponse;

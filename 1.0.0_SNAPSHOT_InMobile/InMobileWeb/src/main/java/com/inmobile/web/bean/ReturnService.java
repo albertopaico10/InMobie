@@ -2,7 +2,6 @@ package com.inmobile.web.bean;
 
 import java.util.List;
 
-import com.inmobile.web.bean.canonical.restaurant.RestaurantResponse;
 
 public class ReturnService {
 	public String returnPage;
@@ -10,8 +9,6 @@ public class ReturnService {
 	public String specificMessages;
 	public String email;
 	public int idUser;
-//	public List<String> nameDay;
-//	public List<String> numberHours;
 	public List<SchedulerRestaurantBean> nameDay;
 	public List<SchedulerRestaurantBean> numberHours;
 	public RestaurantDTO beanRestaurantDTO;
@@ -20,6 +17,7 @@ public class ReturnService {
 	public List<UbigeoDistrictDTO> listDistrictDTO;
 	
 	public List<RestaurantDTO> listRestaurantDTO;
+	public List<ProviderDTO> listProviderDTO;
 	
 	public String getReturnPage() {
 		return returnPage;
@@ -45,18 +43,6 @@ public class ReturnService {
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
-//	public List<String> getNameDay() {
-//		return nameDay;
-//	}
-//	public void setNameDay(List<String> nameDay) {
-//		this.nameDay = nameDay;
-//	}
-//	public List<String> getNumberHours() {
-//		return numberHours;
-//	}
-//	public void setNumberHours(List<String> numberHours) {
-//		this.numberHours = numberHours;
-//	}
 	public List<SchedulerRestaurantBean> getNameDay() {
 		return nameDay;
 	}
@@ -105,5 +91,10 @@ public class ReturnService {
 	public void setBeanProviderDTO(ProviderDTO beanProviderDTO) {
 		this.beanProviderDTO = beanProviderDTO;
 	}
-	
+	public List<ProviderDTO> getListProviderDTO() {
+		return listProviderDTO;
+	}
+	public void setListProviderDTO(List<ProviderDTO> listProviderDTO) {
+		this.listProviderDTO = listProviderDTO;
+	}
 }

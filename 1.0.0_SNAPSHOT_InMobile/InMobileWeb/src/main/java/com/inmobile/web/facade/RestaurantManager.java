@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.canonical.bean.restaurant.VerificationRestaurant;
 import com.inmobile.web.bean.RestaurantDTO;
 import com.inmobile.web.bean.ReturnService;
-import com.inmobile.web.bean.canonical.restaurant.VerificationRestaurant;
 
 @Service
 public interface RestaurantManager {

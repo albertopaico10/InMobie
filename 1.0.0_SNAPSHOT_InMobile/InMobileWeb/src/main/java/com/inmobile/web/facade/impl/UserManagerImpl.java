@@ -8,15 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.canonical.bean.ubigeo.UbigeoResponse;
+import com.canonical.bean.user.UserRequest;
+import com.canonical.bean.user.UserResponse;
 import com.inmobile.web.bean.RegisterUserDTO;
 import com.inmobile.web.bean.ReturnService;
 import com.inmobile.web.bean.UbigeoDepartmentDTO;
 import com.inmobile.web.bean.UbigeoDistrictDTO;
 import com.inmobile.web.bean.UbigeoProvinceDTO;
-import com.inmobile.web.bean.canonical.ubigeo.Ubigeo;
-import com.inmobile.web.bean.canonical.ubigeo.UbigeoResponse;
-import com.inmobile.web.bean.canonical.user.UserRequest;
-import com.inmobile.web.bean.canonical.user.UserResponse;
 import com.inmobile.web.controller.LoginController;
 import com.inmobile.web.facade.UserManager;
 import com.inmobile.web.util.CommonConstants;

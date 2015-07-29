@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rest.web.service.inmobile.bean.ubigeo.Ubigeo;
-import com.rest.web.service.inmobile.bean.ubigeo.UbigeoResponse;
+import com.canonical.bean.ubigeo.Ubigeo;
+import com.canonical.bean.ubigeo.UbigeoResponse;
 import com.rest.web.service.inmobile.facade.UbigeoManager;
 import com.rest.web.service.inmobile.hibernate.UbigeoHibernate;
 import com.rest.web.service.inmobile.hibernate.bean.Department;

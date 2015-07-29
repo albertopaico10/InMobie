@@ -5,17 +5,16 @@ import java.util.List;
 
 import org.junit.internal.runners.model.EachTestNotifier;
 
-import com.rest.web.service.inmobile.bean.image.ImageRequest;
-import com.rest.web.service.inmobile.bean.restaurant.CheckRestaurantActive;
-import com.rest.web.service.inmobile.bean.restaurant.DistrictProviderRequest;
-import com.rest.web.service.inmobile.bean.restaurant.ListRestaurant;
-import com.rest.web.service.inmobile.bean.restaurant.ProviderRequest;
-import com.rest.web.service.inmobile.bean.restaurant.ProviderResponse;
-import com.rest.web.service.inmobile.bean.restaurant.RestaurantRequest;
-import com.rest.web.service.inmobile.bean.restaurant.RestaurantResponse;
-import com.rest.web.service.inmobile.bean.restaurant.VerificationRestaurant;
-import com.rest.web.service.inmobile.bean.ubigeo.Ubigeo;
-import com.rest.web.service.inmobile.bean.user.UserRequest;
+import com.canonical.bean.image.ImageRequest;
+import com.canonical.bean.planmember.BeanPlanMember;
+import com.canonical.bean.provider.DistrictProviderRequest;
+import com.canonical.bean.provider.ProviderRequest;
+import com.canonical.bean.provider.ProviderResponse;
+import com.canonical.bean.restaurant.CheckRestaurantActive;
+import com.canonical.bean.restaurant.RestaurantRequest;
+import com.canonical.bean.restaurant.RestaurantResponse;
+import com.canonical.bean.ubigeo.Ubigeo;
+import com.canonical.bean.user.UserRequest;
 import com.rest.web.service.inmobile.hibernate.ImageHibernate;
 import com.rest.web.service.inmobile.hibernate.UbigeoHibernate;
 import com.rest.web.service.inmobile.hibernate.bean.CheckActiveRestaurant;
@@ -260,6 +259,17 @@ public class ConvertClass {
 		return listRestaurantResp;
 	}
 	
+	public static List<ProviderResponse> convertFromDataBaseToListProvider(List<Provider> listProvider,
+			UbigeoHibernate ubigeoHibernate,ImageHibernate imageHibernate){
+		List<ProviderResponse> listProviderResp=new ArrayList<ProviderResponse>();
+		for(Provider beanProvider:listProvider){
+			ProviderResponse beanProviderResponse=new ProviderResponse();
+			beanProviderResponse=convertFromDatabaseToProviderResponse(beanProvider,ubigeoHibernate,imageHibernate);
+			listProviderResp.add(beanProviderResponse);
+		}
+		return listProviderResp;
+	}
+	
 	public static CheckActiveRestaurant convertValuesForDataBase(int idRestaurant){
 		CheckActiveRestaurant beanCheckRestaurant=new CheckActiveRestaurant();
 		beanCheckRestaurant.setIdRestaurant(idRestaurant);
@@ -300,5 +310,17 @@ public class ConvertClass {
 		beanCheckRestaurantActive.setVerificationUser(beanCheckActRest.getVerificationUser());
 		beanCheckRestaurantActive.setStatus(beanCheckActRest.getStatus());
 		return beanCheckRestaurantActive;
+	}
+	
+	public static List<BeanPlanMember> convertFromDataBaseToBeanPlanMenber(List<PlanMember> listPlanMember){
+		List<BeanPlanMember> listBeanPlanMember=new ArrayList<BeanPlanMember>();
+		for(PlanMember beanPlanMember:listPlanMember){
+			BeanPlanMember objBeanPlanMember=new BeanPlanMember();
+			objBeanPlanMember.setValuePlanMenber(beanPlanMember.getValuePlanMenber());
+			objBeanPlanMember.setStatus(beanPlanMember.getStatus());
+			objBeanPlanMember.setId(beanPlanMember.getId());
+			listBeanPlanMember.add(objBeanPlanMember);
+		}
+		return listBeanPlanMember;
 	}
 }

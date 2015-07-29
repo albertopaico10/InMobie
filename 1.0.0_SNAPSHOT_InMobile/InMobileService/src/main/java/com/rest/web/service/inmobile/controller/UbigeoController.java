@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rest.web.service.inmobile.bean.ubigeo.UbigeoResponse;
+import com.canonical.bean.ubigeo.UbigeoResponse;
 import com.rest.web.service.inmobile.facade.UbigeoManager;
 import com.rest.web.service.inmobile.util.CommonConstants;
 

@@ -16,7 +16,7 @@
 				<i class="fa fa-pencil-square-o"></i><span class="hidden-xs"><spring:message code="private.left.option.mantenience.provider" /></span>
 			</a>
 			<ul class="dropdown-menu">
-				<li><a class="ajax-link" href="#"><spring:message code="private.left.option.mantenience.common.active" /></a></li>
+				<li><a href="${pageContext.request.contextPath}/listPendingActiveProvider.htm"><spring:message code="private.left.option.mantenience.common.active" /></a></li>
 				<li><a class="ajax-link" href="#"><spring:message code="private.left.option.mantenience.common.editProfile" /></a></li>
 				<li><a class="ajax-link" href="#"><spring:message code="private.left.option.mantenience.common.desactive" /></a></li>
 				<li><a class="ajax-link" href="#"><spring:message code="private.left.option.mantenience.provider.upload.catalog.batch" /></a></li>

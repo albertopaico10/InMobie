@@ -2,7 +2,6 @@ package com.rest.web.service.inmobile.hibernate;
 
 import org.springframework.stereotype.Service;
 
-import com.rest.web.service.inmobile.bean.user.UserResponse;
 import com.rest.web.service.inmobile.hibernate.bean.User;
 
 @Service

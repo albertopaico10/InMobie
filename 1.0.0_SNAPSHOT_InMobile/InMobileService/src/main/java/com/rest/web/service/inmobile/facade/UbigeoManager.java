@@ -2,7 +2,8 @@ package com.rest.web.service.inmobile.facade;
 
 import org.springframework.stereotype.Service;
 
-import com.rest.web.service.inmobile.bean.ubigeo.UbigeoResponse;
+import com.canonical.bean.ubigeo.UbigeoResponse;
+
 
 @Service
 public interface UbigeoManager {

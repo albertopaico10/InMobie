@@ -2,13 +2,14 @@ package com.rest.web.service.inmobile.facade;
 
 import org.springframework.stereotype.Service;
 
-import com.rest.web.service.inmobile.bean.restaurant.CheckRestaurantActive;
-import com.rest.web.service.inmobile.bean.restaurant.ListRestaurant;
-import com.rest.web.service.inmobile.bean.restaurant.RestaurantRequest;
-import com.rest.web.service.inmobile.bean.restaurant.RestaurantResponse;
-import com.rest.web.service.inmobile.bean.restaurant.SchedulerRestaurantRequest;
-import com.rest.web.service.inmobile.bean.restaurant.SchedulerRestaurantResponse;
-import com.rest.web.service.inmobile.bean.restaurant.VerificationRestaurant;
+import com.canonical.bean.restaurant.CheckRestaurantActive;
+import com.canonical.bean.restaurant.ListRestaurant;
+import com.canonical.bean.restaurant.RestaurantRequest;
+import com.canonical.bean.restaurant.RestaurantResponse;
+import com.canonical.bean.restaurant.SchedulerRestaurantRequest;
+import com.canonical.bean.restaurant.SchedulerRestaurantResponse;
+import com.canonical.bean.restaurant.VerificationRestaurant;
+
 
 @Service
 public interface RestaurantManage {

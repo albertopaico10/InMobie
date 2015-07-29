@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rest.web.service.inmobile.bean.image.ImageRequest;
-import com.rest.web.service.inmobile.bean.image.ImageResponse;
+import com.canonical.bean.image.ImageRequest;
+import com.canonical.bean.image.ImageResponse;
 import com.rest.web.service.inmobile.facade.ImageManager;
 import com.rest.web.service.inmobile.facade.ReqRespManager;
 import com.rest.web.service.inmobile.hibernate.ImageHibernate;
@@ -33,11 +33,11 @@ public class ImageManagerImpl implements ImageManager {
 			int idImage=imageHibernate.saveImageId(image);
 			
 			beanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_IMAGE);
-			beanResponse.setMessageResponse("Se grabó la imagen con exito");
+			beanResponse.setMessagesResponse("Se grabó la imagen con exito");
 			beanResponse.setIdImage(idImage);
 		} catch (Exception e) {
 			beanResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ERROR);
-			beanResponse.setMessageResponse(e.getMessage());
+			beanResponse.setMessagesResponse(e.getMessage());
 		}
 		reqRespManager.saveOrUpdate(beanResponse, 
 				CommonConstants.TypeOperationReqResp.OPERATION_UPLOAD_LOGO_RESTAURANT,beanRequest.getIdUser(),valueReqResp.getId());

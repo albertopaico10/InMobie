@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rest.web.service.inmobile.bean.user.UserRequest;
-import com.rest.web.service.inmobile.bean.user.UserResponse;
+import com.canonical.bean.user.UserRequest;
+import com.canonical.bean.user.UserResponse;
 import com.rest.web.service.inmobile.facade.UserManager;
 import com.rest.web.service.inmobile.util.CommonConstants;
 
