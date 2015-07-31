@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rest.web.service.inmobile.hibernate.ProviderHibernate;
-import com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant;
+import com.rest.web.service.inmobile.hibernate.bean.Restaurant;
 import com.rest.web.service.inmobile.hibernate.bean.DistrictProvider;
 import com.rest.web.service.inmobile.hibernate.bean.Provider;
 import com.rest.web.service.inmobile.hibernate.bean.User;
@@ -44,6 +44,22 @@ public class ProviderHibernateImpl implements ProviderHibernate {
 	public Provider getDataProviderByUserId(int idUser) throws Exception {
 		Provider providerBean=null;
 		String query="from Provider where status=1 and idUser='"+idUser+"'";
+		System.out.println("query : "+query);
+		Session session=sessionfactory.openSession();
+		
+		List<Provider> listProviderSpecific=session.createQuery(query).list();
+		System.out.println("Cantidad de filas : "+listProviderSpecific.size());
+		
+		session.close();
+		if(listProviderSpecific.size()>0){
+			providerBean=listProviderSpecific.get(0);
+		}
+		return providerBean;
+	}
+	
+	public Provider getDataProviderById(int idProvider) throws Exception {
+		Provider providerBean=null;
+		String query="from Provider where status=1 and id='"+idProvider+"'";
 		System.out.println("query : "+query);
 		Session session=sessionfactory.openSession();
 		

@@ -12,8 +12,8 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@Table(name="tb_clientrestaurant")
-public class ClientRestaurant implements Serializable {
+@Table(name="tb_restaurant")
+public class Restaurant implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -72,7 +72,7 @@ public class ClientRestaurant implements Serializable {
 	@Column(name="user_updated")
 	private int userUpdated;
 
-	public ClientRestaurant() {
+	public Restaurant() {
 	}
 
 	public int getId() {

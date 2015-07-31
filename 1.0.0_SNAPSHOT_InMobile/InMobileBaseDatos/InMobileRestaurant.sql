@@ -283,6 +283,24 @@ ALTER TABLE tb_check_active_restaurant
 ADD FOREIGN KEY (idRestaurant)
 REFERENCES tb_ClientRestaurant(id);
 
+CREATE TABLE tb_check_active_provider(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	idProvider INT,
+	verificationSunat INT,
+	verificationAddress INT,
+	verificationUser INT,
+	manualReception INT,
+	training INT,
+	idMemberShipPlan INT,
+	status INT,
+	date_created TIMESTAMP DEFAULT NOW(),
+	user_created INT
+);
+
+ALTER TABLE tb_check_active_restaurant
+ADD FOREIGN KEY (idRestaurant)
+REFERENCES tb_ClientRestaurant(id);
+
 CREATE TABLE tb_PlanMenber(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	valuePlanMenber varchar(200),

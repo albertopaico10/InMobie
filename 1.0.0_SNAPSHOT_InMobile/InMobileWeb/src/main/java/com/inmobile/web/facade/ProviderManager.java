@@ -11,6 +11,5 @@ import com.inmobile.web.bean.ReturnService;
 public interface ProviderManager {
 
 	public ReturnService saveProviderInformation(ProviderDTO beanDTO,MultipartFile file);
-	public ReturnService saveProviderDistrict(DistrictProviderDTO objDistrictProviderDTO);
-	
+	public ReturnService saveProviderByDistrict(DistrictProviderDTO disProviderDTO);
 }

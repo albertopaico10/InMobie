@@ -3,8 +3,6 @@ package com.rest.web.service.inmobile.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.internal.runners.model.EachTestNotifier;
-
 import com.canonical.bean.image.ImageRequest;
 import com.canonical.bean.planmember.BeanPlanMember;
 import com.canonical.bean.provider.DistrictProviderRequest;
@@ -17,8 +15,8 @@ import com.canonical.bean.ubigeo.Ubigeo;
 import com.canonical.bean.user.UserRequest;
 import com.rest.web.service.inmobile.hibernate.ImageHibernate;
 import com.rest.web.service.inmobile.hibernate.UbigeoHibernate;
+import com.rest.web.service.inmobile.hibernate.bean.CheckActiveProvider;
 import com.rest.web.service.inmobile.hibernate.bean.CheckActiveRestaurant;
-import com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant;
 import com.rest.web.service.inmobile.hibernate.bean.Department;
 import com.rest.web.service.inmobile.hibernate.bean.District;
 import com.rest.web.service.inmobile.hibernate.bean.DistrictProvider;
@@ -26,6 +24,7 @@ import com.rest.web.service.inmobile.hibernate.bean.Image;
 import com.rest.web.service.inmobile.hibernate.bean.PlanMember;
 import com.rest.web.service.inmobile.hibernate.bean.Provider;
 import com.rest.web.service.inmobile.hibernate.bean.Province;
+import com.rest.web.service.inmobile.hibernate.bean.Restaurant;
 import com.rest.web.service.inmobile.hibernate.bean.SchedulerRestaurant;
 import com.rest.web.service.inmobile.hibernate.bean.User;
 
@@ -39,8 +38,8 @@ public class ConvertClass {
 		return userDataBase;
 	}
 	
-	public static ClientRestaurant convertRestaurantRequestToDataBase(RestaurantRequest beanRequest){
-		ClientRestaurant clienRestDataBase=new ClientRestaurant();
+	public static Restaurant convertRestaurantRequestToDataBase(RestaurantRequest beanRequest){
+		Restaurant clienRestDataBase=new Restaurant();
 		clienRestDataBase.setSocialReason(beanRequest.getSocialReason());
 		clienRestDataBase.setNameRestaurant(beanRequest.getNameRestaurant());
 		clienRestDataBase.setRUCRestaurant(beanRequest.getRUCRestaurant());
@@ -89,9 +88,9 @@ public class ConvertClass {
 		return objProvider;
 	}
 	
-	public static DistrictProvider convertDistrictProviderRequestToDataBase(DistrictProviderRequest objDistrictProviderRequest){
+	public static DistrictProvider convertDistrictProviderRequestToDataBase(DistrictProviderRequest objDistrictProviderRequest,int idDistrict){
 		DistrictProvider objDistrictProvider = new DistrictProvider();
-		objDistrictProvider.setIdDistrict(objDistrictProviderRequest.getIdDistrict());
+		objDistrictProvider.setIdDistrict(idDistrict);
 		objDistrictProvider.setIdProvider(objDistrictProviderRequest.getIdProvider());
 		return objDistrictProvider;
 	}
@@ -191,7 +190,7 @@ public class ConvertClass {
 	
 	
 	
-	public static RestaurantResponse convertFromDatabaseToRestaurantResponse(ClientRestaurant beanClientClientRestaurant,
+	public static RestaurantResponse convertFromDatabaseToRestaurantResponse(Restaurant beanClientClientRestaurant,
 			UbigeoHibernate ubigeoHibernate,ImageHibernate imageHibernate){
 		RestaurantResponse beanRestaurantResp=new RestaurantResponse();
 		beanRestaurantResp.setAddressRestaurant(beanClientClientRestaurant.getAddressRestaurant());
@@ -248,10 +247,10 @@ public class ConvertClass {
 		return beanScheduler;
 	}
 	
-	public static List<RestaurantResponse> convertFromDataBaseToListRestaurant(List<ClientRestaurant> listClientRestaurant,
+	public static List<RestaurantResponse> convertFromDataBaseToListRestaurant(List<Restaurant> listClientRestaurant,
 			UbigeoHibernate ubigeoHibernate,ImageHibernate imageHibernate){
 		List<RestaurantResponse> listRestaurantResp=new ArrayList<RestaurantResponse>();
-		for(ClientRestaurant beanClientRestaurant:listClientRestaurant){
+		for(Restaurant beanClientRestaurant:listClientRestaurant){
 			RestaurantResponse beanRestaurant=new RestaurantResponse();
 			beanRestaurant=convertFromDatabaseToRestaurantResponse(beanClientRestaurant,ubigeoHibernate,imageHibernate);
 			listRestaurantResp.add(beanRestaurant);
@@ -281,6 +280,19 @@ public class ConvertClass {
 		beanCheckRestaurant.setVerificationSunat(0);
 		beanCheckRestaurant.setVerificationUser(0);
 		return beanCheckRestaurant;
+	}
+	
+	public static CheckActiveProvider convertValuesForDataBaseProvider(int idProvider){
+		CheckActiveProvider beanCheckProvider=new CheckActiveProvider();
+		beanCheckProvider.setIdProvider(idProvider);
+		beanCheckProvider.setManualReception(0);
+		beanCheckProvider.setIdMemberShipPlan(4);
+		beanCheckProvider.setStatus(1);
+		beanCheckProvider.setTraining(0);
+		beanCheckProvider.setVerificationAddress(0);
+		beanCheckProvider.setVerificationSunat(0);
+		beanCheckProvider.setVerificationUser(0);
+		return beanCheckProvider;
 	}
 	
 	public static CheckActiveRestaurant convertValuesCheckActiveRestaurantForUpdateDataBase(CheckRestaurantActive beanCheck){

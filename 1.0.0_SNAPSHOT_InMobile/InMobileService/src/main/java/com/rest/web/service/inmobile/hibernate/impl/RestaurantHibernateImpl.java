@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rest.web.service.inmobile.hibernate.RestaurantHibernate;
-import com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant;
+import com.rest.web.service.inmobile.hibernate.bean.Restaurant;
 import com.rest.web.service.inmobile.hibernate.bean.User;
 
 @Repository
@@ -19,7 +19,7 @@ public class RestaurantHibernateImpl implements RestaurantHibernate {
 	@Autowired
 	SessionFactory sessionfactory;
 
-	public void saveRestaurant(ClientRestaurant beanRequest) throws Exception {
+	public void saveRestaurant(Restaurant beanRequest) throws Exception {
 		System.out.println("Grabar o actualizar Restaurant");
 		Session session=sessionfactory.openSession();
 		Transaction transaction=session.beginTransaction();
@@ -30,13 +30,13 @@ public class RestaurantHibernateImpl implements RestaurantHibernate {
 		session.close();
 	}
 
-	public ClientRestaurant getDataRestaurantByUserId(int idUser) throws Exception {
-		ClientRestaurant restaurantBean=null;
+	public Restaurant getDataRestaurantByUserId(int idUser) throws Exception {
+		Restaurant restaurantBean=null;
 		String query="from ClientRestaurant where status=1 and idUser='"+idUser+"'";
 		System.out.println("query : "+query);
 		Session session=sessionfactory.openSession();
 		
-		List<ClientRestaurant> listRestaurantSpecific=session.createQuery(query).list();
+		List<Restaurant> listRestaurantSpecific=session.createQuery(query).list();
 		System.out.println("Cantidad de filas : "+listRestaurantSpecific.size());
 		
 		session.close();
@@ -46,8 +46,8 @@ public class RestaurantHibernateImpl implements RestaurantHibernate {
 		return restaurantBean;
 	}
 
-	public List<ClientRestaurant> listRestaurantPendingActive()throws Exception {
-		List<ClientRestaurant> listRestaurant=new ArrayList<ClientRestaurant>();
+	public List<Restaurant> listRestaurantPendingActive()throws Exception {
+		List<Restaurant> listRestaurant=new ArrayList<Restaurant>();
 		
 		String query="from User where status=3";
 		System.out.println("query : "+query);
@@ -60,8 +60,8 @@ public class RestaurantHibernateImpl implements RestaurantHibernate {
 			for(User beanUser:listUserSpecific){
 				String queryRestaurant="from ClientRestaurant where idUser="+beanUser.getId();
 				System.out.println("query #2 : "+queryRestaurant);
-				List<ClientRestaurant> listRestaurantSpecific=session.createQuery(queryRestaurant).list();
-				for(ClientRestaurant beanListRest:listRestaurantSpecific){
+				List<Restaurant> listRestaurantSpecific=session.createQuery(queryRestaurant).list();
+				for(Restaurant beanListRest:listRestaurantSpecific){
 					listRestaurant.add(beanListRest);
 				}
 			}
@@ -71,12 +71,12 @@ public class RestaurantHibernateImpl implements RestaurantHibernate {
 	}
 	
 	public int findUserByIdRestaurant(int idRestaurant)throws Exception{
-		ClientRestaurant restaurantBean=null;
+		Restaurant restaurantBean=null;
 		String query="from ClientRestaurant where status=1 and id='"+idRestaurant+"'";
 		System.out.println("query : "+query);
 		Session session=sessionfactory.openSession();
 		
-		List<ClientRestaurant> listSpecificById=session.createQuery(query).list();
+		List<Restaurant> listSpecificById=session.createQuery(query).list();
 		System.out.println("Cantidad de filas : "+listSpecificById.size());
 		if(listSpecificById.size()>0){
 			restaurantBean=listSpecificById.get(0);
@@ -90,7 +90,7 @@ public class RestaurantHibernateImpl implements RestaurantHibernate {
 		System.out.println("query : "+query);
 		Session session=sessionfactory.openSession();
 		
-		List<ClientRestaurant> listSpecificById=session.createQuery(query).list();
+		List<Restaurant> listSpecificById=session.createQuery(query).list();
 		System.out.println("Cantidad de filas : "+listSpecificById.size());
 		if(listSpecificById.size()>0){
 			String queryUser="from User where id='"+listSpecificById.get(0).getIdUser()+"'";

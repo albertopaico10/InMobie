@@ -62,17 +62,10 @@ public class ProviderController {
 		System.out.println("Entro en el metodo de registro de distritos de proveedores");
 		System.out.println("LOS VALORES SON LOS SIGUIENTES: "+objDistrictProviderDTO.getIdDistrict());
 		objDistrictProviderDTO.setIdProvider(Integer.parseInt(idUser));
-		String[] districts = objDistrictProviderDTO.getIdDistrict().split("-");
-		
-		String returnPage = "";
-		for(String idDistrict : districts){
-			objDistrictProviderDTO.setIdDistrict(idDistrict);
-			ReturnService objReturnService = objProviderManager.saveProviderDistrict(objDistrictProviderDTO);
-			System.out.println(objReturnService.getMessages());
-			returnPage = objReturnService.getReturnPage();
-		}
+		ReturnService objReturnService=objProviderManager.saveProviderByDistrict(objDistrictProviderDTO);
 
-		return new ModelAndView(returnPage);
+		logger.info("REDIRECT TO PAGE : "+objReturnService.getReturnPage());
+		return new ModelAndView(objReturnService.getReturnPage());
 	}
 	
 	@ModelAttribute("listAllDepartment")

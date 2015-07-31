@@ -11,5 +11,6 @@ public interface ProviderHibernate {
 	public void saveDistrictProvider(DistrictProvider objDistrictProvider)throws Exception;
 	public Provider getDataProviderByUserId(int idUser)throws Exception;
 	public List<Provider> listRestaurantPendingActive()throws Exception;
+	public Provider getDataProviderById(int idProvider) throws Exception;
 }
 

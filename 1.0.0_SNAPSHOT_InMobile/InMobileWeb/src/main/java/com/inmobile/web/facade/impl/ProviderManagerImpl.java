@@ -1,5 +1,8 @@
 package com.inmobile.web.facade.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -53,19 +56,26 @@ public class ProviderManagerImpl implements ProviderManager{
 		return benResponse;
 	}
 
-	public ReturnService saveProviderDistrict(DistrictProviderDTO objDistrictProviderDTO) {
+	public ReturnService saveProviderByDistrict(DistrictProviderDTO disProviderDTO) {
 		ReturnService benResponse = new ReturnService();
 		RestTemplate restTemplate = new RestTemplate();
+		String[] districts = disProviderDTO.getIdDistrict().split("-");
 		
-		DistrictProviderRequest objDistrictProviderRequest = ConvertClassFormat.convertWebToServiceDistrictProvider(objDistrictProviderDTO);
+		List<Integer> listDistrictProvider=new ArrayList<Integer>();
+		for(String idDistrict : districts){
+			listDistrictProvider.add(Integer.parseInt(idDistrict));
+		}
+		
+		DistrictProviderRequest objDistrictProviderRequest=new DistrictProviderRequest();
+		objDistrictProviderRequest.setIdProvider(disProviderDTO.getIdProvider());
+		objDistrictProviderRequest.setListIdDistrict(listDistrictProvider);
+		logger.info("REQUEST : "+UtilMethods.fromObjectToString(objDistrictProviderRequest));
 		DistrictProviderResponse objDistrictProviderResponse = restTemplate.postForObject(CommonConstants.URLService.URL_ADD_DISTRICT_PROVIDER, objDistrictProviderRequest, DistrictProviderResponse.class);
-		
 		if(CommonConstants.Response.RESPONSE_SUCCESS_DISTRICT_PROVIDER.equals(objDistrictProviderResponse.getCodeResponse())){
 			benResponse.setReturnPage(CommonConstants.Page.REDIRECT_INACTIVE_ACCOUNT_PAGE);
 		}else{
 			benResponse.setReturnPage(CommonConstants.Page.REDIRECT_ERROR);
 		}
-		
 		return benResponse;
 	}
 

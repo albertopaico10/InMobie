@@ -15,10 +15,12 @@ import com.canonical.bean.provider.ProviderRequest;
 import com.canonical.bean.provider.ProviderResponse;
 import com.rest.web.service.inmobile.facade.ProviderManager;
 import com.rest.web.service.inmobile.facade.ReqRespManager;
+import com.rest.web.service.inmobile.hibernate.CheckActiveProviderHibernate;
 import com.rest.web.service.inmobile.hibernate.ImageHibernate;
 import com.rest.web.service.inmobile.hibernate.ProviderHibernate;
 import com.rest.web.service.inmobile.hibernate.UbigeoHibernate;
 import com.rest.web.service.inmobile.hibernate.UserHibernate;
+import com.rest.web.service.inmobile.hibernate.bean.CheckActiveProvider;
 import com.rest.web.service.inmobile.hibernate.bean.DistrictProvider;
 import com.rest.web.service.inmobile.hibernate.bean.Provider;
 import com.rest.web.service.inmobile.hibernate.bean.RequestResponse;
@@ -41,6 +43,8 @@ public class ProviderManagerImpl implements ProviderManager {
 	private ImageHibernate imageHibernate;
 	@Autowired
 	private UbigeoHibernate ubigeoHibernate;
+	@Autowired
+	private CheckActiveProviderHibernate checkActiveProviderHibernate;
 	
 	public ProviderResponse saveProvider(ProviderRequest objProviderRequest) {
 		
@@ -61,10 +65,10 @@ public class ProviderManagerImpl implements ProviderManager {
 			objProviderHibernate.saveProvider(objProvider);
 			System.out.println("REGISTRO DE PROVEEDOR: "+objProvider.getId());
 			//--Update status user to 3
-			User beanUser=userHibernate.findUSerBeanActiveAccount(String.valueOf(objProviderRequest.getIdUser()));
+//			User beanUser=userHibernate.findUSerBeanActiveAccount(String.valueOf(objProviderRequest.getIdUser()));
 //			beanUser.setStatus(3);
 			//--Update status User
-			userHibernate.saveUserResponseId(beanUser);
+//			userHibernate.saveUserResponseId(beanUser);
 			objProviderResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_PROVIDE);
 			objProviderResponse.setMessagesResponse("The user create one part of his registration");
 			objProviderResponse.setIdUser(objProvider.getId());
@@ -89,9 +93,21 @@ public class ProviderManagerImpl implements ProviderManager {
 		System.out.println("ID Response : "+valueReqResp.getId());
 		
 		try {
-			DistrictProvider objDistrictProvider = ConvertClass.convertDistrictProviderRequestToDataBase(objDistrictProviderRequest);
+			for(Integer idDistrict:objDistrictProviderRequest.getListIdDistrict()){
+				DistrictProvider objDistrictProvider = ConvertClass.convertDistrictProviderRequestToDataBase(objDistrictProviderRequest,idDistrict);
+				objProviderHibernate.saveDistrictProvider(objDistrictProvider);
+			}			
 			
-			objProviderHibernate.saveDistrictProvider(objDistrictProvider);
+			//--Save Check Active Provider
+			CheckActiveProvider beanCAProvider=ConvertClass.convertValuesForDataBaseProvider(objDistrictProviderRequest.getIdProvider());
+			checkActiveProviderHibernate.saveProviderCheckActivation(beanCAProvider);
+			//--End
+			Provider beanProvider=objProviderHibernate.getDataProviderById(objDistrictProviderRequest.getIdProvider());
+			//--Update status user to 3
+			User beanUser=userHibernate.findUSerBeanActiveAccount(String.valueOf(beanProvider.getIdUser()));
+			beanUser.setStatus(3);
+			//--Update status User
+			userHibernate.saveUserResponseId(beanUser);
 			
 			objDistrictProviderResponse.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_DISTRICT_PROVIDER);
 			objDistrictProviderResponse.setMessagesResponse("The district provider registered");

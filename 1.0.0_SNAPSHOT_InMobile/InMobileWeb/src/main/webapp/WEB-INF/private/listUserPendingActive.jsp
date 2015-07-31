@@ -85,10 +85,12 @@
 </div>
 <div id="showDetailActiveByRestaruant" class="modal fade" style="display: none">
 </div>
+<div id="showDetailActiveByProvider" class="modal fade" style="display: none">
+</div>
 <script>
 function getCheckValuesForProvider(idRestaurant){
-	$('#showDetailActiveByRestaruant').modal('show');    
-	$("showDetailActiveByRestaruant").append("");
+	$('#showDetailActiveByProvider').modal('show');    
+	$("showDetailActiveByProvider").append("");
 	$.ajax({
 		url : "${pageContext.request.contextPath}/getCheckValuesProvider.htm?idRestaurant="+ idRestaurant,
 		data : null,

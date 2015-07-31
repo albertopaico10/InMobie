@@ -29,7 +29,7 @@ import com.rest.web.service.inmobile.hibernate.SchedulerRestaurantHibernate;
 import com.rest.web.service.inmobile.hibernate.UbigeoHibernate;
 import com.rest.web.service.inmobile.hibernate.UserHibernate;
 import com.rest.web.service.inmobile.hibernate.bean.CheckActiveRestaurant;
-import com.rest.web.service.inmobile.hibernate.bean.ClientRestaurant;
+import com.rest.web.service.inmobile.hibernate.bean.Restaurant;
 import com.rest.web.service.inmobile.hibernate.bean.PlanMember;
 import com.rest.web.service.inmobile.hibernate.bean.RequestResponse;
 import com.rest.web.service.inmobile.hibernate.bean.SchedulerRestaurant;
@@ -72,7 +72,7 @@ public class RestaurantManagerImpl implements RestaurantManage {
 		
 		try {
 			//--Convert canonical request to object database
-			ClientRestaurant clientResturant=ConvertClass.convertRestaurantRequestToDataBase(beanRequest);
+			Restaurant clientResturant=ConvertClass.convertRestaurantRequestToDataBase(beanRequest);
 			clientResturant.setStatus(1);
 			restaurantHibernate.saveRestaurant(clientResturant);
 			
@@ -102,7 +102,7 @@ public class RestaurantManagerImpl implements RestaurantManage {
 				CommonConstants.TypeOperationReqResp.OPERATION_SAVE_RESTAURANT_SCHEDULER,beanRequest.getIdUser(),0);
 		System.out.println("ID Response : "+valueReqResp.getId());
 		try {
-			ClientRestaurant beanClientRestaurant=restaurantHibernate.getDataRestaurantByUserId(beanRequest.getIdUser());
+			Restaurant beanClientRestaurant=restaurantHibernate.getDataRestaurantByUserId(beanRequest.getIdUser());
 			String[] arrayScheduler=beanRequest.getDaysAndHours().split("//");
 			for(int i=0;i<arrayScheduler.length;i++){
 				if(!arrayScheduler[i].isEmpty()){
@@ -164,7 +164,7 @@ public class RestaurantManagerImpl implements RestaurantManage {
 				CommonConstants.TypeOperationReqResp.OPERATION_LIST_RESTAURANT_PENDING_ACTIVE,0,0);
 		System.out.println("ID Response : "+valueReqResp.getId());
 		try {
-			List<ClientRestaurant> listClientRestaurant=restaurantHibernate.listRestaurantPendingActive();
+			List<Restaurant> listClientRestaurant=restaurantHibernate.listRestaurantPendingActive();
 			logger.info("Cantidad de filas usuarios pendientes activar : "+listClientRestaurant.size());
 			if(listClientRestaurant.size()>0){
 				listRestaurant.setListRestaurantResponse(ConvertClass.convertFromDataBaseToListRestaurant(listClientRestaurant, ubigeoHibernate, imageHibernate));

@@ -87,7 +87,7 @@ public class ConvertClassFormat {
 	
 	public static DistrictProviderRequest convertWebToServiceDistrictProvider(DistrictProviderDTO objDistrictProviderDTO){
 		DistrictProviderRequest objDistrictProviderRequest = new DistrictProviderRequest();
-		objDistrictProviderRequest.setIdDistrict(Integer.parseInt(objDistrictProviderDTO.getIdDistrict()));
+//		objDistrictProviderRequest.setIdDistrict(Integer.parseInt(objDistrictProviderDTO.getIdDistrict()));
 		objDistrictProviderRequest.setIdProvider(objDistrictProviderDTO.getIdProvider());
 		return objDistrictProviderRequest;
 	}
