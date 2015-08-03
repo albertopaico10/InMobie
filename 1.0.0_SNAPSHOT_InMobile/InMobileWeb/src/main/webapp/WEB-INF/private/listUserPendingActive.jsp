@@ -88,42 +88,42 @@
 <div id="showDetailActiveByProvider" class="modal fade" style="display: none">
 </div>
 <script>
-function getCheckValuesForProvider(idRestaurant){
+function getCheckValuesForProvider(idProvider){
 	$('#showDetailActiveByProvider').modal('show');    
 	$("showDetailActiveByProvider").append("");
 	$.ajax({
-		url : "${pageContext.request.contextPath}/getCheckValuesProvider.htm?idRestaurant="+ idRestaurant,
+		url : "${pageContext.request.contextPath}/getCheckValuesProvider.htm?idProvider="+ idProvider,
 		data : null,
 		type : "GET",
 		dataType : "json",
 		success : function(data) {
-				$("#showDetailActiveByRestaruant").empty();
+				$("#showDetailActiveByProvider").empty();
 			 	var checkDiv="";
 			 	checkDiv = "<div class='modal-dialog'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
 			 	checkDiv=checkDiv+"<h4 class='modal-title'>** Check Restaurant</h4></div><div class='modal-body'>";
-			 	checkDiv=checkDiv+'<html:form method="POST" commandName="checkRestForm" action="saveCheckRestaurant.htm" id="idCheckRestForm" novalidate="novalidate">';
+			 	checkDiv=checkDiv+'<html:form method="POST" commandName="checkProvForm" action="saveCheckProvider.htm" id="idCheckProvForm" novalidate="novalidate">';
 			 	for(var i = 0; i < data.length; i++) {
-			 		if(data[i].beanCheckRestaurantActive.manualReception==0){
+			 		if(data[i].beanCheckProviderActive.manualReception==0){
 			 			checkDiv=checkDiv+"<input type='checkbox' name='manualReception' value='0' id='manualReception'><span><spring:message code='active.restaurant.manual' /></span><br>";
 			 		}else{
 			 			checkDiv=checkDiv+"<input type='checkbox' name='manualReception' value='1' checked='checked' id='manualReception'><span><spring:message code='active.restaurant.manual' /></span><br>";
 			 		}
-			 		if(data[i].beanCheckRestaurantActive.training==0){
+			 		if(data[i].beanCheckProviderActive.training==0){
 			 			checkDiv=checkDiv+"<input type='checkbox' name='training' value='0' id='training'><span><spring:message code='active.restaurant.training' /></span><br>";
 			 		}else{
 			 			checkDiv=checkDiv+"<input type='checkbox' name='training' value='1' checked='checked' id='training'><span><spring:message code='active.restaurant.training' /></span><br>";
 			 		}
-					if(data[i].beanCheckRestaurantActive.verificationAddress==0){
+					if(data[i].beanCheckProviderActive.verificationAddress==0){
 						checkDiv=checkDiv+"<input type='checkbox' name='verificationAddress' value='0' id='verificationAddress'><span><spring:message code='active.restaurant.verificationAddress' /></span><br>";
 			 		}else{
 			 			checkDiv=checkDiv+"<input type='checkbox' name='verificationAddress' value='1' checked='checked' id='verificationAddress'><span><spring:message code='active.restaurant.verificationAddress' /></span><br>";
 			 		}
-					if(data[i].beanCheckRestaurantActive.verificationSunat==0){
+					if(data[i].beanCheckProviderActive.verificationSunat==0){
 						checkDiv=checkDiv+"<input type='checkbox' name='verificationSunat' value='0' id='verificationSunat'><span><spring:message code='active.restaurant.verificationSunat' /></span><br>";
 			 		}else{
 			 			checkDiv=checkDiv+"<input type='checkbox' name='verificationSunat' value='1' checked='checked' id='verificationSunat'><span><spring:message code='active.restaurant.verificationSunat' /></span><br>";
 			 		}
-					if(data[i].beanCheckRestaurantActive.verificationUser==0){
+					if(data[i].beanCheckProviderActive.verificationUser==0){
 						checkDiv=checkDiv+"<input type='checkbox' name='verificationUser' value='0' id='verificationUser'><span><spring:message code='active.restaurant.verificationUser' /></span><br>";
 			 		}else{
 			 			checkDiv=checkDiv+"<input type='checkbox' name='verificationUser' value='1' checked='checked' id='verificationUser'><span><spring:message code='active.restaurant.verificationUser' /></span><br>";
@@ -132,7 +132,7 @@ function getCheckValuesForProvider(idRestaurant){
 					checkDiv=checkDiv+'<select name="idMembershipPlan" id="idMembershipPlan" class="form-control">';
 					for(var j = -1; j<data[i].listPlanMenber.length; j++){
 // 						checkDiv=checkDiv+"***"+data[i].listPlanMenber[j].valuePlanMenber+"***"+data[i].listPlanMenber[j].id+"<br>";
-						var valuePlanMember=data[i].beanCheckRestaurantActive.idMembershipPlan;
+						var valuePlanMember=data[i].beanCheckProviderActive.idMembershipPlan;
 						if(j==-1){
 							checkDiv=checkDiv+'<option value="0"><spring:message code="register.restaurant.district.option.0"/></option>';
 						}else if(valuePlanMember-1==j){
@@ -144,8 +144,8 @@ function getCheckValuesForProvider(idRestaurant){
 // 					checkDiv=checkDiv+"<input type='text' name='idMembershipPlan' value='"+data[i].beanCheckRestaurantActive.idMembershipPlan+"'/>";
 					
 					checkDiv=checkDiv+'</select>';
-					checkDiv = checkDiv+ '<input type="hidden" name="restaurantId" class="form-control input-lg" id="restaurantId" value="'+idRestaurant+'"/>';
-				 	checkDiv = checkDiv+ '<input type="hidden" name="idCheck" class="form-control input-lg" id="idCheck" value="'+data[i].beanCheckRestaurantActive.id+'"/>';
+					checkDiv = checkDiv+ '<input type="hidden" name="providerId" class="form-control input-lg" id="providerId" value="'+idProvider+'"/>';
+				 	checkDiv = checkDiv+ '<input type="hidden" name="idCheck" class="form-control input-lg" id="idCheck" value="'+data[i].beanCheckProviderActive.id+'"/>';
 				 	checkDiv = checkDiv+ '<input type="hidden" name="updateStatus" class="form-control input-lg" id="updateStatus"/>';
 			 	}
 			 	checkDiv = checkDiv+ "<br>";
@@ -155,8 +155,8 @@ function getCheckValuesForProvider(idRestaurant){
 			 	checkDiv = checkDiv+ "</html:form>";
 			 	checkDiv = checkDiv+ "</div>";
 			 	checkDiv = checkDiv+ "</div>";
-			 	$("#showDetailActiveByRestaruant").append(checkDiv);
-			 	$('#showDetailActiveByRestaruant').modal('show');    
+			 	$("#showDetailActiveByProvider").append(checkDiv);
+			 	$('#showDetailActiveByProvider').modal('show');    
 			},
 		error: function (request, status, error) {
 			alert("Error : "+request.responseText);

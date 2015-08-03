@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.canonical.bean.image.ImageRequest;
 import com.canonical.bean.planmember.BeanPlanMember;
+import com.canonical.bean.provider.CheckProviderActive;
 import com.canonical.bean.provider.DistrictProviderRequest;
 import com.canonical.bean.provider.ProviderRequest;
 import com.canonical.bean.provider.ProviderResponse;
@@ -308,6 +309,20 @@ public class ConvertClass {
 		beanCheckRestaurant.setVerificationUser(beanCheck.getVerificationUser());
 		return beanCheckRestaurant;
 	}
+	
+	public static CheckActiveProvider convertValuesCheckActiveProviderForUpdateDataBase(CheckProviderActive beanCheck){
+		CheckActiveProvider beanCheckProvider=new CheckActiveProvider();
+		beanCheckProvider.setIdProvider(beanCheck.getIdProvider());
+		beanCheckProvider.setId(beanCheck.getId());
+		beanCheckProvider.setManualReception(beanCheck.getManualReception());
+		beanCheckProvider.setIdMemberShipPlan(beanCheck.getIdMembershipPlan());
+		beanCheckProvider.setStatus(beanCheck.getStatus());
+		beanCheckProvider.setTraining(beanCheck.getTraining());
+		beanCheckProvider.setVerificationAddress(beanCheck.getVerificationAddress());
+		beanCheckProvider.setVerificationSunat(beanCheck.getVerificationSunat());
+		beanCheckProvider.setVerificationUser(beanCheck.getVerificationUser());
+		return beanCheckProvider;
+	}
 
 	public static CheckRestaurantActive convertFromDataBaseToCheckRestaurantActive(CheckActiveRestaurant beanCheckActRest){
 		//--Set check Values
@@ -322,6 +337,21 @@ public class ConvertClass {
 		beanCheckRestaurantActive.setVerificationUser(beanCheckActRest.getVerificationUser());
 		beanCheckRestaurantActive.setStatus(beanCheckActRest.getStatus());
 		return beanCheckRestaurantActive;
+	}
+	
+	public static CheckProviderActive convertFromDataBaseToCheckProviderActive(CheckActiveProvider beanCheckActProv){
+		//--Set check Values
+		CheckProviderActive beanCheckActive=new CheckProviderActive();
+		beanCheckActive.setId(beanCheckActProv.getId());
+		beanCheckActive.setIdMembershipPlan(beanCheckActProv.getIdMemberShipPlan());
+		beanCheckActive.setIdProvider(beanCheckActProv.getIdProvider());
+		beanCheckActive.setManualReception(beanCheckActProv.getManualReception());
+		beanCheckActive.setTraining(beanCheckActProv.getTraining());
+		beanCheckActive.setVerificationAddress(beanCheckActProv.getVerificationAddress());
+		beanCheckActive.setVerificationSunat(beanCheckActProv.getVerificationSunat());
+		beanCheckActive.setVerificationUser(beanCheckActProv.getVerificationUser());
+		beanCheckActive.setStatus(beanCheckActProv.getStatus());
+		return beanCheckActive;
 	}
 	
 	public static List<BeanPlanMember> convertFromDataBaseToBeanPlanMenber(List<PlanMember> listPlanMember){

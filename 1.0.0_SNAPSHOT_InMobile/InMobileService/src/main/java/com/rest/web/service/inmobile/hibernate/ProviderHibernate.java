@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rest.web.service.inmobile.hibernate.bean.DistrictProvider;
 import com.rest.web.service.inmobile.hibernate.bean.Provider;
+import com.rest.web.service.inmobile.hibernate.bean.User;
 
 public interface ProviderHibernate {
 
@@ -12,5 +13,6 @@ public interface ProviderHibernate {
 	public Provider getDataProviderByUserId(int idUser)throws Exception;
 	public List<Provider> listRestaurantPendingActive()throws Exception;
 	public Provider getDataProviderById(int idProvider) throws Exception;
+	public User getUserByIdProvider(int idProvider)throws Exception;
 }
 

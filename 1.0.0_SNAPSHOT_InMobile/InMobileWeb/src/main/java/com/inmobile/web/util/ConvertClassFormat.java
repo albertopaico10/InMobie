@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.canonical.bean.image.ImageRequest;
+import com.canonical.bean.provider.CheckProviderActive;
 import com.canonical.bean.provider.DistrictProviderRequest;
 import com.canonical.bean.provider.ProviderRequest;
 import com.canonical.bean.provider.ProviderResponse;
@@ -17,6 +18,7 @@ import com.canonical.bean.restaurant.SchedulerRestaurantRequest;
 import com.canonical.bean.ubigeo.Ubigeo;
 import com.canonical.bean.ubigeo.UbigeoResponse;
 import com.canonical.bean.user.UserRequest;
+import com.inmobile.web.bean.CheckProviderDTO;
 import com.inmobile.web.bean.CheckRestaurantDTO;
 import com.inmobile.web.bean.DistrictProviderDTO;
 import com.inmobile.web.bean.ProviderDTO;
@@ -224,6 +226,24 @@ public class ConvertClassFormat {
 		beanActive.setId(beanDTO.getIdCheck());
 		beanActive.setIdMembershipPlan(beanDTO.getIdMembershipPlan());
 		beanActive.setIdRestaurant(beanDTO.getRestaurantId());
+		beanActive.setManualReception(beanDTO.getManualReception());
+		beanActive.setTraining(beanDTO.getTraining());
+		beanActive.setVerificationAddress(beanDTO.getVerificationAddress());
+		beanActive.setVerificationSunat(beanDTO.getVerificationSunat());
+		beanActive.setVerificationUser(beanDTO.getVerificationUser());
+		if(beanDTO.getUpdateStatus()==1){
+			beanActive.setUpdateStatus(true);
+		}else{
+			beanActive.setUpdateStatus(false);
+		}
+		return beanActive;
+	}
+	
+	public static CheckProviderActive convertFromWebToServiceCheckProv(CheckProviderDTO beanDTO){
+		CheckProviderActive beanActive=new CheckProviderActive();
+		beanActive.setId(beanDTO.getIdCheck());
+		beanActive.setIdMembershipPlan(beanDTO.getIdMembershipPlan());
+		beanActive.setIdProvider(beanDTO.getProviderId());
 		beanActive.setManualReception(beanDTO.getManualReception());
 		beanActive.setTraining(beanDTO.getTraining());
 		beanActive.setVerificationAddress(beanDTO.getVerificationAddress());

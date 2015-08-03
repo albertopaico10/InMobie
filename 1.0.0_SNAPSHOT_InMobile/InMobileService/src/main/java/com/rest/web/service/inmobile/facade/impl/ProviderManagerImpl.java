@@ -8,20 +8,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.canonical.bean.provider.CheckProviderActive;
 import com.canonical.bean.provider.DistrictProviderRequest;
 import com.canonical.bean.provider.DistrictProviderResponse;
 import com.canonical.bean.provider.ListProvider;
 import com.canonical.bean.provider.ProviderRequest;
 import com.canonical.bean.provider.ProviderResponse;
+import com.canonical.bean.provider.VerificationProvider;
+import com.canonical.bean.restaurant.CheckRestaurantActive;
+import com.canonical.bean.restaurant.VerificationRestaurant;
 import com.rest.web.service.inmobile.facade.ProviderManager;
 import com.rest.web.service.inmobile.facade.ReqRespManager;
 import com.rest.web.service.inmobile.hibernate.CheckActiveProviderHibernate;
 import com.rest.web.service.inmobile.hibernate.ImageHibernate;
+import com.rest.web.service.inmobile.hibernate.PlanMemberHibernate;
 import com.rest.web.service.inmobile.hibernate.ProviderHibernate;
 import com.rest.web.service.inmobile.hibernate.UbigeoHibernate;
 import com.rest.web.service.inmobile.hibernate.UserHibernate;
 import com.rest.web.service.inmobile.hibernate.bean.CheckActiveProvider;
+import com.rest.web.service.inmobile.hibernate.bean.CheckActiveRestaurant;
 import com.rest.web.service.inmobile.hibernate.bean.DistrictProvider;
+import com.rest.web.service.inmobile.hibernate.bean.PlanMember;
 import com.rest.web.service.inmobile.hibernate.bean.Provider;
 import com.rest.web.service.inmobile.hibernate.bean.RequestResponse;
 import com.rest.web.service.inmobile.hibernate.bean.User;
@@ -45,6 +52,8 @@ public class ProviderManagerImpl implements ProviderManager {
 	private UbigeoHibernate ubigeoHibernate;
 	@Autowired
 	private CheckActiveProviderHibernate checkActiveProviderHibernate;
+	@Autowired
+	private PlanMemberHibernate planMemberHibernate;
 	
 	public ProviderResponse saveProvider(ProviderRequest objProviderRequest) {
 		
@@ -150,5 +159,61 @@ public class ProviderManagerImpl implements ProviderManager {
 				CommonConstants.TypeOperationReqResp.OPERATION_LIST_PROVIDER_PENDING_ACTIVE,0,valueReqResp.getId());
 		return listProvider;
 	}
+	
+	public VerificationProvider getVerificationProvider(int idProvider){
+		VerificationProvider beanVerification=new VerificationProvider();
+		//--Save Json in Data Base
+		RequestResponse valueReqResp=(RequestResponse)objReqRespManager.saveOrUpdate(idProvider, 
+				CommonConstants.TypeOperationReqResp.OPERATION_GET_VALUES_RESTAURANT,0,0);
+		System.out.println("ID Response : "+valueReqResp.getId());
+		try {
+			//--Get Values from Id Provider
+			CheckActiveProvider beanCheckActProv=checkActiveProviderHibernate.getCheckActiveProvider(idProvider);
+			List<PlanMember> listPlanMember=planMemberHibernate.listAllPlanMember();
+			beanVerification.setBeanCheckProviderActive(ConvertClass.convertFromDataBaseToCheckProviderActive(beanCheckActProv));
+			beanVerification.setListPlanMenber(ConvertClass.convertFromDataBaseToBeanPlanMenber(listPlanMember));
+			beanVerification.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_VERIFICATION_CHECK_PROV);
+			beanVerification.setDescription("Success Return information");
+		} catch (Exception e) {
+			beanVerification.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ERROR);
+			beanVerification.setMessagesResponse(e.getMessage());
+		}
+		objReqRespManager.saveOrUpdate(beanVerification, 
+				CommonConstants.TypeOperationReqResp.OPERATION_GET_VALUES_RESTAURANT,0,valueReqResp.getId());
+		return beanVerification;
+	}
 
+	public CheckProviderActive updateCheckProvider(CheckProviderActive beanRequest) {
+		logger.info(CommonConstants.Logger.LOGGER_START);
+		//--Save Json in Data Base
+		RequestResponse valueReqResp=(RequestResponse)objReqRespManager.saveOrUpdate("", 
+				CommonConstants.TypeOperationReqResp.OPERATION_LIST_RESTAURANT_PENDING_ACTIVE,0,0);
+		System.out.println("ID Response : "+valueReqResp.getId());
+		int idUser=0;
+		try {
+			beanRequest.setStatus(1);
+			CheckActiveProvider beanHibernate=ConvertClass.convertValuesCheckActiveProviderForUpdateDataBase(beanRequest);
+			//--Update Check Restaurant
+			checkActiveProviderHibernate.saveProviderCheckActivation(beanHibernate);
+			//--Get User from Provider Information
+			User userBean=objProviderHibernate.getUserByIdProvider(beanRequest.getIdProvider());
+			idUser=userBean.getId();
+			if(beanRequest.isUpdateStatus()){
+				//--Update Status Restaurant
+				userBean.setStatus(4);
+				//--Update status User
+				userHibernate.saveUserResponseId(userBean);
+			}
+			beanRequest.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_CHECK_PROV);
+			beanRequest.setDescription("Se actualizo correctamente");
+			
+		} catch (Exception e) {
+			beanRequest.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ERROR);
+			beanRequest.setMessagesResponse(e.getMessage());
+		}
+		objReqRespManager.saveOrUpdate(beanRequest, 
+				CommonConstants.TypeOperationReqResp.OPERATION_SAVE_RESTAURANT,idUser,valueReqResp.getId());
+		return beanRequest;
+	}
+	
 }

@@ -15,6 +15,8 @@ import com.canonical.bean.provider.DistrictProviderRequest;
 import com.canonical.bean.provider.DistrictProviderResponse;
 import com.canonical.bean.provider.ProviderRequest;
 import com.canonical.bean.provider.ProviderResponse;
+import com.canonical.bean.provider.VerificationProvider;
+import com.canonical.bean.restaurant.VerificationRestaurant;
 import com.inmobile.web.bean.DistrictProviderDTO;
 import com.inmobile.web.bean.ProviderDTO;
 import com.inmobile.web.bean.ReturnService;
@@ -77,6 +79,17 @@ public class ProviderManagerImpl implements ProviderManager{
 			benResponse.setReturnPage(CommonConstants.Page.REDIRECT_ERROR);
 		}
 		return benResponse;
+	}
+	
+	public List<VerificationProvider> getCheckProviderInformation(String idProvider){
+		logger.info(CommonConstants.Logger.LOGGER_START);
+		List<VerificationProvider> listVerifProv=new ArrayList<VerificationProvider>();
+		RestTemplate restTemplate=new RestTemplate();
+		logger.info("URL : "+CommonConstants.URLService.URL_GET_PROVIDER_CHECK+idProvider);
+		VerificationProvider beanResponse=restTemplate.getForObject(CommonConstants.URLService.URL_GET_PROVIDER_CHECK+idProvider, VerificationProvider.class);
+		listVerifProv.add(beanResponse);
+		logger.info(CommonConstants.Logger.LOGGER_END);
+		return listVerifProv;
 	}
 
 }

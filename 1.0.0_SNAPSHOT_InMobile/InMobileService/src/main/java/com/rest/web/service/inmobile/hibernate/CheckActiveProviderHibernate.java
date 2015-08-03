@@ -5,5 +5,5 @@ import com.rest.web.service.inmobile.hibernate.bean.CheckActiveProvider;
 public interface CheckActiveProviderHibernate {
 	
 	public int saveProviderCheckActivation(CheckActiveProvider beanData)throws Exception;
-	
+	public CheckActiveProvider getCheckActiveProvider(int idProvider) throws Exception;
 }

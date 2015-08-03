@@ -27,8 +27,10 @@ public class CommonConstants {
 		public final static String CODE_RESPONSE_EMPTY_LIST_RESTAURANT_PENDING_ACTIVE="EMPTY_LIST_RESTAURANT_PENDING_ACTIVE";
 		public final static String CODE_RESPONSE_SUCCESS_VERIFICATION_CHECK_REST="SUCCESS_VERIFICATION_CHECK_REST";
 		public final static String CODE_RESPONSE_SUCCESS_CHECK_REST="SUCCESS_CHECK_REST";
+		public final static String CODE_RESPONSE_SUCCESS_CHECK_PROV="SUCCESS_CHECK_PROV";
 		public final static String CODE_RESPONSE_SUCCESS_LIST_PROVIDER_PENDING_ACTIVE="SUCCESS_LIST_PROVIDER_PENDING_ACTIVE";
 		public final static String CODE_RESPONSE_EMPTY_LIST_PROVIDER_PENDING_ACTIVE="EMPTY_LIST_PROVIDER_PENDING_ACTIVE";
+		public final static String CODE_RESPONSE_SUCCESS_VERIFICATION_CHECK_PROV="SUCCESS_VERIFICATION_CHECK_PROV";
 	}
 	
 	public class Email{
@@ -56,6 +58,8 @@ public class CommonConstants {
 		public static final String LIST_RESTAURANT_PENDING_ACTIVE = "/rest/list/restaurantPendingActive/";
 		public static final String VERIFICATION_RESTAURANT = "/rest/verification/restaurant/{id}";
 		public static final String SAVE_CHECK_RESTAURANT = "/rest/restaurant/saveCheckRestaurant";
+		public static final String VERIFICATION_PROVIDER = "/rest/verification/provider/{id}";
+		public static final String SAVE_CHECK_PROVIDER = "/rest/restaurant/saveCheckProvider";
 		
 		public static final String LIST_PROVIDER_PENDING_ACTIVE = "/rest/list/providerPendingActive/";
 	}

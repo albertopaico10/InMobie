@@ -4,16 +4,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.canonical.bean.provider.CheckProviderActive;
 import com.canonical.bean.provider.DistrictProviderRequest;
 import com.canonical.bean.provider.DistrictProviderResponse;
 import com.canonical.bean.provider.ListProvider;
 import com.canonical.bean.provider.ProviderRequest;
 import com.canonical.bean.provider.ProviderResponse;
+import com.canonical.bean.provider.VerificationProvider;
+import com.canonical.bean.restaurant.CheckRestaurantActive;
+import com.canonical.bean.restaurant.VerificationRestaurant;
 import com.rest.web.service.inmobile.facade.ProviderManager;
 import com.rest.web.service.inmobile.util.CommonConstants;
 
@@ -44,6 +49,20 @@ public class ProviderController {
 		logger.info(CommonConstants.Logger.LOGGER_START);
 		ListProvider beanResponse=objProviderManager.listProviderPendingActive();
 		logger.info(CommonConstants.Logger.LOGGER_END);
+		return beanResponse;
+	}
+	
+	@RequestMapping(value = CommonConstants.ValueRequestMapping.VERIFICATION_PROVIDER, method = RequestMethod.GET)
+	public @ResponseBody VerificationProvider getVerificationRest(@PathVariable("id") int idProvider) {
+		logger.info(CommonConstants.Logger.LOGGER_START+"Start getVerificationRest ID="+idProvider);
+		VerificationProvider beanResponse=objProviderManager.getVerificationProvider(idProvider);
+		return beanResponse;
+	}
+	
+	@RequestMapping(value = CommonConstants.ValueRequestMapping.SAVE_CHECK_PROVIDER, method = RequestMethod.POST)
+	public @ResponseBody CheckProviderActive saveCheckProvider(@RequestBody CheckProviderActive beanRequest) {
+		logger.info("Start saveCheckRestaurant.");
+		CheckProviderActive beanResponse=objProviderManager.updateCheckProvider(beanRequest);
 		return beanResponse;
 	}
 

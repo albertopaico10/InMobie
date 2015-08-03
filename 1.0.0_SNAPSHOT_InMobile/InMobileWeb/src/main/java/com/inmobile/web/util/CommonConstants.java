@@ -46,6 +46,8 @@ public class CommonConstants {
 		public final static String RESPONSE_SUCCESS_CHECK_REST="SUCCESS_CHECK_REST";
 		public final static String RESPONSE_SUCCESS_LIST_PROVIDER_PENDING_ACTIVE="SUCCESS_LIST_PROVIDER_PENDING_ACTIVE";
 		public final static String RESPONSE_EMPTY_LIST_PROVIDER_PENDING_ACTIVE="EMPTY_LIST_PROVIDER_PENDING_ACTIVE";
+		public final static String RESPONSE_SUCCESS_VERIFICATION_CHECK_PROV="SUCCESS_VERIFICATION_CHECK_PROV";
+		public final static String RESPONSE_SUCCESS_CHECK_PROV="SUCCESS_CHECK_PROV";
 	}
 	public class Logger{
 		public static final String LOGGER_START="****START****";
@@ -70,6 +72,8 @@ public class CommonConstants {
 		public static final String URL_GET_RESTAURANT_CHECK=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/verification/restaurant/";
 		public static final String URL_UPDATE_CHECK_REST=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/restaurant/saveCheckRestaurant";
 		public static final String URL_LIST_PROVIDER_PENDING_ACTIVE=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/list/providerPendingActive/";
+		public static final String URL_GET_PROVIDER_CHECK=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/verification/provider/";
+		public static final String URL_UPDATE_CHECK_PROV=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/restaurant/saveCheckProvider";
 	}
 	
 	public class EncriptedValues{

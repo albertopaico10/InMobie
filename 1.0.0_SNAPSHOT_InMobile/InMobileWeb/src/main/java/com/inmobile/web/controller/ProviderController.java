@@ -12,17 +12,23 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.canonical.bean.provider.CheckProviderActive;
+import com.canonical.bean.provider.VerificationProvider;
+import com.inmobile.web.bean.CheckProviderDTO;
 import com.inmobile.web.bean.DistrictProviderDTO;
 import com.inmobile.web.bean.ProviderDTO;
 import com.inmobile.web.bean.ReturnService;
 import com.inmobile.web.bean.UbigeoDepartmentDTO;
 import com.inmobile.web.facade.ProviderManager;
 import com.inmobile.web.facade.UserManager;
+import com.inmobile.web.util.UtilMethods;
 
 @Controller
 public class ProviderController {
@@ -81,17 +87,17 @@ public class ProviderController {
 		return null;
 	}
 	
-//	@RequestMapping(value="/getCheckValuesProvider.htm",method=RequestMethod.GET)
-//	public @ResponseBody String getCheckValues(@RequestParam String idRestaurant,final ModelMap model){
-//		System.out.println("getCheckValues-->Id Complaint : "+idRestaurant+"***");
-//		List<VerificationRestaurant> listRestaurant=objProviderManager.getCheckRestaurantInformation(idRestaurant);
-//		final CheckRestaurantDTO checkRest=new CheckRestaurantDTO();
-//		model.addAttribute("checkRestForm", checkRest);
-////		String rootProject=request.getSession().getServletContext().getRealPath("");
-//		
-////		List<ImageDTO> listSpecificDistrict=imageManager.getImageFromService(Integer.parseInt(id),rootProject);
-//		System.out.println("Lo que va es : "+UtilMethods.fromObjectToString(listRestaurant));
-//		return UtilMethods.fromObjectToString(listRestaurant);
-//	}
+	@RequestMapping(value="/getCheckValuesProvider.htm",method=RequestMethod.GET)
+	public @ResponseBody String getCheckValues(@RequestParam String idProvider,final ModelMap model){
+		System.out.println("getCheckValues-->Id Complaint : "+idProvider+"***");
+		List<VerificationProvider> listRestaurant=objProviderManager.getCheckProviderInformation(idProvider);
+		final CheckProviderDTO checkRest=new CheckProviderDTO();
+		model.addAttribute("checkProvForm", checkRest);
+//		String rootProject=request.getSession().getServletContext().getRealPath("");
+		
+//		List<ImageDTO> listSpecificDistrict=imageManager.getImageFromService(Integer.parseInt(id),rootProject);
+		System.out.println("Lo que va es : "+UtilMethods.fromObjectToString(listRestaurant));
+		return UtilMethods.fromObjectToString(listRestaurant);
+	}
 	
 }

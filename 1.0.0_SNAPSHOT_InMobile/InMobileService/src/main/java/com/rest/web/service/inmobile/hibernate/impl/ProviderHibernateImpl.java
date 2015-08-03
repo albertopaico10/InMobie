@@ -97,4 +97,21 @@ public class ProviderHibernateImpl implements ProviderHibernate {
 		return listProviders;
 	}
 	
+	public User getUserByIdProvider(int idProvider)throws Exception{
+		User userBean=null;
+		String query="from Provider where status=1 and id='"+idProvider+"'";
+		System.out.println("query : "+query);
+		Session session=sessionfactory.openSession();
+		
+		List<Provider> listSpecificById=session.createQuery(query).list();
+		System.out.println("Cantidad de filas : "+listSpecificById.size());
+		if(listSpecificById.size()>0){
+			String queryUser="from User where id='"+listSpecificById.get(0).getIdUser()+"'";
+			System.out.println("query #2 : "+queryUser);
+			List<User> listUserSpecific=session.createQuery(queryUser).list();
+			userBean=listUserSpecific.get(0);
+		}		
+		return userBean;
+	}
+	
 }

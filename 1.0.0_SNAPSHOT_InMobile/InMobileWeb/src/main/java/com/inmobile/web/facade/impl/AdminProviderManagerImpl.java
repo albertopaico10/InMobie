@@ -5,7 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.canonical.bean.provider.CheckProviderActive;
 import com.canonical.bean.provider.ListProvider;
+import com.canonical.bean.restaurant.CheckRestaurantActive;
+import com.inmobile.web.bean.CheckProviderDTO;
+import com.inmobile.web.bean.CheckRestaurantDTO;
 import com.inmobile.web.bean.ReturnService;
 import com.inmobile.web.facade.AdminProviderManager;
 import com.inmobile.web.util.CommonConstants;
@@ -25,6 +29,18 @@ public class AdminProviderManagerImpl implements AdminProviderManager {
 			beanReturnService.setListProviderDTO(ConvertClassFormat.convertFromServiceToListProviderDTO(beanListProvider.getListProviderResponse()));
 		}
 		beanReturnService.setMessages(beanListProvider.getCodeResponse());
+		return beanReturnService;
+	}
+	
+	public ReturnService updateCheckProvider(CheckProviderDTO beanProviderDTO){
+		ReturnService beanReturnService=new ReturnService();
+		CheckProviderActive beanCheckProvAct=ConvertClassFormat.convertFromWebToServiceCheckProv(beanProviderDTO);
+		RestTemplate restTemplate=new RestTemplate();
+		CheckProviderActive beanResponse=restTemplate.postForObject(CommonConstants.URLService.URL_UPDATE_CHECK_PROV, beanCheckProvAct, CheckProviderActive.class);
+		if(CommonConstants.Response.RESPONSE_SUCCESS_CHECK_PROV.equals(beanResponse.getCodeResponse())){
+			beanReturnService.setReturnPage("listPendingActiveProvider.htm");
+			beanReturnService.setSpecificMessages(beanResponse.getCodeResponse());
+		}
 		return beanReturnService;
 	}
 
