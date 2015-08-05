@@ -75,8 +75,11 @@
 		
 	   	</div>
 	   	<form action="saveScheduler.htm" method="POST">
-			<input type="text" id=schedulerDetail name="schedulerDetail" value="${schedulerDetail}"></input>
-			<input type="text" name="idUser" id="idUser" value="${idUserReq }">
+	   		<div style="display: none">
+	   			<input type="text" id=schedulerDetail name="schedulerDetail" value="${schedulerDetail}"></input>
+				<input type="text" name="idUser" id="idUser" value="${idUserReq }">
+	   		</div>
+			
 			<button type="submit" class="btn btn-default btn-lg"><spring:message code="common.value.next"/></button>
 		</form>
 	</div>

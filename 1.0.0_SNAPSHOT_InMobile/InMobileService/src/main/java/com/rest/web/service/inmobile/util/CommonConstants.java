@@ -70,7 +70,8 @@ public class CommonConstants {
 	}
 	
 	public class ValuesProject{
-		public static final String URL_SERVER="http://localhost:8080/";
+		public static final String URL_SERVER="http://204.93.174.56:8080/";
+//		public static final String URL_SERVER="http://localhost:8080/";
 		public static final String PROJECT_VALUE="InMobileWeb/";
 		public static final String ACTION_CONTINUE="continue.htm?val=";
 	}

@@ -32,7 +32,7 @@ public class RestaurantHibernateImpl implements RestaurantHibernate {
 
 	public Restaurant getDataRestaurantByUserId(int idUser) throws Exception {
 		Restaurant restaurantBean=null;
-		String query="from ClientRestaurant where status=1 and idUser='"+idUser+"'";
+		String query="from Restaurant where status=1 and idUser='"+idUser+"'";
 		System.out.println("query : "+query);
 		Session session=sessionfactory.openSession();
 		
@@ -58,7 +58,7 @@ public class RestaurantHibernateImpl implements RestaurantHibernate {
 		
 		if(listUserSpecific.size()>0){
 			for(User beanUser:listUserSpecific){
-				String queryRestaurant="from ClientRestaurant where idUser="+beanUser.getId();
+				String queryRestaurant="from Restaurant where idUser="+beanUser.getId();
 				System.out.println("query #2 : "+queryRestaurant);
 				List<Restaurant> listRestaurantSpecific=session.createQuery(queryRestaurant).list();
 				for(Restaurant beanListRest:listRestaurantSpecific){
@@ -72,7 +72,7 @@ public class RestaurantHibernateImpl implements RestaurantHibernate {
 	
 	public int findUserByIdRestaurant(int idRestaurant)throws Exception{
 		Restaurant restaurantBean=null;
-		String query="from ClientRestaurant where status=1 and id='"+idRestaurant+"'";
+		String query="from Restaurant where status=1 and id='"+idRestaurant+"'";
 		System.out.println("query : "+query);
 		Session session=sessionfactory.openSession();
 		
@@ -86,7 +86,7 @@ public class RestaurantHibernateImpl implements RestaurantHibernate {
 	
 	public User getUserByIdRestaurant(int idRestaurant)throws Exception{
 		User userBean=null;
-		String query="from ClientRestaurant where status=1 and id='"+idRestaurant+"'";
+		String query="from Restaurant where status=1 and id='"+idRestaurant+"'";
 		System.out.println("query : "+query);
 		Session session=sessionfactory.openSession();
 		

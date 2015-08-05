@@ -28,6 +28,9 @@ public class AdminProviderManagerImpl implements AdminProviderManager {
 			beanReturnService.setReturnPage(CommonConstants.Page.REDIRECT_LIST_USER_PENDING_ACTIVE);
 			beanReturnService.setListProviderDTO(ConvertClassFormat.convertFromServiceToListProviderDTO(beanListProvider.getListProviderResponse()));
 		}
+		if(CommonConstants.Response.RESPONSE_EMPTY_LIST_PROVIDER_PENDING_ACTIVE.equals(beanListProvider.getCodeResponse())){
+			beanReturnService.setReturnPage(CommonConstants.Page.REDIRECT_LIST_USER_PENDING_ACTIVE);
+		}
 		beanReturnService.setMessages(beanListProvider.getCodeResponse());
 		return beanReturnService;
 	}

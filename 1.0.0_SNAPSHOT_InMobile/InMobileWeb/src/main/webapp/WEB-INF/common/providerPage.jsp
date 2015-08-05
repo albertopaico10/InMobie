@@ -108,7 +108,7 @@
 			<div class="col-sm-3">
 				<html:input path="emailContact" maxlength="60" disabled="true" class="form-control input-lg" id="emailContact" />
 			</div>
-			<div class="col-sm-3">
+			<div class="col-sm-3" style="display: none">
 <%-- 				<input type="text" value="${idUserReq}" id="idSuerReqTemp"> --%>
 				<html:input path="idUser" maxlength="60"  class="form-control input-lg" id="idUser"/>
 				<html:input path="id" maxlength="60"  class="form-control input-lg" id="id"/>

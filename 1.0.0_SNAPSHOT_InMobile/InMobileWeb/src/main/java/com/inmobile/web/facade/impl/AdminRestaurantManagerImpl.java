@@ -28,6 +28,9 @@ public class AdminRestaurantManagerImpl implements AdminRestaurantManager {
 			beanReturnService.setReturnPage(CommonConstants.Page.REDIRECT_LIST_USER_PENDING_ACTIVE);
 			beanReturnService.setListRestaurantDTO(ConvertClassFormat.convertFromServiceToListRestaurantDTO(beanListRestaurant.getListRestaurantResponse()));
 		}
+		if(CommonConstants.Response.RESPONSE_EMPTY_LIST_RESTAURANT_PENDING_ACTIVE.equals(beanListRestaurant.getCodeResponse())){
+			beanReturnService.setReturnPage(CommonConstants.Page.REDIRECT_LIST_USER_PENDING_ACTIVE);
+		}
 		beanReturnService.setMessages(beanListRestaurant.getCodeResponse());
 		return beanReturnService;
 	}
