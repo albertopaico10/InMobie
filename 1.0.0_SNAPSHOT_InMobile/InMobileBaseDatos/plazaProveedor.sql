@@ -31,7 +31,7 @@ CREATE TABLE tb_user(
 	user_updated INT
 );
 #password = Pa55w0rd o 12345678
-insert into tb_user (id,email,passwordUser,typeUser,status,user_created,user_updated) values(0,'admin@inmoble.pe','UdLdXVla3TJX5ovpja8EhQ==',0,4,0,0);
+insert into tb_user (id,email,passwordUser,typeUser,status,user_created,user_updated) values(0,'admin@inmobile.pe','UdLdXVla3TJX5ovpja8EhQ==',0,4,0,0);
 
 DROP TABLE IF EXISTS tb_restaurant;
 /*Table Restaurant*/
@@ -88,20 +88,32 @@ DROP TABLE IF EXISTS tb_Provider;
 /*Table Provider*/
 CREATE TABLE tb_provider(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	socialReason varchar(200),
 	nameProvider VARCHAR(200),/*Nombre del Proveedor*/
 	RUCProvider VARCHAR(20),/*Ruc del Proveedor*/
 	phoneProvider VARCHAR(200),/*Telefono del Proveedor*/
+	referenceProvider varchar(200),
 	addressProvider VARCHAR(200),/*Direccion del Proveedor*/
-	idDistrictProvide INT,/*Distrito del Proveedor*/
+	idDistrictProvider INT,/*Distrito del Proveedor*/
+	idProvinceProvider INT,
+	idDeparmentProvider INT,
 	idCategory INT,
-	idImage INT,
-	countStar INT,
+	nameContact varchar(200) DEFAULT NULL,
+	lastNameContact varchar(200) DEFAULT NULL,
+	chargeContact varchar(200) DEFAULT NULL,
+	phoneContact varchar(20) DEFAULT NULL,
+	cellphoneContact varchar(20) DEFAULT NULL,
+	referenceContact varchar(200) DEFAULT NULL,
+	anexoContact varchar(20) DEFAULT NULL,
 	idUser INT,
-	status INT,
+	status INT DEFAULT NULL,
+	idImage INT DEFAULT NULL,
+	idPlan INT DEFAULT NULL,
 	date_created TIMESTAMP DEFAULT NOW(),
-	date_updated TIMESTAMP,
-	user_created INT,
-	user_updated INT
+	date_updated timestamp NULL DEFAULT NULL,
+	user_created INT DEFAULT NULL,
+	user_updated INT DEFAULT NULL
+
 );
 ALTER TABLE tb_provider
 ADD FOREIGN KEY (idUser)
