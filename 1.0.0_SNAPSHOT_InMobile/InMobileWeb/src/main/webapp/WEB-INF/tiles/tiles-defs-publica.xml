@@ -22,15 +22,61 @@
 		<put-attribute name="contenidoDcho" value="/WEB-INF/common/blank.jsp" />
 		<put-attribute name="pie" value="/WEB-INF/common/blank.jsp" />
 	</definition>
-
+	<!-- PRIVATE -->
+	<definition name="initAdminPage" extends="tiles.index.private">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/private/initAdminPage.jsp" />
+	</definition>
+	
+	<definition name="listUserPendingActive" extends="tiles.index.private">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/private/listUserPendingActive.jsp" />
+	</definition>
+	
 	<definition name="initPage" extends="tiles.index.private">
 		<put-attribute name="contenidoCentro" value="/WEB-INF/private/initPage.jsp" />
 	</definition>
-	
+	<!-- PUBLIC -->
 	<definition name="loginPage" extends="tiles.index.public">
 		<put-attribute name="contenidoCentro" value="/WEB-INF/public/loginPage.jsp" />
 	</definition>
 	
+	<definition name="sendEmailPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/sendEmailPage.jsp" />
+	</definition>
 	
+	<definition name="inactiveAccountPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/inactiveAccountPage.jsp" />
+	</definition>
+	
+	<definition name="restaurantPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/common/restaurantPage.jsp" />
+	</definition>
+	
+	<definition name="providerPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/common/providerPage.jsp" />
+	</definition>
+	
+	<definition name="errorPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/errorPage.jsp" />
+	</definition>
+	
+	<definition name="accountPendingPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/accountPendingPage.jsp" />
+	</definition>
+	
+	<definition name="schedulerRestaurant" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/schedulerRestaurant.jsp" />
+	</definition>
+	
+	<definition name="districtProvider" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/districtProvider.jsp" />
+	</definition>
+	
+	<definition name="lnkDeprecatedPage" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/lnkDeprecatedPage.jsp" />
+	</definition>
+	
+	<definition name="messagesSuccessValidation" extends="tiles.index.public">
+		<put-attribute name="contenidoCentro" value="/WEB-INF/public/messagesSuccessValidation.jsp" />
+	</definition>
 
 </tiles-definitions>

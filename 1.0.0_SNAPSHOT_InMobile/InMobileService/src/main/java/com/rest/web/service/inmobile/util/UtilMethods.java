@@ -10,66 +10,107 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.google.gson.Gson;
+
 public class UtilMethods {
 	// --This method is only for test
-    public static int showRandomInteger(int aStart, int aEnd, Random aRandom) {
-        if (aStart > aEnd) {
-            throw new IllegalArgumentException("Start cannot exceed End.");
-        }
-        // get the range, casting to long to avoid overflow problems
-        long range = (long) aEnd - (long) aStart + 1;
-        // compute a fraction of the range, 0 <= frac < range
-        long fraction = (long) (range * aRandom.nextDouble());
-        int randomNumber = (int) (fraction + aStart);
-        return randomNumber;
-    }
-    
-    public static String encriptedPassword(String message, String algorithm) {
-    	String secretKey = CommonConstants.EncriptedValues.KEY_VALUE_ENCRIPTED;
-        String base64EncryptedString = "";
- 
-        try {
- 
-            MessageDigest md = MessageDigest.getInstance(algorithm);
-            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
-            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
- 
-            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
-            Cipher cipher = Cipher.getInstance("DESede");
-            cipher.init(Cipher.ENCRYPT_MODE, key);
- 
-            byte[] plainTextBytes = message.getBytes("utf-8");
-            byte[] buf = cipher.doFinal(plainTextBytes);
-            byte[] base64Bytes = Base64.encodeBase64(buf);
-            base64EncryptedString = new String(base64Bytes);
- 
-        } catch (Exception ex) {
-        }
+	public static int showRandomInteger(int aStart, int aEnd, Random aRandom) {
+		if (aStart > aEnd) {
+			throw new IllegalArgumentException("Start cannot exceed End.");
+		}
+		// get the range, casting to long to avoid overflow problems
+		long range = (long) aEnd - (long) aStart + 1;
+		// compute a fraction of the range, 0 <= frac < range
+		long fraction = (long) (range * aRandom.nextDouble());
+		int randomNumber = (int) (fraction + aStart);
+		return randomNumber;
+	}
+
+	public static String encriptedPassword(String message, String algorithm) {
+		String secretKey = CommonConstants.EncriptedValues.KEY_VALUE_ENCRIPTED;
+		String base64EncryptedString = "";
+
+		try {
+
+			MessageDigest md = MessageDigest.getInstance(algorithm);
+			byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
+			byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+
+			SecretKey key = new SecretKeySpec(keyBytes, "DESede");
+			Cipher cipher = Cipher.getInstance("DESede");
+			cipher.init(Cipher.ENCRYPT_MODE, key);
+
+			byte[] plainTextBytes = message.getBytes("utf-8");
+			byte[] buf = cipher.doFinal(plainTextBytes);
+			byte[] base64Bytes = Base64.encodeBase64(buf);
+			base64EncryptedString = new String(base64Bytes);
+
+		} catch (Exception ex) {
+		}
 		return base64EncryptedString;
 	}
-    
-    public static String descriptionPassword(String textoEncriptado, String algorithm) throws Exception {
 
-        String secretKey = CommonConstants.EncriptedValues.KEY_VALUE_ENCRIPTED;
-        String base64EncryptedString = "";
+	public static String descriptionPassword(String textoEncriptado,
+			String algorithm) throws Exception {
 
-        try {
-            byte[] message = Base64.decodeBase64(textoEncriptado.getBytes("utf-8"));
-            MessageDigest md = MessageDigest.getInstance(algorithm);
-            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
-            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
-            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
+		String secretKey = CommonConstants.EncriptedValues.KEY_VALUE_ENCRIPTED;
+		String base64EncryptedString = "";
 
-            Cipher decipher = Cipher.getInstance("DESede");
-            decipher.init(Cipher.DECRYPT_MODE, key);
+		try {
+			byte[] message = Base64.decodeBase64(textoEncriptado
+					.getBytes("utf-8"));
+			MessageDigest md = MessageDigest.getInstance(algorithm);
+			byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
+			byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+			SecretKey key = new SecretKeySpec(keyBytes, "DESede");
 
-            byte[] plainText = decipher.doFinal(message);
+			Cipher decipher = Cipher.getInstance("DESede");
+			decipher.init(Cipher.DECRYPT_MODE, key);
 
-            base64EncryptedString = new String(plainText, "UTF-8");
+			byte[] plainText = decipher.doFinal(message);
 
-        } catch (Exception ex) {
-        }
-        return base64EncryptedString;
-}
+			base64EncryptedString = new String(plainText, "UTF-8");
+
+		} catch (Exception ex) {
+		}
+		return base64EncryptedString;
+	}
+	
+	public static String fromObjectToString(Object beanObject){
+		Gson gson=new Gson();
+		String strGson=gson.toJson(beanObject);
+		return strGson;
+	}
+	
+	public static String bytesToHexString(byte[] bytes) {
+		StringBuilder sb = new StringBuilder();
+		for (byte b : bytes) {
+			sb.append(String.format("%02x", b & 0xff));
+		}
+		return sb.toString();
+	}
+	
+	public static byte[] hexStringToByteArray(String s) {
+	    int len = s.length();
+	    byte[] data = new byte[len / 2];
+	    for (int i = 0; i < len; i += 2) {
+	        data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+	                             + Character.digit(s.charAt(i+1), 16));
+	    }
+	    return data;
+	}
+	
+	public static String encriptValue(String value){
+		String valueEncript="";
+		byte[] byteValue=value.getBytes();
+		valueEncript=bytesToHexString(byteValue);
+		return valueEncript;
+	}
+	
+	public static String descriptValue(String valueEncript){
+		byte[] byteValue=hexStringToByteArray(valueEncript);
+		String valueNormal=new String(byteValue);
+		return valueNormal;
+	}
 
 }
