@@ -11,8 +11,8 @@ CREATE TABLE tb_User(
 	passwordUser VARCHAR(60),
 	typeUser INT,
 	status INT,
-	date_created TIMESTAMP DEFAULT NOW(),
-	date_updated TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
+	date_updated TIMESTAMP,
 	user_created INT,
 	user_updated INT
 );
@@ -42,31 +42,23 @@ CREATE TABLE tb_Restaurant(
 	idUser INT,
 	status INT,
 	idImage INT,
-	date_created TIMESTAMP DEFAULT NOW(),
-	date_updated TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
+	date_updated TIMESTAMP,
 	user_created INT,
 	user_updated INT
 );
 /*
 Falta detalle de recepcion de pedidos
 */
-ALTER TABLE tb_ClientRestaurant
-ADD FOREIGN KEY (idUser)
-REFERENCES tb_User(id);
 
 CREATE TABLE tb_SchedulerRestaurant(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	idRestaurant INT,
 	dayOfWeek INT,
 	specificHour VARCHAR(100),
-	date_created TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
 	user_created INT
 );
-
-ALTER TABLE tb_SchedulerRestaurant
-ADD FOREIGN KEY (idRestaurant)
-REFERENCES tb_ClientRestaurant(id);
-
 
 /*Table Provider*/
 CREATE TABLE tb_Provider(
@@ -81,14 +73,11 @@ CREATE TABLE tb_Provider(
 	countStar INT,
 	idUser INT,
 	status INT,
-	date_created TIMESTAMP DEFAULT NOW(),
-	date_updated TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
+	date_updated TIMESTAMP,
 	user_created INT,
 	user_updated INT
 );
-ALTER TABLE tb_Provider
-ADD FOREIGN KEY (idUser)
-REFERENCES tb_User(id);
 
 /*Table Product*/
 CREATE TABLE tb_Product(
@@ -102,8 +91,8 @@ CREATE TABLE tb_Product(
 	idImage INT,
 	hasOfert INT,
 	idOfert INT,
-	date_created TIMESTAMP DEFAULT NOW(),
-	date_updated TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
+	date_updated TIMESTAMP,
 	user_created INT,
 	user_updated INT
 );
@@ -113,14 +102,11 @@ CREATE TABLE tb_Product(
 CREATE TABLE tb_Supplies(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, /*Id de Insumos*/
 	nameInput VARCHAR(200),/*Nombre del insumo*/
-	date_created TIMESTAMP DEFAULT NOW(),
-	date_updated TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
+	date_updated TIMESTAMP,
 	user_created INT,
 	user_updated INT
 );
-ALTER TABLE tb_Product
-ADD FOREIGN KEY (idSupplies)
-REFERENCES tb_Supplies(id);
 
 /*Table Relation between Provider and Product*/
 CREATE TABLE tb_Provider_Product(
@@ -128,13 +114,6 @@ CREATE TABLE tb_Provider_Product(
 	idProvider INT,
 	idProduct INT
 );
-ALTER TABLE tb_Provider_Product
-ADD FOREIGN KEY (idProvider)
-REFERENCES tb_Provider(id);
-
-ALTER TABLE tb_Provider_Product
-ADD FOREIGN KEY (idProduct)
-REFERENCES tb_Product(id);
 
 /*Table Category Provider*/
 /*Estas categorias son para tanto para el proveedor como el restaurant??*/
@@ -142,66 +121,46 @@ CREATE TABLE tb_Category(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	nameCategory VARCHAR(200),
 	otherReference VARCHAR(400),
-	date_created TIMESTAMP DEFAULT NOW(),
-	date_updated TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
+	date_updated TIMESTAMP,
 	user_created INT,
 	user_updated INT
 );
-ALTER TABLE tb_Provider
-ADD FOREIGN KEY (idCategory)
-REFERENCES tb_Category(id);
 
 /*Table Sub Category Provider*/
 CREATE TABLE tb_SubCategoryProvider_1(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	nameSubCategory VARCHAR(200),
 	idCategory INT,
-	date_created TIMESTAMP DEFAULT NOW(),
-	date_updated TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
+	date_updated TIMESTAMP,
 	user_created INT,
 	user_updated INT
 );
-ALTER TABLE tb_SubCategoryProvider_1
-ADD FOREIGN KEY (idCategory)
-REFERENCES tb_CategoryProvider(id);
 
 /*Table Image*/
 CREATE TABLE tb_Image(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	categoryImage VARCHAR(200),
 	img LONGBLOB NULL,
-	date_created TIMESTAMP DEFAULT NOW(),
-	date_updated TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
+	date_updated TIMESTAMP,
 	user_created INT,
 	user_updated INT
 );
 insert into tb_image (id,categoryImage) values ('0','DEFAULT_IMAGE');
 commit;
-ALTER TABLE tb_Provider
-ADD FOREIGN KEY (idImage)
-REFERENCES tb_Image(id);
-
-ALTER TABLE tb_Product
-ADD FOREIGN KEY (idImage)
-REFERENCES tb_Image(id);
-
-ALTER TABLE tb_ClientRestaurant
-ADD FOREIGN KEY (idImage)
-REFERENCES tb_Image(id);
 
 /*Table Ofert*/
 CREATE TABLE tb_Ofert(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	descriptionOfert VARCHAR(400),
 	priceOfert DECIMAL(6,2) NOT NULL,/*Precio Oferta*/
-	date_created TIMESTAMP DEFAULT NOW(),
-	date_updated TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
+	date_updated TIMESTAMP,
 	user_created INT,
 	user_updated INT
 );
-ALTER TABLE tb_Product
-ADD FOREIGN KEY (idOfert)
-REFERENCES tb_Ofert(id);
 
 /*Table Operation*/
 CREATE TABLE tb_Operation(
@@ -213,8 +172,8 @@ CREATE TABLE tb_Operation(
 	idNote INT,
 	isUrgent INT,
 	receptionDate VARCHAR(50),
-	date_created TIMESTAMP DEFAULT NOW(),
-	date_updated TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
+	date_updated TIMESTAMP,
 	user_created INT,
 	user_updated INT
 );
@@ -228,31 +187,12 @@ CREATE TABLE tb_Detail_Operation(
 	salePriceProduct DECIMAL(6,2) NOT NULL/*Precio Venta*/
 );
 
-/*Table District*/
-CREATE TABLE tb_District(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	nameDistrict VARCHAR(400)
-);
-
-ALTER TABLE tb_ClientRestaurant
-ADD FOREIGN KEY (idDistrictRestaurant)
-REFERENCES tb_District(id);
-
-ALTER TABLE tb_Provider
-ADD FOREIGN KEY (idDistrictProvide)
-REFERENCES tb_District(id);
-
 /*Table Note*/
 CREATE TABLE tb_Note(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	descriptionNote VARCHAR(400),
 	status INT
 );
-
-ALTER TABLE tb_ClientRestaurant
-ADD FOREIGN KEY (idNote)
-REFERENCES tb_Note(id);
-
 
 CREATE TABLE tb_Request_Response(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -261,7 +201,7 @@ CREATE TABLE tb_Request_Response(
 	request LONGTEXT,
 	response LONGTEXT,
 	status INT,
-	date_created TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
 	user_created INT
 );
 DROP TABLE IF EXISTS tb_check_active_restaurant;
@@ -275,13 +215,9 @@ CREATE TABLE tb_check_active_restaurant(
 	training INT,
 	idMemberShipPlan INT,
 	status INT,
-	date_created TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
 	user_created INT
 );
-
-ALTER TABLE tb_check_active_restaurant
-ADD FOREIGN KEY (idRestaurant)
-REFERENCES tb_ClientRestaurant(id);
 
 CREATE TABLE tb_check_active_provider(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -293,23 +229,15 @@ CREATE TABLE tb_check_active_provider(
 	training INT,
 	idMemberShipPlan INT,
 	status INT,
-	date_created TIMESTAMP DEFAULT NOW(),
+	date_created TIMESTAMP,
 	user_created INT
 );
-
-ALTER TABLE tb_check_active_restaurant
-ADD FOREIGN KEY (idRestaurant)
-REFERENCES tb_ClientRestaurant(id);
 
 CREATE TABLE tb_PlanMenber(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	valuePlanMenber varchar(200),
 	status INT
 );
-
-ALTER TABLE tb_check_active_restaurant
-ADD FOREIGN KEY (idMemberShipPlan)
-REFERENCES tb_PlanMenber(id);
 
 insert into tb_PlanMenber (valuePlanMenber,status) values('3 Meses',1);
 insert into tb_PlanMenber (valuePlanMenber,status) values('6 Meses',1);
@@ -327,24 +255,99 @@ CREATE TABLE tb_departments(
 	departmentName VARCHAR(100),
 	countryId int
 ); 
-ALTER TABLE tb_departments
-ADD FOREIGN KEY (countryId)
-REFERENCES tb_country(id);
 
 CREATE TABLE tb_province(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	provinceName VARCHAR(200),
 	departmentId int
 );
-ALTER TABLE tb_province
-ADD FOREIGN KEY (departmentId)
-REFERENCES tb_departments(id);
 
 CREATE TABLE tb_district(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	districtName VARCHAR(200),
 	provinceId int
 );
+
+ALTER TABLE tb_Restaurant
+ADD FOREIGN KEY (idUser)
+REFERENCES tb_User(id);
+
+ALTER TABLE tb_SchedulerRestaurant
+ADD FOREIGN KEY (idRestaurant)
+REFERENCES tb_Restaurant(id);
+
+ALTER TABLE tb_Provider
+ADD FOREIGN KEY (idUser)
+REFERENCES tb_User(id);
+
+ALTER TABLE tb_Product
+ADD FOREIGN KEY (idSupplies)
+REFERENCES tb_Supplies(id);
+
+ALTER TABLE tb_Provider_Product
+ADD FOREIGN KEY (idProvider)
+REFERENCES tb_Provider(id);
+
+ALTER TABLE tb_Provider_Product
+ADD FOREIGN KEY (idProduct)
+REFERENCES tb_Product(id);
+
+ALTER TABLE tb_Provider
+ADD FOREIGN KEY (idCategory)
+REFERENCES tb_Category(id);
+
+/*ALTER TABLE tb_SubCategoryProvider_1
+ADD FOREIGN KEY (idCategory)
+REFERENCES tb_CategoryProvider(id);
+*/
+ALTER TABLE tb_Provider
+ADD FOREIGN KEY (idImage)
+REFERENCES tb_Image(id);
+
+ALTER TABLE tb_Product
+ADD FOREIGN KEY (idImage)
+REFERENCES tb_Image(id);
+
+ALTER TABLE tb_Restaurant
+ADD FOREIGN KEY (idImage)
+REFERENCES tb_Image(id);
+
+ALTER TABLE tb_Product
+ADD FOREIGN KEY (idOfert)
+REFERENCES tb_Ofert(id);
+
+ALTER TABLE tb_Restaurant
+ADD FOREIGN KEY (idDistrictRestaurant)
+REFERENCES tb_District(id);
+
+ALTER TABLE tb_Provider
+ADD FOREIGN KEY (idDistrictProvide)
+REFERENCES tb_District(id);
+
+/*ALTER TABLE tb_Restaurant
+ADD FOREIGN KEY (idNote)
+REFERENCES tb_Note(id);*/
+
+ALTER TABLE tb_check_active_restaurant
+ADD FOREIGN KEY (idRestaurant)
+REFERENCES tb_Restaurant(id);
+
+ALTER TABLE tb_check_active_restaurant
+ADD FOREIGN KEY (idRestaurant)
+REFERENCES tb_Restaurant(id);
+
+ALTER TABLE tb_check_active_restaurant
+ADD FOREIGN KEY (idMemberShipPlan)
+REFERENCES tb_PlanMenber(id);
+
+ALTER TABLE tb_departments
+ADD FOREIGN KEY (countryId)
+REFERENCES tb_country(id);
+
+ALTER TABLE tb_province
+ADD FOREIGN KEY (departmentId)
+REFERENCES tb_departments(id);
+
 ALTER TABLE tb_district
 ADD FOREIGN KEY (provinceId)
 REFERENCES tb_province(id);
@@ -371,14 +374,3 @@ tabla usuario y contraseña tiene que estar relacionada con proveedor y restaura
 
 tabla de reques y response de servicios
 */
-
-
-
-
-
-
-
-
-
-
-
