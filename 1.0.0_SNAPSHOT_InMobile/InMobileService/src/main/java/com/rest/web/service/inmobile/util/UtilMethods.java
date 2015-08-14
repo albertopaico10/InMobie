@@ -112,5 +112,9 @@ public class UtilMethods {
 		String valueNormal=new String(byteValue);
 		return valueNormal;
 	}
+	
+	public static String getFinalValuesForEmail(String email,String identifyValue,String finalValue){
+		return email.replace(identifyValue, finalValue);
+	}
 
 }

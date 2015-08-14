@@ -17,9 +17,11 @@ import com.canonical.bean.restaurant.RestaurantResponse;
 import com.canonical.bean.restaurant.SchedulerRestaurantRequest;
 import com.canonical.bean.restaurant.SchedulerRestaurantResponse;
 import com.canonical.bean.restaurant.VerificationRestaurant;
+import com.rest.web.service.inmobile.bean.EmailBean;
 import com.rest.web.service.inmobile.controller.UserController;
 import com.rest.web.service.inmobile.facade.ReqRespManager;
 import com.rest.web.service.inmobile.facade.RestaurantManage;
+import com.rest.web.service.inmobile.facade.SystemParamManager;
 import com.rest.web.service.inmobile.facade.UbigeoManager;
 import com.rest.web.service.inmobile.hibernate.CheckActiveRestaurantHibernate;
 import com.rest.web.service.inmobile.hibernate.ImageHibernate;
@@ -60,6 +62,8 @@ public class RestaurantManagerImpl implements RestaurantManage {
 	private CheckActiveRestaurantHibernate checkActiveRestaurantHibernate;
 	@Autowired
 	private PlanMemberHibernate planMemberHibernate;
+	@Autowired
+	private SystemParamManager systemParamManager;
 	
 	public RestaurantResponse saveRestaurant(RestaurantRequest beanRequest) {
 		
@@ -141,19 +145,10 @@ public class RestaurantManagerImpl implements RestaurantManage {
 	}
 	
 	public void buidlEmailFinalStepRegistration(String emilTo)throws MessagingException{
-		String body="<html>"
-				+ "<body>"
-				+ "<p>"
-				+ "<b>InMobile Registro de Cuenta - Test Email</b>"
-				+ "</p><br/>"
-				+ "<p>Estimo Usario:</p><br/>"
-				+ "<p>Su información esta siendo verificada por nuestro personal, de tener alguna duda nos pondremos en contacto con Ud.</p>"
-				+ "<p><b>Gracias</b></p><br/>"
-				+ "<p><b>Atte.</b></p><br/>"
-				+ "<p><b>Plaza Proveedor</b></p><br/>"
-				+ "</body>"
-				+ "</html>";
-		MailUtil.sendEmail(emilTo,CommonConstants.Email.SUBJECT_FINAL_STEP_REGISTRATON,body);
+		EmailBean emailBean=systemParamManager.getEmailInSystemParam(CommonConstants.SystemParam.SYSTEM_PARAM_GENERAL_EMAIL,
+				CommonConstants.Email.TYPE_OPERATION_REGISTER_COMPLETE_BY_USER);
+		emailBean.setToEmail(emilTo);
+		MailUtil.sendEmail(emailBean);
 	}
 
 	public ListRestaurant listRestaurantPendingActive() {
@@ -216,6 +211,7 @@ public class RestaurantManagerImpl implements RestaurantManage {
 				CommonConstants.TypeOperationReqResp.OPERATION_LIST_RESTAURANT_PENDING_ACTIVE,0,0);
 		System.out.println("ID Response : "+valueReqResp.getId());
 		int idUser=0;
+		String emailTo="";
 		try {
 			beanRequest.setStatus(1);
 			CheckActiveRestaurant beanHibernate=ConvertClass.convertValuesCheckActiveRestaurantForUpdateDataBase(beanRequest);
@@ -226,6 +222,7 @@ public class RestaurantManagerImpl implements RestaurantManage {
 				User userBean=restaurantHibernate.getUserByIdRestaurant(beanRequest.getIdRestaurant());
 				idUser=userBean.getId();
 				userBean.setStatus(4);
+				emailTo=userBean.getEmail();
 				//--Update status User
 				userHibernate.saveUserResponseId(userBean);
 			}else{
@@ -233,8 +230,8 @@ public class RestaurantManagerImpl implements RestaurantManage {
 			}
 			beanRequest.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_SUCCESS_CHECK_REST);
 			beanRequest.setDescription("Se actualizo correctamente");
-			//--Find Id User
-//			
+			//--Send Email to the Customer.
+			buildEmailForConfirmationToUser(emailTo);
 			
 		} catch (Exception e) {
 			beanRequest.setCodeResponse(CommonConstants.CodeResponse.CODE_RESPONSE_ERROR);
@@ -243,6 +240,13 @@ public class RestaurantManagerImpl implements RestaurantManage {
 		reqRespManager.saveOrUpdate(beanRequest, 
 				CommonConstants.TypeOperationReqResp.OPERATION_SAVE_RESTAURANT,idUser,valueReqResp.getId());
 		return beanRequest;
+	}
+
+	private void buildEmailForConfirmationToUser(String emailTo)throws MessagingException{
+		EmailBean emailBean=systemParamManager.getEmailInSystemParam(CommonConstants.SystemParam.SYSTEM_PARAM_GENERAL_EMAIL,
+				CommonConstants.Email.TYPE_OPERATION_REGISTER_COMPLETE_BY_ADMIN);
+		emailBean.setToEmail(emailTo);
+		MailUtil.sendEmail(emailBean);
 	}
 
 }

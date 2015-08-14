@@ -55,8 +55,8 @@ public class CommonConstants {
 	}
 	
 	public class URLService{
-//		public static final String URL_IP_SERVER = "http://localhost:8080/";
-		public static final String URL_IP_SERVER = "http://204.93.174.56:8080/";
+		public static final String URL_IP_SERVER = "http://localhost:8080/";
+//		public static final String URL_IP_SERVER = "http://204.93.174.56:8080/";
 		public static final String URL_SERVICE_PROJECT = "InMobileService"; 
 		public static final String URL_REGISTER_USER=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/user/create";
 		public static final String URL_VALIDATION_USER=URL_IP_SERVER+URL_SERVICE_PROJECT+"/rest/user/validation";

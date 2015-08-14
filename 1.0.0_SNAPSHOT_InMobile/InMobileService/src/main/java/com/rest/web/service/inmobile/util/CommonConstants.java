@@ -34,13 +34,11 @@ public class CommonConstants {
 	}
 	
 	public class Email{
-		public final static String EMAIL_FROM="plazaproveedor@inmobile.pe";
-		public final static String PASSWORD_FROM="Plaza2015";
-		public final static String SUBJECT_CREATION_USER="InMobile - Creation User";
-		public final static String SUBJECT_FINAL_STEP_REGISTRATON="InMobile - Final Step Registration";
-		public final static String EMAIL_TRUE="true";
-		public final static String EMAIL_SMTP_GMAIL="smtp.gmail.com";
-		public final static String EMAIL_PORT_GMAIL="587";
+		public final static String TYPE_OPERATION_CREATE_USER="CREATE_USER";
+		public final static String TYPE_OPERATION_REFORWARD_LINK_USER="REFORWARD_LINK_USER";
+		public final static String TYPE_OPERATION_REGISTER_COMPLETE_BY_ADMIN="REGISTER_COMPLETE_BY_ADMIN";
+		public final static String TYPE_OPERATION_REGISTER_COMPLETE_BY_USER="REGISTER_COMPLETE_BY_USER";
+		public final static String URL="${URL}";
 	}
 	
 	public class ValueRequestMapping{
@@ -69,12 +67,15 @@ public class CommonConstants {
 		public static final String KEY_VALUE_ENCRIPTED="inMobileKeyPublic";
 	}
 	
-	public class ValuesProject{
-		public static final String URL_SERVER="http://204.93.174.56:8080/";
-//		public static final String URL_SERVER="http://localhost:8080/";
-		public static final String PROJECT_VALUE="InMobileWeb/";
-		public static final String ACTION_CONTINUE="continue.htm?val=";
-	}
+//	public class ValuesProject{
+////		public static final String URL_SERVER="http://204.93.174.56:8080/";
+//////		public static final String URL_SERVER="http://localhost:8080/";
+////		public static final String PROJECT_VALUE="InMobileWeb/";
+////		public static final String ACTION_CONTINUE="continue.htm?val=";
+//		public static final String URL_SERVER="URL_SERVER";
+//		public static final String PROJECT_VALUE="PROJECT_VALUE";
+//		public static final String ACTION_CONTINUE="ACTION_CONTINUE";
+//	}
 	
 	public class TypeOperationReqResp{
 		public static final String OPERATION_CREATE_USER="CREATE_USER";
@@ -91,5 +92,27 @@ public class CommonConstants {
 	public class Logger{
 		public static final String LOGGER_START="****START****";
 		public static final String LOGGER_END="****END****";
+	}
+	
+	public class SystemParam{
+		public final static String SYSTEM_PARAM_GENERAL_EMAIL="EMAIL";
+		public final static String SYSTEM_PARAM_EMAIL_FROM="EMAIL_FROM";
+		public final static String SYSTEM_PARAM_PASSWORD_FROM="PASSWORD_FROM";
+		public final static String SYSTEM_PARAM_SUBJECT_CREATION_USER="SUBJECT_CREATION_USER";
+		public final static String SYSTEM_PARAM_SUBJECT_FINAL_STEP_USER="SUBJECT_FINAL_STEP_USER";
+		public static final String SYSTEM_PARAM_SUBJECT_COMPLETE_BY_ADMIN="SUBJECT_COMPLETE_BY_ADMIN";
+		public final static String SYSTEM_PARAM_EMAIL_TRUE="EMAIL_TRUE";
+		public final static String SYSTEM_PARAM_EMAIL_SMTP_GMAIL="EMAIL_SMTP_GMAIL";
+		public final static String SYSTEM_PARAM_EMAIL_PORT_GMAIL="EMAIL_PORT_GMAIL";
+		public final static String SYSTEM_PARAM_BODY_EMAIL_CREATION_USER="BODY_EMAIL_CREATION_USER";
+		public final static String SYSTEM_PARAM_BODY_EMAIL_ACTIVATION_USER="BODY_EMAIL_ACTIVATION_USER";
+		public final static String SYSTEM_PARAM_BODY_EMAIL_FINAL_STEP_USER="BODY_EMAIL_FINAL_STEP_USER";
+		public static final String SYSTEM_PARAM_BODY_EMAIL_COMPLETE_BY_ADMIN="BODY_EMAIL_COMPLETE_BY_ADMIN";
+		public final static String SYSTEM_PARAM_GENERAL_SERVICE="SERVICE";
+		public static final String SYSTEM_PARAM_URL_SERVER="URL_SERVER";
+		public static final String SYSTEM_PARAM_PROJECT_VALUE="PROJECT_VALUE";
+		public static final String SYSTEM_PARAM_ACTION_CONTINUE="ACTION_CONTINUE";
+		
+		
 	}
 }

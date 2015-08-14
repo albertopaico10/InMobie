@@ -13,7 +13,10 @@ import com.canonical.bean.restaurant.RestaurantResponse;
 import com.canonical.bean.ubigeo.UbigeoResponse;
 import com.canonical.bean.user.UserRequest;
 import com.canonical.bean.user.UserResponse;
+import com.rest.web.service.inmobile.bean.EmailBean;
+import com.rest.web.service.inmobile.bean.ServiceBean;
 import com.rest.web.service.inmobile.facade.ReqRespManager;
+import com.rest.web.service.inmobile.facade.SystemParamManager;
 import com.rest.web.service.inmobile.facade.UbigeoManager;
 import com.rest.web.service.inmobile.facade.UserManager;
 import com.rest.web.service.inmobile.hibernate.ImageHibernate;
@@ -48,9 +51,11 @@ public class UserManagerImpl implements UserManager{
 	private ImageHibernate imageHibernate;
 	@Autowired
 	private UbigeoManager ubigeoManager;
+	@Autowired
+	private SystemParamManager systemParamManager;
 	
 	public UserResponse saveUserInformation(UserRequest userRequest) {
-		System.out.println("Entreeeeee saveUserInformation");
+		logger.info(CommonConstants.Logger.LOGGER_START);
 		UserResponse userBeanResponse=new UserResponse();
 		//--Save Json in Data Base
 		RequestResponse valueReqResp=(RequestResponse)reqRespManager.saveOrUpdate(userRequest, 
@@ -89,51 +94,41 @@ public class UserManagerImpl implements UserManager{
 		reqRespManager.saveOrUpdate(userBeanResponse, 
 				CommonConstants.TypeOperationReqResp.OPERATION_CREATE_USER, userBeanResponse.getIdUser(),
 				valueReqResp.getId());
+		logger.info(CommonConstants.Logger.LOGGER_END);
 		return userBeanResponse;
 	}
 	
 	public void buidlEmailCreationUser(String emilTo,String URL)throws MessagingException{
-		String body="<html>"
-				+ "<body>"
-				+ "<p>"
-				+ "<b>InMobile Activar Cuenta - Test Email</b>"
-				+ "</p><br/>"
-				+ "<p>Estimo Usario:</p><br/>"
-				+ "<p>Se ha registrado correctamente como usuario en la aplication</p>"
-				+ "<p>&#191;C&#243;mo funciona nuestro portal?</p>"
-				+ "<p><b>Continuar</b>Tiene que dar click en el enlace, para continuar con su registro (Enlace de Prueba)</p>"
-				+ "<a href='"+URL+"'>Aceptar</a>"
-				+ "<p><b>Rechazar</b>Tiene que dar click en el enlace, para rechazar y no recivir información sobre nosotros.(Enlace de Prueba)<</p>"
-				+ "<a href='http://www.peru21.pe'>Rechazar</a>"
-				+ "</body>"
-				+ "</html>";
-		MailUtil.sendEmail(emilTo,CommonConstants.Email.SUBJECT_CREATION_USER,body);
+		EmailBean emailBean=systemParamManager.getEmailInSystemParam(CommonConstants.SystemParam.SYSTEM_PARAM_GENERAL_EMAIL,
+				CommonConstants.Email.TYPE_OPERATION_CREATE_USER);
+		//--Set Body with final values
+		emailBean.setBodyEmail(setValuesToFinalBodyEmail(emailBean.getBodyEmail(), URL));
+		emailBean.setToEmail(emilTo);
+		MailUtil.sendEmail(emailBean);
+	}
+	
+	private String setValuesToFinalBodyEmail(String email,String URL){
+		email=UtilMethods.getFinalValuesForEmail(email, CommonConstants.Email.URL, URL);
+		return email;
 	}
 	
 	public void buidlEmailActivationUser(String emilTo,String URL)throws MessagingException{
-		String body="<html>"
-				+ "<body>"
-				+ "<p>"
-				+ "<b>InMobile Informa - Test Email</b>"
-				+ "</p><br/>"
-				+ "<p>Estimo Usario:</p><br/>"
-				+ "<p>Se ha adjuntado un nuevo enlace para continuar su proceso de Activación</p>"
-				+ "<p>&#191;C&#243;mo funciona nuestro portal?</p>"
-				+ "<p><b>Continuar</b>Tiene que dar click en el enlace, para continuar con su registro (Enlace de Prueba)</p>"
-				+ "<a href='"+URL+"'>Aceptar</a>"
-				+ "<p><b>Rechazar</b>Tiene que dar click en el enlace, para rechazar y no recivir información sobre nosotros.(Enlace de Prueba)<</p>"
-				+ "<a href='http://www.peru21.pe'>Rechazar</a>"
-				+ "</body>"
-				+ "</html>";
-		MailUtil.sendEmail(emilTo,CommonConstants.Email.SUBJECT_CREATION_USER,body);
+		EmailBean emailBean=systemParamManager.getEmailInSystemParam(CommonConstants.SystemParam.SYSTEM_PARAM_GENERAL_EMAIL,
+				CommonConstants.Email.TYPE_OPERATION_REFORWARD_LINK_USER);
+		//--Set Body with final values
+		emailBean.setBodyEmail(setValuesToFinalBodyEmail(emailBean.getBodyEmail(), URL));
+		emailBean.setToEmail(emilTo);
+		MailUtil.sendEmail(emailBean);
 	}
 
 	public String buildURL(int idUser){
-		String URL=CommonConstants.ValuesProject.URL_SERVER+CommonConstants.ValuesProject.PROJECT_VALUE+CommonConstants.ValuesProject.ACTION_CONTINUE;
+		logger.info(CommonConstants.Logger.LOGGER_START);
+		ServiceBean serviceBean=systemParamManager.getValuesForService(CommonConstants.SystemParam.SYSTEM_PARAM_GENERAL_SERVICE);
+		String URL=serviceBean.getUrlService()+serviceBean.getProjectName()+serviceBean.getActionName();
 		String encriptedValue=UtilMethods.encriptValue(String.valueOf(idUser));
 		System.out.println("Encripted ID : "+encriptedValue);
 		URL=URL+encriptedValue;
-		logger.info("Final URL : "+URL);
+		logger.info(CommonConstants.Logger.LOGGER_END+" ** Final URL : "+URL);
 		return URL;
 	}
 

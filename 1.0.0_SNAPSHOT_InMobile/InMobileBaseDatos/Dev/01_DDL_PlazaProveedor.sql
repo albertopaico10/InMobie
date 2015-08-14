@@ -248,3 +248,18 @@ CREATE TABLE tb_district(
 ALTER TABLE tb_district
 ADD FOREIGN KEY (provinceId)
 REFERENCES tb_province(id);
+
+
+/*
+	New Script ---> 12/08/2015
+*/
+DROP TABLE IF EXISTS tb_system_param;
+CREATE TABLE tb_system_param(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	generalParam VARCHAR(200),
+	nameParam VARCHAR(200),
+	reasonParam VARCHAR(200),
+	valueParam LONGTEXT,
+	status int,
+	date_created TIMESTAMP DEFAULT NOW()
+);
