@@ -23,7 +23,7 @@ public class PlanMemberHibernateImpl implements PlanMemberHibernate {
 		
 		List<PlanMember> listPlanMember=session.createQuery(query).list();
 		System.out.println("Cantidad de filas : "+listPlanMember.size());
-					
+		session.close();
 		return listPlanMember;
 	}
 

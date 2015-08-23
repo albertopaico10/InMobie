@@ -110,7 +110,8 @@ public class ProviderHibernateImpl implements ProviderHibernate {
 			System.out.println("query #2 : "+queryUser);
 			List<User> listUserSpecific=session.createQuery(queryUser).list();
 			userBean=listUserSpecific.get(0);
-		}		
+		}	
+		session.close();
 		return userBean;
 	}
 	

@@ -3,8 +3,10 @@ package com.rest.web.service.inmobile.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.canonical.bean.category.CategoryResponse;
 import com.canonical.bean.image.ImageRequest;
 import com.canonical.bean.planmember.BeanPlanMember;
+import com.canonical.bean.presentation.PresentationResponse;
 import com.canonical.bean.provider.CheckProviderActive;
 import com.canonical.bean.provider.DistrictProviderRequest;
 import com.canonical.bean.provider.ProviderRequest;
@@ -16,6 +18,7 @@ import com.canonical.bean.ubigeo.Ubigeo;
 import com.canonical.bean.user.UserRequest;
 import com.rest.web.service.inmobile.hibernate.ImageHibernate;
 import com.rest.web.service.inmobile.hibernate.UbigeoHibernate;
+import com.rest.web.service.inmobile.hibernate.bean.Category;
 import com.rest.web.service.inmobile.hibernate.bean.CheckActiveProvider;
 import com.rest.web.service.inmobile.hibernate.bean.CheckActiveRestaurant;
 import com.rest.web.service.inmobile.hibernate.bean.Department;
@@ -23,6 +26,7 @@ import com.rest.web.service.inmobile.hibernate.bean.District;
 import com.rest.web.service.inmobile.hibernate.bean.DistrictProvider;
 import com.rest.web.service.inmobile.hibernate.bean.Image;
 import com.rest.web.service.inmobile.hibernate.bean.PlanMember;
+import com.rest.web.service.inmobile.hibernate.bean.Presentation;
 import com.rest.web.service.inmobile.hibernate.bean.Provider;
 import com.rest.web.service.inmobile.hibernate.bean.Province;
 import com.rest.web.service.inmobile.hibernate.bean.Restaurant;
@@ -187,9 +191,6 @@ public class ConvertClass {
 		}
 		return beanProviderResp;
 	}
-	
-	
-	
 	
 	public static RestaurantResponse convertFromDatabaseToRestaurantResponse(Restaurant beanClientClientRestaurant,
 			UbigeoHibernate ubigeoHibernate,ImageHibernate imageHibernate){
@@ -365,4 +366,26 @@ public class ConvertClass {
 		}
 		return listBeanPlanMember;
 	}
-}
+
+	public static List<PresentationResponse> convertListPresentationToListPresentationResponse(List<Presentation> listPresentation){
+		List<PresentationResponse> listPresentationResponse=new ArrayList<PresentationResponse>();
+		for(Presentation beanPresentation:listPresentation){
+			PresentationResponse beanPresentationResponse=new PresentationResponse();
+			beanPresentationResponse.setIdPresentation(beanPresentation.getId());
+			beanPresentationResponse.setNamePresentation(beanPresentation.getNamePresentation());
+			listPresentationResponse.add(beanPresentationResponse);
+		}
+		return listPresentationResponse;
+	}
+	
+	public static List<CategoryResponse> convertListCategoryToListCategoryResponse(List<Category> listCategory){
+		List<CategoryResponse> listCategoryResponse=new ArrayList<CategoryResponse>();
+		for(Category beanCategory:listCategory){
+			CategoryResponse beanCategoryResponse=new CategoryResponse();
+			beanCategoryResponse.setIdCategory(beanCategory.getId());
+			beanCategoryResponse.setNameCategory(beanCategory.getNameCategory());
+			listCategoryResponse.add(beanCategoryResponse);
+		}
+		return listCategoryResponse;
+	}
+} 
