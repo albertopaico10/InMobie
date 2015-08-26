@@ -83,13 +83,14 @@ public class LoginController {
 			}
 //			model.addAttribute("emailUser", returnServiceBean.getEmail());
 			request.getSession().setAttribute("emailUser", returnServiceBean.getEmail());
+			request.getSession().setAttribute("isUserLogin", "1");
 		}
 		model.addAttribute("loginUsuForm", logueoBean);
 		request.setAttribute("messages", returnServiceBean.getMessages());
 		request.setAttribute("messagesSpecific", returnServiceBean.getSpecificMessages());
 		response=returnServiceBean.getReturnPage();
 		logger.info(CommonConstants.Logger.LOGGER_END);
-		return new ModelAndView(response);   
+		return new ModelAndView(response);
 	}
 	
 	@RequestMapping("continue.htm")

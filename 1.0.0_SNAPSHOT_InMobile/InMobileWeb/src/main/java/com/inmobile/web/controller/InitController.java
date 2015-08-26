@@ -16,6 +16,7 @@ public class InitController {
     public String show(final HttpServletRequest request,final ModelMap model) {
 		System.out.println("inside inicio htm");
 		final RegisterUserDTO tableUser=new RegisterUserDTO();
+		request.getSession().removeAttribute("isUserLogin");
 		model.addAttribute("loginUsuForm", tableUser);
 		return CommonConstants.Page.REDIRECT_LOGIN_PAGE; 
 	}

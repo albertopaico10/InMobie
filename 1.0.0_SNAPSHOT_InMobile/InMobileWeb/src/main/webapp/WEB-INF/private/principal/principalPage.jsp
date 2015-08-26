@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/common/taglib.jsp"%>
+<tiles:insertAttribute name="validateUser" />
 <html>
 <head>
 

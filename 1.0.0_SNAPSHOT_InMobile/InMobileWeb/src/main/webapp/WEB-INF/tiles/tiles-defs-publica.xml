@@ -7,6 +7,7 @@
 
 	<definition name="tiles.index.private"
 		template="/WEB-INF/private/principal/principalPage.jsp">
+		<put-attribute name="validateUser" value="/WEB-INF/private/principal/validateUser.jsp" />
 		<put-attribute name="cabecera" value="/WEB-INF/private/principal/headerPage.jsp" />
 		<put-attribute name="contenidoIzq" value="/WEB-INF/private/principal/leftPage.jsp" />
 		<put-attribute name="contenidoCentro" value="/WEB-INF/common/blank.jsp" />
