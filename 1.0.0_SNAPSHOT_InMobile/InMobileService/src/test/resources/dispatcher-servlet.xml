@@ -52,5 +52,5 @@
 	</bean>
 	<!-- END HIBERNATE CONFIGURATON-->
 	
-	<import resource="classpath:/thread-context.xml"></import>
+	<import resource="classpath:thread-context.xml"></import>
 </beans>

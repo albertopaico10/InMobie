@@ -263,3 +263,44 @@ CREATE TABLE tb_system_param(
 	status int,
 	date_created TIMESTAMP DEFAULT NOW()
 );
+
+/*
+	New Script ---> 24/08/2015
+*/
+DROP TABLE IF EXISTS tb_category;
+CREATE TABLE tb_category(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nameCategory  VARCHAR(200),
+	status int,
+	date_created TIMESTAMP DEFAULT NOW()
+);
+DROP TABLE IF EXISTS tb_presentation;
+CREATE TABLE tb_presentation(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	namePresentation VARCHAR(200),
+	status int,
+	date_created TIMESTAMP DEFAULT NOW()
+);
+DROP TABLE IF EXISTS tb_product;
+CREATE TABLE tb_product(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nameProduct VARCHAR(200),
+	descriptionProduct VARCHAR(200),
+	brand VARCHAR(200),
+	idPresentation INT,
+	totalStock INT,
+	costProduct decimal(6,2),
+	idImagePhoto INT,
+	idCategory INT,
+	status int,
+	date_created TIMESTAMP DEFAULT NOW()
+);
+ALTER TABLE tb_product
+ADD FOREIGN KEY (idPresentation)
+REFERENCES tb_presentation(id);
+
+ALTER TABLE tb_product
+ADD FOREIGN KEY (idCategory)
+REFERENCES tb_category(id);
+
+

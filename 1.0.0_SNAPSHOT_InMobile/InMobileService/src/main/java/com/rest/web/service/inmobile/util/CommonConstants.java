@@ -37,6 +37,9 @@ public class CommonConstants {
 		public final static String CODE_RESPONSE_SUCCESS_BEAN_CATEGORY="SUCCESS_BEAN_CATEGORY";
 		public final static String CODE_RESPONSE_SUCCESS_LIST_CATEGORY="SUCCESS_LIST_CATEGORY";
 		public final static String CODE_RESPONSE_EMPTY_LIST_CATEGORY="EMPTY_LIST_CATEGORY";
+		//--Excel Process Product
+		public final static String CODE_RESPONSE_EXCEL_PROCESS_FILE="PROCESS_EXCEL_FILE";
+		
 	}
 	
 	public class Email{
@@ -118,7 +121,10 @@ public class CommonConstants {
 		public static final String SYSTEM_PARAM_URL_SERVER="URL_SERVER";
 		public static final String SYSTEM_PARAM_PROJECT_VALUE="PROJECT_VALUE";
 		public static final String SYSTEM_PARAM_ACTION_CONTINUE="ACTION_CONTINUE";
-		
-		
 	}
+	
+	public class ThreadParam{
+		public final static String THREAD_PARAM_PRODUCT_EXCEL="INSERT_PRODUCT_BY_EXCEL";
+	}
+	
 }
