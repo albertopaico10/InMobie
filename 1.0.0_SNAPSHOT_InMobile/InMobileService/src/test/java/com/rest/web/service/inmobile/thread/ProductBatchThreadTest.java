@@ -36,16 +36,14 @@ public class ProductBatchThreadTest {
 	
 	@Test
 	public void testThread()throws Exception{
-		System.out.println("Empezooooo");
 		FileInputStream file = new FileInputStream(new File("D:\\batch.xlsx"));
 		Workbook workbook = new XSSFWorkbook(file);
 		Sheet firstSheet = workbook.getSheetAt(0);
 		Iterator<Row> rowIterator = firstSheet.iterator();
 		ApplicationContext context = new ClassPathXmlApplicationContext("/thread-context.xml");
 		ThreadPoolTaskExecutor taskExecutor = (ThreadPoolTaskExecutor) context.getBean("productBatchThread");
-		taskExecutor.execute(new ProductBatchThread(rowIterator,gProductHibernate));
-//		ProductBatchThread productBatchThread2 = new ProductBatchThread(rowIterator);
-//		productBatchThread2.start();
+		taskExecutor.execute(new ProductBatchThread(rowIterator));
+
 	}
 	
 	@Test
