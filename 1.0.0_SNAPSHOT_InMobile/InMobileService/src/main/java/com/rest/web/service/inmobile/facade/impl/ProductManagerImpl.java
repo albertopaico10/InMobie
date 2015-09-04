@@ -14,11 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +24,6 @@ import com.canonical.bean.product.ProductRequest;
 import com.rest.web.service.inmobile.facade.ProductManager;
 import com.rest.web.service.inmobile.hibernate.ProductHibernate;
 import com.rest.web.service.inmobile.hibernate.bean.Product;
-import com.rest.web.service.inmobile.thread.ProductBatchThread;
 import com.rest.web.service.inmobile.util.CommonConstants;
 import com.rest.web.service.inmobile.util.UtilMethods;
 

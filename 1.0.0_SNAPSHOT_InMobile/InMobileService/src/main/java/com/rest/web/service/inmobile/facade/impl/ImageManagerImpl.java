@@ -29,6 +29,11 @@ public class ImageManagerImpl implements ImageManager {
 				CommonConstants.TypeOperationReqResp.OPERATION_UPLOAD_LOGO_RESTAURANT,beanRequest.getIdUser(),0);
 		System.out.println("ID Response : "+valueReqResp.getId());
 		try {
+			if(beanRequest.getFile()!=null){
+				System.out.println("Esta lleno");
+			}else{
+				System.out.println("No esta lleno");
+			}
 			Image image=ConvertClass.convertImageToDataBase(beanRequest);
 			int idImage=imageHibernate.saveImageId(image);
 			

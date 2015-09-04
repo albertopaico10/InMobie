@@ -6,6 +6,7 @@ public class ImageRequest {
 	public String nameFile;
 	public String formatFile;
 	public int idUser;
+	private byte[] file;
 	
 	public String getCategoryImage() {
 		return categoryImage;
@@ -36,5 +37,11 @@ public class ImageRequest {
 	}
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
+	}
+	public byte[] getFile() {
+		return file;
+	}
+	public void setFile(byte[] file) {
+		this.file = file;
 	}
 }

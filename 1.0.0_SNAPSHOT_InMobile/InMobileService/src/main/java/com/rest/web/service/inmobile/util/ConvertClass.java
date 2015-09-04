@@ -140,7 +140,8 @@ public class ConvertClass {
 		Image beanImage=new Image();
 		beanImage.setCategoryImage(beanImageRequest.getCategoryImage());
 		//--Get bytes
-		byte[] imageByte=UtilMethods.hexStringToByteArray(beanImageRequest.getHexFile());
+//		byte[] imageByte=UtilMethods.hexStringToByteArray(beanImageRequest.getHexFile());
+		byte[] imageByte=beanImageRequest.getFile();
 		beanImage.setImg(imageByte);
 		return beanImage;
 	}

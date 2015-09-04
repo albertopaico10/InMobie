@@ -131,7 +131,8 @@ public class ConvertClassFormat {
 		ImageRequest beanRequestImage=new ImageRequest();
 		beanRequestImage.setIdUser(idUser);
 		try {
-			beanRequestImage.setHexFile(UtilMethods.bytesToHexString(file.getBytes()));
+//			beanRequestImage.setHexFile(UtilMethods.bytesToHexString(file.getBytes()));
+			beanRequestImage.setFile(file.getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

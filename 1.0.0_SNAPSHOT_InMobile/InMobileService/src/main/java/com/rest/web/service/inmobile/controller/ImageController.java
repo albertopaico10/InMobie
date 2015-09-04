@@ -27,15 +27,6 @@ public class ImageController {
 	
 	@RequestMapping(value = CommonConstants.ValueRequestMapping.SAVE_IMAGE, method = RequestMethod.POST)
 	public @ResponseBody ImageResponse saveImage(@RequestBody ImageRequest beanRequest) {
-//		ImageRequest beanRequest=new ImageRequest();
-//		beanRequest.setCategoryImage(categoryImage);
-//		beanRequest.setImage(fileImage);
-//		try {
-//			beanRequest.setImage(fileImage.getBytes());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		ImageResponse beanResponse=imageManager.saveImage(beanRequest);
 		return beanResponse;
 	}
