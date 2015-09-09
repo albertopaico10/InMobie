@@ -1535,7 +1535,7 @@ function DrawCoinDeskFlot(){
 				position: "right",
 				alignTicksWithAxis: 1,
 				tickFormatter: function (value, axis) {
-					return value.toFixed(axis.tickDecimals) + "€";
+					return value.toFixed(axis.tickDecimals) + "â‚¬";
 				}
 			}
 		],
@@ -1808,7 +1808,7 @@ function FileUpload(){
 function LoadTestMap(){
 	$.getJSON("http://www.telize.com/geoip?callback=?",
 		function(json) {
-			var osmap = new OpenLayers.Layer.OSM("OpenStreetMap");//создание слоя карты
+			var osmap = new OpenLayers.Layer.OSM("OpenStreetMap");//Ñ�Ð¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ñ�Ð»Ð¾Ñ� ÐºÐ°Ñ€Ñ‚Ñ‹
 			var googlestreets = new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 22,visibility: false});
 			var googlesattelite = new OpenLayers.Layer.Google( "Google Sattelite", {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22});
 			var map1_layers = [googlestreets,osmap, googlesattelite];
@@ -1816,7 +1816,7 @@ function LoadTestMap(){
 			var map1 = drawMap(json.longitude, json.latitude, "map-1", map1_layers);
 			$("#map-1").resize(function(){ setTimeout(map1.updateSize(), 500); });
 			// Create map in element with ID - map-2
-			var osmap1 = new OpenLayers.Layer.OSM("OpenStreetMap");//создание слоя карты
+			var osmap1 = new OpenLayers.Layer.OSM("OpenStreetMap");//Ñ�Ð¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ñ�Ð»Ð¾Ñ� ÐºÐ°Ñ€Ñ‚Ñ‹
 			var map2_layers = [osmap1];
 			var map2 = drawMap(json.longitude, json.latitude, "map-2", map2_layers);
 			$("#map-2").resize(function(){ setTimeout(map2.updateSize(), 500); });
@@ -1837,7 +1837,7 @@ function LoadTestMap(){
 function FullScreenMap(){
 	$.getJSON("http://www.telize.com/geoip?callback=?",
 		function(json) {
-			var osmap = new OpenLayers.Layer.OSM("OpenStreetMap");//создание слоя карты
+			var osmap = new OpenLayers.Layer.OSM("OpenStreetMap");//Ñ�Ð¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ñ�Ð»Ð¾Ñ� ÐºÐ°Ñ€Ñ‚Ñ‹
 			var googlestreets = new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 22,visibility: false});
 			var googlesattelite = new OpenLayers.Layer.Google( "Google Sattelite", {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22});
 			var map1_layers = [googlestreets,osmap, googlesattelite];
@@ -2300,9 +2300,9 @@ $(document).ready(function () {
 		setTimeout(MessagesMenuWidth, 250);
 	});
 	var ajax_url = location.hash.replace(/^#/, '');
-	if (ajax_url.length < 1) {
-		ajax_url = 'ajax/dashboard.html';
-	}
+//	if (ajax_url.length < 1) {
+//		ajax_url = 'ajax/dashboard.html';
+//	}
 	LoadAjaxContent(ajax_url);
 	$('.main-menu').on('click', 'a', function (e) {
 		var parents = $(this).parents('li');

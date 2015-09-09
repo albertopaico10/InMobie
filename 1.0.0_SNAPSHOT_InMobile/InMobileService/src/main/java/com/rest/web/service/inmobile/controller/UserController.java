@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rest.web.service.inmobile.bean.user.UserRequest;
-import com.rest.web.service.inmobile.bean.user.UserResponse;
+import com.canonical.bean.user.UserRequest;
+import com.canonical.bean.user.UserResponse;
 import com.rest.web.service.inmobile.facade.UserManager;
 import com.rest.web.service.inmobile.util.CommonConstants;
 
@@ -26,6 +26,21 @@ public class UserController {
 		logger.info("Start createEmployee.");
 		logger.info("Correo : "+beanRequest.getEmail()+"** Password : "+beanRequest.getPassword());
 		UserResponse beanResponse=userManager.saveUserInformation(beanRequest);
+		return beanResponse;
+	}
+	
+	@RequestMapping(value = CommonConstants.ValueRequestMapping.VALIDATE_USER, method = RequestMethod.POST)
+	public @ResponseBody UserResponse validateUser(@RequestBody UserRequest beanRequest) {
+		logger.info("Start validateUser.");
+		logger.info("Correo : "+beanRequest.getEmail()+"** Password : "+beanRequest.getPassword());
+		UserResponse beanResponse=userManager.validateUser(beanRequest);
+		return beanResponse;
+	}
+	
+	@RequestMapping(value = CommonConstants.ValueRequestMapping.ACTIVATE_USER, method = RequestMethod.POST)
+	public @ResponseBody UserResponse getActivateAccount(@RequestBody UserRequest beanRequest) {
+		logger.info("Start getTypeUser. "+beanRequest.getEncriptUser());
+		UserResponse beanResponse=userManager.activeAccount(beanRequest.getEncriptUser());
 		return beanResponse;
 	}
 }
